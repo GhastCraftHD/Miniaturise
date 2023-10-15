@@ -1,0 +1,20 @@
+name: Miniaturise
+version: '${project.version}'
+main: de.leghast.miniaturise.Miniaturise
+api-version: '1.20'
+authors: [GhastCraftHD]
+description: Converts your builds into miniatures that you can display
+commands:
+  position:
+    aliases: pos
+  select:
+    aliases: sel
+  miniaturise:
+    aliases: min
+  cut:
+  paste:
+  remove:
+    aliases:
+      - delete
+      - del
+  scale:
