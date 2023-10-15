@@ -21,7 +21,6 @@ public class MiniatureManager {
         miniature.clear();
         for(Block block : RegionManager.region.getBlocks()){
             MiniatureBlock mb;
-            if(block.getType().equals(Material.AIR)) {
                 mb = new MiniatureBlock(block.getX() - (int) origin.getX(),
                         block.getY() - (int) origin.getY(),
                         block.getZ() - (int) origin.getZ(),
@@ -29,7 +28,6 @@ public class MiniatureManager {
                         block.getBlockData(),
                         default_size);
                 miniature.add(mb);
-            }
         }
     }
 
