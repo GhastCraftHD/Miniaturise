@@ -2,6 +2,7 @@ package de.leghast.miniaturise.miniature;
 
 import de.leghast.miniaturise.region.RegionManager;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
@@ -20,12 +21,15 @@ public class MiniatureManager {
         miniature.clear();
         for(Block block : RegionManager.region.getBlocks()){
             MiniatureBlock mb;
-            mb = new MiniatureBlock(block.getX() - (int) origin.getX(),
-                    block.getY() - (int) origin.getY(),
-                    block.getZ() - (int) origin.getZ(),
-                    block.getType(),
-                    default_size);
-            miniature.add(mb);
+            if(block.getType().equals(Material.AIR)) {
+                mb = new MiniatureBlock(block.getX() - (int) origin.getX(),
+                        block.getY() - (int) origin.getY(),
+                        block.getZ() - (int) origin.getZ(),
+                        block.getType(),
+                        block.getBlockData(),
+                        default_size);
+                miniature.add(mb);
+            }
         }
     }
 
@@ -38,11 +42,14 @@ public class MiniatureManager {
                     mb.getX() + (int) player.getLocation().getX(),
                     mb.getY() + (int) player.getLocation().getY(),
                     mb.getZ() + (int) player.getLocation().getZ()), EntityType.BLOCK_DISPLAY);
-            bd.setBlock(mb.getMaterial().createBlockData());
+            bd.setBlock(mb.getBlockData());
             Transformation transformation = bd.getTransformation();
             transformation.getScale().set(mb.size);
             bd.setTransformation(transformation);
             placedMiniature.add(bd);
+            if(bd.getBlock().equals(Material.AIR.createBlockData())){
+                bd.remove();
+            }
         }
     }
 
