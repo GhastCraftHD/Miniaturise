@@ -5,7 +5,7 @@ A Minecraft paper plugin that helps you to create miniatures of your builds
 Simply download the latest release and drag it into the "plugins" folder of your paper server
 
 ## Usage
-Use a wooden shovel to select two locations by using left and right click
+Use a wooden shovel to select the region by using left and right click
 
 Type /select in the chat
 
