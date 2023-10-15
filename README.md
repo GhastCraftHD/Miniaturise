@@ -18,3 +18,10 @@ Place you miniature into your world with /paste
 Delete the miniature that was pasted last with /delete
 
 Cut your selection from the world with /cut
+
+## NOTE
+This plugin is more a proof of concept than it is a finished plugin
+
+This plugin does not operate asynchronously
+
+Internal Errors might occur becuase of missing checks before commands
