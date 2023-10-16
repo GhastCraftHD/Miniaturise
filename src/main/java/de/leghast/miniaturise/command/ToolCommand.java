@@ -16,13 +16,13 @@ public class ToolCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player player = (Player) sender;
             if(args.length == 0) {
-                player.sendMessage(ConfigManager.getToolMaterial().toString());
+                player.sendMessage("§aCurrent selection tool: §eminecraft:" + ConfigManager.getToolMaterial().toString().toLowerCase());
                 return true;
             } else if (args.length == 1) {
-                if(args[0].equals("set")){
+                if(args[0].equalsIgnoreCase("set")){
                     if (!player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
                         ConfigManager.setToolMaterial(player.getInventory().getItemInMainHand().getType());
-                        player.sendMessage("§aSelection tool was set to " + ConfigManager.getToolMaterial());
+                        player.sendMessage("§aSelection tool was set to §eminecraft:" + ConfigManager.getToolMaterial().toString().toLowerCase());
                         return true;
                     } else {
                         player.sendMessage("§cPlease hold an item in your main hand");

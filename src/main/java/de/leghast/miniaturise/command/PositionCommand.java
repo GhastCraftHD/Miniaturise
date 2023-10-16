@@ -25,7 +25,7 @@ public class PositionCommand implements CommandExecutor {
                         RegionManager.setLoc2(player.getLocation(), player);
                         return true;
                     default:
-                        player.sendMessage("§cInvalid position, please use 0 or 1");
+                        player.sendMessage("§cInvalid position, please use 1 or 2");
                         return false;
                 }
             }
