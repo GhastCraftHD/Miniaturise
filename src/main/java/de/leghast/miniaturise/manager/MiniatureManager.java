@@ -1,6 +1,6 @@
-package de.leghast.miniaturise.miniature;
+package de.leghast.miniaturise.manager;
 
-import de.leghast.miniaturise.region.RegionManager;
+import de.leghast.miniaturise.miniature.MiniatureBlock;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

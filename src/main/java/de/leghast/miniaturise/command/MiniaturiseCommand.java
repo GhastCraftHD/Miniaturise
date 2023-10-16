@@ -1,6 +1,6 @@
 package de.leghast.miniaturise.command;
 
-import de.leghast.miniaturise.miniature.MiniatureManager;
+import de.leghast.miniaturise.manager.MiniatureManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

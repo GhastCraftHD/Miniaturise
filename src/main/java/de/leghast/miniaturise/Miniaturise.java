@@ -2,6 +2,7 @@ package de.leghast.miniaturise;
 
 import de.leghast.miniaturise.command.*;
 import de.leghast.miniaturise.listener.SelectionListener;
+import de.leghast.miniaturise.manager.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,10 +22,19 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("paste").setExecutor(new PasteCommand());
         getCommand("remove").setExecutor(new RemoveCommand());
         getCommand("scale").setExecutor(new ScaleCommand());
+        getCommand("tool").setExecutor(new ToolCommand());
+
+        //CONFIG
+        ConfigManager.setupConfig(this);
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        saveConfigFile();
     }
+
+    public void saveConfigFile(){
+        this.saveConfig();
+    }
+
 }

@@ -1,7 +1,7 @@
-package de.leghast.miniaturise.region;
+package de.leghast.miniaturise.manager;
 
 
-import de.leghast.miniaturise.miniature.MiniatureManager;
+import de.leghast.miniaturise.region.Region;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
