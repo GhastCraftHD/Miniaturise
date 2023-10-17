@@ -9,8 +9,6 @@ commands:
     aliases: pos
   select:
     aliases: sel
-  miniaturise:
-    aliases: min
   cut:
   paste:
   remove:

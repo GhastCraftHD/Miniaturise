@@ -20,7 +20,6 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("position").setExecutor(new PositionCommand());
         getCommand("position").setTabCompleter(new PositionTabCompleter());
         getCommand("select").setExecutor(new SelectCommand());
-        getCommand("miniaturise").setExecutor(new MiniaturiseCommand());
         getCommand("cut").setExecutor(new CutCommand());
         getCommand("paste").setExecutor(new PasteCommand());
         getCommand("remove").setExecutor(new RemoveCommand());

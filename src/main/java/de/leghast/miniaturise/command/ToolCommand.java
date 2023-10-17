@@ -18,18 +18,18 @@ public class ToolCommand implements CommandExecutor {
             if(args.length == 0) {
                 player.sendMessage("§aCurrent selection tool: §eminecraft:" + ConfigManager.getToolMaterial().toString().toLowerCase());
                 return true;
-            } else if (args.length == 1) {
+            } else if (args.length >= 1) {
                 if(args[0].equalsIgnoreCase("set")){
                     if (!player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
                         ConfigManager.setToolMaterial(player.getInventory().getItemInMainHand().getType());
                         player.sendMessage("§aSelection tool was set to §eminecraft:" + ConfigManager.getToolMaterial().toString().toLowerCase());
                         return true;
-                    } else {
-                        player.sendMessage("§cPlease hold an item in your main hand");
+                    }  else {
+                        player.sendMessage("§cPlease hold an item in your main hand or specify the item in the command");
                         return false;
                     }
                 }else{
-                    player.sendMessage("§cIllegal argument");
+                    player.sendMessage("§cIllegal arguments");
                     return false;
                 }
             }

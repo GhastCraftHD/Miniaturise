@@ -27,9 +27,42 @@ public class MiniatureManager {
                         block.getType(),
                         block.getBlockData(),
                         default_size);
-                miniature.add(mb);
+                        miniature.add(mb);
         }
     }
+
+    public static boolean bordersAir(Block block) {
+        if (block.getRelative(0, 1, 0).getType() == Material.AIR) {
+            return true;
+        }
+        if (block.getRelative(0, -1, 0).getType() == Material.AIR) {
+            return true;
+        }
+        if (block.getRelative(1, 0, 0).getType() == Material.AIR ||
+                block.getRelative(-1, 0, 0).getType() == Material.AIR ||
+                block.getRelative(0, 0, 1).getType() == Material.AIR ||
+                block.getRelative(0, 0, -1).getType() == Material.AIR) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean bordersSolid(Block block) {
+        if (block.getRelative(0, 1, 0).isSolid()) {
+            return true;
+        }
+        if (block.getRelative(0, -1, 0).isSolid()) {
+            return true;
+        }
+        if (block.getRelative(1, 0, 0).isSolid() ||
+                block.getRelative(-1, 0, 0).isSolid() ||
+                block.getRelative(0, 0, 1).isSolid() ||
+                block.getRelative(0, 0, -1).isSolid()) {
+            return true;
+        }
+        return false;
+    }
+
 
     public static void pasteMiniature(Player player){
         placedMiniature.clear();

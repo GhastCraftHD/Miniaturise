@@ -1,5 +1,6 @@
 package de.leghast.miniaturise.command;
 
+import de.leghast.miniaturise.manager.MiniatureManager;
 import de.leghast.miniaturise.manager.RegionManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,7 +13,12 @@ public class SelectCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-            RegionManager.createRegion(player);
+            if(RegionManager.loc1 != null || RegionManager.loc2 != null) {
+                RegionManager.createRegion(player);
+                MiniatureManager.miniaturiseSelection(player.getLocation());
+            }else{
+                player.sendMessage("§cPlease select two positions");
+            }
         }
 
         return false;
