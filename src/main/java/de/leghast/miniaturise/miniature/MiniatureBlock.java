@@ -8,15 +8,13 @@ public class MiniatureBlock {
     public double x;
     public double y;
     public double z;
-    public Material material;
     public BlockData blockData;
     public double size;
 
-    public MiniatureBlock(double x, double y, double z, Material material, BlockData blockData, double size){
+    public MiniatureBlock(double x, double y, double z, BlockData blockData, double size){
         this.x = x;
         this.y = y;
         this.z = z;
-        this.material = material;
         this.blockData = blockData;
         this.size = size;
     }
@@ -33,9 +31,6 @@ public class MiniatureBlock {
         return z;
     }
 
-    public Material getMaterial(){
-        return material;
-    }
 
     public BlockData getBlockData(){
         return blockData;

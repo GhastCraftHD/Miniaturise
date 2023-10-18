@@ -14,7 +14,9 @@ import java.util.List;
 
 public class MiniatureManager {
     public static List<MiniatureBlock> miniature = new ArrayList<>();
+    public static List<MiniatureBlock> scaledMiniature = new ArrayList<>();
     public static List<BlockDisplay> placedMiniature = new ArrayList<>();
+    public static List<BlockDisplay>[] placedMiniatures;
     public static int default_size = 1;
 
     public static void miniaturiseSelection(Location origin){
@@ -24,7 +26,6 @@ public class MiniatureManager {
                 mb = new MiniatureBlock(block.getX() - (int) origin.getX(),
                         block.getY() - (int) origin.getY(),
                         block.getZ() - (int) origin.getZ(),
-                        block.getType(),
                         block.getBlockData(),
                         default_size);
                         miniature.add(mb);
@@ -66,21 +67,29 @@ public class MiniatureManager {
 
     public static void pasteMiniature(Player player){
         placedMiniature.clear();
-        for(MiniatureBlock mb : miniature){
-            BlockDisplay bd;
-            bd = (BlockDisplay) player.getWorld().spawnEntity(new Location(
-                    player.getWorld(),
-                    mb.getX() + (int) player.getLocation().getX(),
-                    mb.getY() + (int) player.getLocation().getY(),
-                    mb.getZ() + (int) player.getLocation().getZ()), EntityType.BLOCK_DISPLAY);
-            bd.setBlock(mb.getBlockData());
-            Transformation transformation = bd.getTransformation();
-            transformation.getScale().set(mb.size);
-            bd.setTransformation(transformation);
-            placedMiniature.add(bd);
-            if(bd.getBlock().equals(Material.AIR.createBlockData())){
-                bd.remove();
+        if(!miniature.isEmpty()) {
+            for (MiniatureBlock mb : miniature) {
+                spawnBlockDisplays(mb, player);
             }
+        }else{
+            player.sendMessage("§cPlease select a region first");
+        }
+    }
+
+    public static void spawnBlockDisplays(MiniatureBlock mb, Player player){
+        BlockDisplay bd;
+        bd = (BlockDisplay) player.getWorld().spawnEntity(new Location(
+                player.getWorld(),
+                mb.getX() + (int) player.getLocation().getX(),
+                mb.getY() + (int) player.getLocation().getY(),
+                mb.getZ() + (int) player.getLocation().getZ()), EntityType.BLOCK_DISPLAY);
+        bd.setBlock(mb.getBlockData());
+        Transformation transformation = bd.getTransformation();
+        transformation.getScale().set(mb.getSize());
+        bd.setTransformation(transformation);
+        placedMiniature.add(bd);
+        if (bd.getBlock().equals(Material.AIR.createBlockData())) {
+            bd.remove();
         }
     }
 
@@ -90,14 +99,16 @@ public class MiniatureManager {
         }
     }
 
-    public static void scaleMiniature(double scale){
+    public static void scaleMiniature(double scale, Player player){
         if(!miniature.isEmpty()){
             for(MiniatureBlock mb : miniature){
-                mb.x = mb.x * scale;
-                mb.y = mb.y * scale;
-                mb.z = mb.z * scale;
-                mb.size = scale;
+                mb.x *= scale;
+                mb.y *= scale;
+                mb.z *= scale;
+                mb.size *= scale;
             }
+        }else{
+            player.sendMessage("§cPlease select a region first");
         }
     }
 

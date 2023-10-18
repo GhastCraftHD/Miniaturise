@@ -13,7 +13,7 @@ public class ScaleCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player player = (Player) sender;
             if(args.length == 1){
-                MiniatureManager.scaleMiniature(Double.parseDouble(args[0]));
+                MiniatureManager.scaleMiniature(Double.parseDouble(args[0]), player);
                 player.sendMessage("§aSelection was scaled");
                 return true;
             }else{
