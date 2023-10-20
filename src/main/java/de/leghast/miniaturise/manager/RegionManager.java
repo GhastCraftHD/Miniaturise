@@ -3,6 +3,8 @@ package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.region.Region;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class RegionManager {
@@ -54,6 +56,12 @@ public class RegionManager {
            player.sendMessage("§cPlease select a region first");
         }else{
             MiniatureManager.pasteMiniature(player);
+        }
+    }
+
+    public static void cutSelection(){
+        for(Block block : region.getBlocks()){
+            block.setType(Material.AIR);
         }
     }
 
