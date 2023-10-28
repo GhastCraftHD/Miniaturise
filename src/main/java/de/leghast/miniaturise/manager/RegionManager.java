@@ -11,7 +11,6 @@ public class RegionManager {
 
     public static Location loc1 = null;
     public static Location loc2 = null;
-
     public static Region region = null;
 
     public static void setLoc1(Location location, Player player){
