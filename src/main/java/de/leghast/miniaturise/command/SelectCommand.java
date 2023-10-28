@@ -13,7 +13,7 @@ public class SelectCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if(RegionManager.loc1 != null || RegionManager.loc2 != null) {
+            if(RegionManager.loc1 != null && RegionManager.loc2 != null) {
                 RegionManager.createRegion(player);
                 MiniatureManager.miniaturiseSelection(player.getLocation());
             }else{
