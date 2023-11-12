@@ -23,7 +23,8 @@ public class MiniatureManager {
         miniature.clear();
         for(Block block : RegionManager.region.getBlocks()){
             MiniatureBlock mb;
-                mb = new MiniatureBlock(block.getX() - (int) origin.getX(),
+                mb = new MiniatureBlock(
+                        block.getX() - (int) origin.getX(),
                         block.getY() - (int) origin.getY(),
                         block.getZ() - (int) origin.getZ(),
                         block.getBlockData(),
@@ -64,7 +65,6 @@ public class MiniatureManager {
         return false;
     }
 
-
     public static void pasteMiniature(Player player){
         placedMiniature.clear();
         if(!miniature.isEmpty()) {
@@ -102,10 +102,10 @@ public class MiniatureManager {
     public static void scaleMiniature(double scale, Player player){
         if(!miniature.isEmpty()){
             for(MiniatureBlock mb : miniature){
-                mb.x *= scale;
-                mb.y *= scale;
-                mb.z *= scale;
-                mb.size *= scale;
+                mb.setX(mb.getX() * scale);
+                mb.setY(mb.getY() * scale);
+                mb.setZ(mb.getZ() * scale);
+                mb.setSize(mb.getSize() * scale);
             }
         }else{
             player.sendMessage("§cPlease select a region first");

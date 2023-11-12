@@ -1,15 +1,14 @@
 package de.leghast.miniaturise.miniature;
 
-import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 
 public class MiniatureBlock {
 
-    public double x;
-    public double y;
-    public double z;
-    public BlockData blockData;
-    public double size;
+    private double x;
+    private double y;
+    private double z;
+    private BlockData blockData;
+    private double size;
 
     public MiniatureBlock(double x, double y, double z, BlockData blockData, double size){
         this.x = x;
@@ -18,6 +17,7 @@ public class MiniatureBlock {
         this.blockData = blockData;
         this.size = size;
     }
+
 
     public double getX(){
         return x;
@@ -38,6 +38,25 @@ public class MiniatureBlock {
 
     public double getSize(){
         return size;
+    }
+
+    public void setX(double x){
+        this.x = x;
+    }
+
+    public void setY(double y){
+        this.y = y;
+    }
+    public void setZ(double z){
+        this.z = z;
+    }
+
+    public void setBlockData(BlockData blockData){
+        this.blockData = blockData;
+    }
+
+    public void setSize(double size){
+        this.size = size;
     }
 
 }
