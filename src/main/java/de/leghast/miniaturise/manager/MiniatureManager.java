@@ -12,11 +12,11 @@ import org.bukkit.util.Transformation;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.ceil;
+
 public class MiniatureManager {
     public static List<MiniatureBlock> miniature = new ArrayList<>();
-    public static List<MiniatureBlock> scaledMiniature = new ArrayList<>();
     public static List<BlockDisplay> placedMiniature = new ArrayList<>();
-    public static List<BlockDisplay>[] placedMiniatures;
     public static int default_size = 1;
 
     public static void miniaturiseSelection(Location origin){
@@ -80,9 +80,10 @@ public class MiniatureManager {
         BlockDisplay bd;
         bd = (BlockDisplay) player.getWorld().spawnEntity(new Location(
                 player.getWorld(),
-                mb.getX() + (int) player.getLocation().getX(),
-                mb.getY() + (int) player.getLocation().getY(),
-                mb.getZ() + (int) player.getLocation().getZ()), EntityType.BLOCK_DISPLAY);
+                mb.getX() + ceil(player.getLocation().getX()),
+                mb.getY() + ceil(player.getLocation().getY()),
+                mb.getZ() + ceil(player.getLocation().getZ())),
+                EntityType.BLOCK_DISPLAY);
         bd.setBlock(mb.getBlockData());
         Transformation transformation = bd.getTransformation();
         transformation.getScale().set(mb.getSize());
