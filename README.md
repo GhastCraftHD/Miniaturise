@@ -18,8 +18,3 @@ Delete the miniature that was pasted last with /delete
 Cut your selection from the world with /cut
 
 Change the default selection tool with /tool set
-
-## NOTE
-This plugin is more a proof of concept than it is a finished plugin
-
-See it as an early access project, that is not fully done yet
