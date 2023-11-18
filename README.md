@@ -18,3 +18,5 @@ Delete the miniature that was pasted last with /delete
 Cut your selection from the world with /cut
 
 Change the default selection tool with /tool set
+
+Clear all miniatures from a specific region with /clear
