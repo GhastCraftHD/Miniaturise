@@ -1,5 +1,6 @@
 package de.leghast.miniaturise.command;
 
+import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.manager.RegionManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,6 +9,12 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class PositionCommand implements CommandExecutor {
+
+    private Miniaturise main;
+
+    public PositionCommand(Miniaturise main){
+        this.main = main;
+    }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player){
@@ -19,10 +26,10 @@ public class PositionCommand implements CommandExecutor {
             if(args.length == 1){
                 switch (args[0]){
                     case "1":
-                        RegionManager.setLoc1(player.getLocation(), player);
+                        main.getRegionManager().setLoc1(player.getLocation(), player);
                         return true;
                     case "2":
-                        RegionManager.setLoc2(player.getLocation(), player);
+                        main.getRegionManager().setLoc2(player.getLocation(), player);
                         return true;
                     default:
                         player.sendMessage("§cInvalid position, please use 1 or 2");

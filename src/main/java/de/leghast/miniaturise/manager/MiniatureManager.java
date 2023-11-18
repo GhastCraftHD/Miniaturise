@@ -1,5 +1,6 @@
 package de.leghast.miniaturise.manager;
 
+import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.miniature.MiniatureBlock;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,13 +16,19 @@ import java.util.List;
 import static java.lang.Math.ceil;
 
 public class MiniatureManager {
-    public static List<MiniatureBlock> miniature = new ArrayList<>();
-    public static List<BlockDisplay> placedMiniature = new ArrayList<>();
-    public static int default_size = 1;
 
-    public static void miniaturiseSelection(Location origin){
+    private Miniaturise main;
+    private List<MiniatureBlock> miniature = new ArrayList<>();
+    private List<BlockDisplay> placedMiniature = new ArrayList<>();
+    private int default_size = 1;
+
+    public MiniatureManager(Miniaturise main){
+        this.main = main;
+    }
+
+    public void miniaturiseSelection(Location origin){
         miniature.clear();
-        for(Block block : RegionManager.region.getBlocks()){
+        for(Block block : main.getRegionManager().getRegion().getBlocks()){
             MiniatureBlock mb;
                 mb = new MiniatureBlock(
                         block.getX() - (int) origin.getX(),
@@ -33,7 +40,7 @@ public class MiniatureManager {
         }
     }
 
-    public static boolean bordersAir(Block block) {
+    public boolean bordersAir(Block block) {
         if (block.getRelative(0, 1, 0).getType() == Material.AIR) {
             return true;
         }
@@ -49,7 +56,7 @@ public class MiniatureManager {
         return false;
     }
 
-    public static boolean bordersSolid(Block block) {
+    public boolean bordersSolid(Block block) {
         if (block.getRelative(0, 1, 0).isSolid()) {
             return true;
         }
@@ -65,7 +72,7 @@ public class MiniatureManager {
         return false;
     }
 
-    public static void pasteMiniature(Player player){
+    public void pasteMiniature(Player player){
         placedMiniature.clear();
         if(!miniature.isEmpty()) {
             for (MiniatureBlock mb : miniature) {
@@ -76,7 +83,7 @@ public class MiniatureManager {
         }
     }
 
-    public static void spawnBlockDisplays(MiniatureBlock mb, Player player){
+    public void spawnBlockDisplays(MiniatureBlock mb, Player player){
         BlockDisplay bd;
         bd = (BlockDisplay) player.getWorld().spawnEntity(new Location(
                 player.getWorld(),
@@ -94,13 +101,13 @@ public class MiniatureManager {
         }
     }
 
-    public static void deleteMiniature(){
+    public void deleteMiniature(){
         for(BlockDisplay bd : placedMiniature){
             bd.remove();
         }
     }
 
-    public static void scaleMiniature(double scale, Player player){
+    public void scaleMiniature(double scale, Player player){
         if(!miniature.isEmpty()){
             for(MiniatureBlock mb : miniature){
                 mb.setX(mb.getX() * scale);

@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.manager;
 
 
+import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.region.Region;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,35 +10,40 @@ import org.bukkit.entity.Player;
 
 public class RegionManager {
 
-    public static Location loc1 = null;
-    public static Location loc2 = null;
-    public static Region region = null;
+    private Miniaturise main;
+    private Location loc1 = null;
+    private Location loc2 = null;
+    private Region region = null;
 
-    public static void setLoc1(Location location, Player player){
+    public RegionManager(Miniaturise main){
+        this.main = main;
+    }
+
+    public void setLoc1(Location location, Player player){
         loc1 = location;
         player.sendMessage("§aFirst position was set to " +
-                (int) RegionManager.loc1.getX() + ", " +
-                (int) RegionManager.loc1.getY() + ", " +
-                (int) RegionManager.loc1.getZ());
+                (int) loc1.getX() + ", " +
+                (int) loc1.getY() + ", " +
+                (int) loc1.getZ());
     }
 
-    public static void setLoc2(Location location, Player player){
+    public void setLoc2(Location location, Player player){
         loc2 = location;
         player.sendMessage("§aSecond position was set to " +
-                (int) RegionManager.loc2.getX() + ", " +
-                (int) RegionManager.loc2.getY() + ", " +
-                (int) RegionManager.loc2.getZ());
+                (int) loc2.getX() + ", " +
+                (int) loc2.getY() + ", " +
+                (int) loc2.getZ());
     }
 
-    public static Location getLoc1(){
+    public Location getLoc1(){
         return loc1;
     }
 
-    public static Location getLoc2(){
+    public Location getLoc2(){
         return loc2;
     }
 
-    public static void createRegion(Player player){
+    public void createRegion(Player player){
         if(loc1 != null && loc2 != null){
             try {
                 region = new Region(loc1, loc2);
@@ -50,18 +56,22 @@ public class RegionManager {
         }
     }
 
-    public static void placeMiniature(Player player){
+    public void placeMiniature(Player player){
         if(region == null) {
            player.sendMessage("§cPlease select a region first");
         }else{
-            MiniatureManager.pasteMiniature(player);
+            main.getMiniatureManager().pasteMiniature(player);
         }
     }
 
-    public static void cutSelection(){
+    public void cutSelection(){
         for(Block block : region.getBlocks()){
             block.setType(Material.AIR);
         }
+    }
+
+    public Region getRegion(){
+        return region;
     }
 
 }

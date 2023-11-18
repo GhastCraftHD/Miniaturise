@@ -6,18 +6,20 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class ConfigManager {
 
-    private static FileConfiguration config;
+    private Miniaturise main;
+    private FileConfiguration config;
 
-    public static void setupConfig(Miniaturise miniaturise){
-        ConfigManager.config = miniaturise.getConfig();
-        miniaturise.saveDefaultConfig();
+    public ConfigManager(Miniaturise main){
+        this.main = main;
+        config = main.getConfig();
+        main.saveDefaultConfig();
     }
 
-    public static Material getToolMaterial(){
+    public Material getToolMaterial(){
         return Material.matchMaterial(config.getString("tool"));
     }
 
-    public static void setToolMaterial(Material material){
+    public void setToolMaterial(Material material){
         config.set("tool", material.toString());
     }
 

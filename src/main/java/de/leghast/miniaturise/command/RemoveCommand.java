@@ -1,5 +1,6 @@
 package de.leghast.miniaturise.command;
 
+import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.manager.MiniatureManager;
 import de.leghast.miniaturise.manager.RegionManager;
 import org.bukkit.command.Command;
@@ -10,15 +11,19 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class RemoveCommand implements CommandExecutor {
+
+    private Miniaturise main;
+
+    public RemoveCommand(Miniaturise main){
+        this.main = main;
+    }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 0) {
-                MiniatureManager.deleteMiniature();
+                main.getMiniatureManager().deleteMiniature();
                 player.sendMessage("§aMiniature was deleted");
-            } else if (args.length == 1 && args[0].equalsIgnoreCase("selection")) {
-                player.sendMessage("§eThis feature is still in development");
             }else{
                 player.sendMessage("§cIllegal arguments");
             }

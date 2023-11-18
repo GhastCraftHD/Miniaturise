@@ -17,3 +17,4 @@ commands:
       - del
   scale:
   tool:
+  clear:
