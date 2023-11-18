@@ -20,7 +20,7 @@ public final class Miniaturise extends JavaPlugin {
     public void onEnable() {
 
         //EVENTS
-        Bukkit.getPluginManager().registerEvents(new SelectionListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SelectionListener(this), this);
 
         //COMMANDS
         getCommand("position").setExecutor(new PositionCommand(this));
