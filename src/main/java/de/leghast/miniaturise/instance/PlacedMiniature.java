@@ -12,12 +12,10 @@ import static java.lang.Math.ceil;
 
 public class PlacedMiniature {
 
-    private Location origin;
     private List<BlockDisplay> blockDisplays;
     private double blockSize;
 
     public PlacedMiniature(List<MiniatureBlock> blocks, Location origin){
-        this.origin = origin;
         blockDisplays = new ArrayList<>();
         blockSize = blocks.get(0).getSize();
 
@@ -34,6 +32,19 @@ public class PlacedMiniature {
             transformation.getScale().set(mb.getSize());
             bd.setTransformation(transformation);
             blockDisplays.add(bd);
+        }
+    }
+
+    public PlacedMiniature(List<BlockDisplay> blockDisplays){
+        this.blockDisplays = blockDisplays;
+        if(!blockDisplays.isEmpty()){
+            blockSize = blockDisplays.get(0).getTransformation().getScale().x;
+        }
+    }
+
+    public void removePlacedMiniature(){
+        for(BlockDisplay bd : blockDisplays){
+            bd.remove();
         }
     }
 

@@ -9,7 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * The main plugin class of the Miniaturise MMinecraft paper plugin
+ * The main plugin class of the Miniaturise Minecraft paper plugin
  * @author GhastCraftHD
  * */
 public final class Miniaturise extends JavaPlugin {
@@ -24,7 +24,7 @@ public final class Miniaturise extends JavaPlugin {
         ConfigManager.setupConfig(this);
         initialiseManagers();
         registerListeners();
-        setCommands();
+        getCommands();
     }
 
     @Override
@@ -41,12 +41,14 @@ public final class Miniaturise extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SelectorListener(this), this);
     }
 
-    private void setCommands(){
+    private void getCommands(){
         getCommand("select").setExecutor(new SelectCommand(this));
         getCommand("scale").setExecutor(new ScaleCommand(this));
         getCommand("cut").setExecutor(new CutCommand(this));
         getCommand("tools").setExecutor(new ToolsCommand(this));
         getCommand("paste").setExecutor(new PasteCommand(this));
+        getCommand("tool").setExecutor(new ToolCommand(this));
+        getCommand("delete").setExecutor(new DeleteCommand(this));
     }
 
     /**

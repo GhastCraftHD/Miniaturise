@@ -38,8 +38,8 @@ public class ConfigManager {
     /**
      * @return The maximum amount of blocks that are allowed in one miniature
      */
-    public static int getMaxBlockLimit(){
-        return config.getInt("max-block-limit");
+    public static int getMaxEntityLimit(){
+        return config.getInt("max-entity-limit");
     }
 
     /**
@@ -48,8 +48,8 @@ public class ConfigManager {
      *
      * @param maxBlockLimit The new maximum amount of blocks that are allowed in one miniature
      */
-    public static void setMaxBlockLimit(int maxBlockLimit){
-        config.set("max-block-limit", maxBlockLimit);
+    public static void setMaxEntityLimit(int maxBlockLimit){
+        config.set("max-entity-limit", maxBlockLimit);
     }
 
     /**

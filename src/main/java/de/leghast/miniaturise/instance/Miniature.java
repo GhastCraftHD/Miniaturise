@@ -26,7 +26,7 @@ public class Miniature {
 
         blocks = new ArrayList<>();
         for(Block block : region.getBlocks()){
-            if(block.getType() != Material.AIR && bordersAir(block) && bordersSolid(block)) {
+            if(block.getType() != Material.AIR && bordersAir(block) && bordersTransparent(block)) {
                 MiniatureBlock mb;
                 mb = new MiniatureBlock(
                         block.getX() - (int) origin.getX(),
@@ -73,7 +73,7 @@ public class Miniature {
         return false;
     }
 
-    private boolean bordersSolid(Block block) {
+    private boolean bordersTransparent(Block block) {
         if (block.getRelative(0, 1, 0).getType().isTransparent()) {
             return true;
         }
