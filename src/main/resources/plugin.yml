@@ -3,18 +3,12 @@ version: '${project.version}'
 main: de.leghast.miniaturise.Miniaturise
 api-version: '1.20'
 authors: [GhastCraftHD]
-description: Converts your builds into miniatures that you can display
+description: A tool which lets you create miniatures of your builds and makes working with display entities easy
+website: https://www.github.com/LeGhast/Miniaturise
 commands:
-  position:
-    aliases: pos
   select:
     aliases: sel
-  cut:
-  paste:
-  remove:
-    aliases:
-      - delete
-      - del
   scale:
-  tool:
-  clear:
+  cut:
+  tools:
+  paste:

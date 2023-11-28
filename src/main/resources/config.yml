@@ -1,1 +1,3 @@
-tool: WOODEN_SHOVEL
+max-block-limit: 1500
+default-size: 1
+selector-tool : WOODEN_SHOVEL
