@@ -28,44 +28,52 @@ public class SelectCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(sender instanceof Player player){
-            if(main.getRegionManager().getSelectedLocations(player.getUniqueId()).isValid()){
-                try{
-                    Region region = new Region(main.getRegionManager().getSelectedLocations(player.getUniqueId()));
-                    if(main.getRegionManager().hasRegion(player.getUniqueId())) {
-                        main.getRegionManager().getRegions().replace(player.getUniqueId(), region);
-                    }else{
-                        main.getRegionManager().addRegion(player.getUniqueId(), region);
-                    }
-                    Miniature miniature = new Miniature(region, player.getLocation(), ConfigManager.getDefaultSize());
-                    if(miniature.getBlocks().size() >= ConfigManager.getMaxEntityLimit()){
-                        player.sendMessage(main.PREFIX + "§cThe current selection §e(" + miniature.getBlocks().size() +" blocks) §cexceeds the limit of §e" + ConfigManager.getMaxEntityLimit() + " §cblocks");
-                    }
-                    if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
-                        main.getMiniatureManager().getMiniatures().replace(player.getUniqueId(), miniature);
-                    }else{
-                        main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
-                    }
-                    List<BlockDisplay> blockDisplays = new ArrayList<>();
-                    for(Chunk chunk : player.getWorld().getLoadedChunks()){
-                        for(Entity entity : chunk.getEntities()){
-                            if(entity instanceof BlockDisplay && region.contains(entity.getLocation())){
-                                blockDisplays.add((BlockDisplay) entity);
+            if(main.getRegionManager().hasSelectedLocations(player.getUniqueId())){
+                if(main.getRegionManager().getSelectedLocations(player.getUniqueId()).isValid()){
+                    try{
+                        Region region = new Region(main.getRegionManager().getSelectedLocations(player.getUniqueId()));
+                        if(main.getRegionManager().hasRegion(player.getUniqueId())) {
+                            main.getRegionManager().getRegions().replace(player.getUniqueId(), region);
+                        }else{
+                            main.getRegionManager().addRegion(player.getUniqueId(), region);
+                        }
+                        Miniature miniature = new Miniature(region, player.getLocation(), ConfigManager.getDefaultSize());
+                        if(miniature.getBlocks().size() >= ConfigManager.getMaxEntityLimit()){
+                            player.sendMessage(main.PREFIX + "§cThe current selection §e(" + miniature.getBlocks().size() +" blocks) §cexceeds the limit of §e" + ConfigManager.getMaxEntityLimit() + " §cblocks");
+                            main.getRegionManager().removeRegion(player.getUniqueId());
+                            return false;
+                        }
+                        if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
+                            main.getMiniatureManager().getMiniatures().replace(player.getUniqueId(), miniature);
+                        }else{
+                            main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
+                        }
+                        List<BlockDisplay> blockDisplays = new ArrayList<>();
+                        for(Chunk chunk : player.getWorld().getLoadedChunks()){
+                            for(Entity entity : chunk.getEntities()){
+                                if(entity instanceof BlockDisplay && region.contains(entity.getLocation())){
+                                    blockDisplays.add((BlockDisplay) entity);
+                                }
                             }
                         }
+                        if(!blockDisplays.isEmpty()){
+                            if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
+                                main.getMiniatureManager().getPlacedMiniatures().replace(player.getUniqueId(), new PlacedMiniature(blockDisplays));
+                            }else{
+                                main.getMiniatureManager().addPlacedMiniature(player.getUniqueId(), new PlacedMiniature(blockDisplays));
+                            }
+                        }
+                        player.sendMessage(main.PREFIX + "§aThe region was selected §e(" + miniature.getBlocks().size() + " blocks)");
+                        return true;
+                    }catch(IllegalArgumentException e){
+                        player.sendMessage(main.PREFIX + "§c" + e.getMessage());
+                        return false;
                     }
-                    if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-                        main.getMiniatureManager().getPlacedMiniatures().replace(player.getUniqueId(), new PlacedMiniature(blockDisplays));
-                    }else{
-                        main.getMiniatureManager().addPlacedMiniature(player.getUniqueId(), new PlacedMiniature(blockDisplays));
-                    }
-                    player.sendMessage(main.PREFIX + "§aThe region was selected");
-                    return true;
-                }catch(IllegalArgumentException e){
-                    player.sendMessage(main.PREFIX + "§c" + e.getMessage());
-                    return false;
+                }else{
+                    player.sendMessage(main.PREFIX + "§cPlease select two locations");
                 }
             }else{
-                player.sendMessage(main.PREFIX + "§cPlease select two locations");
+                player.sendMessage(main.PREFIX + "§cYou have not selected any locations");
             }
         }
         return false;

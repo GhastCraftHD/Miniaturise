@@ -3,7 +3,6 @@ package de.leghast.miniaturise.listener;
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.instance.SelectedLocations;
 import de.leghast.miniaturise.manager.ConfigManager;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,14 +10,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 /**
- * This class listens for interactions, that are relevant for the Miniaturise plugin
+ * This class listens for player interactions, that are relevant for the Miniaturise plugin
  * @author GhastCraftHD
  * */
-public class SelectorListener implements Listener {
+public class PlayerInteractListener implements Listener {
 
     private Miniaturise main;
 
-    public SelectorListener(Miniaturise main){
+    public PlayerInteractListener(Miniaturise main){
         this.main = main;
     }
 
@@ -34,7 +33,7 @@ public class SelectorListener implements Listener {
                     } else {
                         main.getRegionManager().addSelectedLocations(player.getUniqueId(), new SelectedLocations(e.getClickedBlock().getLocation(), null));
                     }
-                    player.sendMessage(main.PREFIX + "§aThe first location was set to §e" +
+                    player.sendMessage(main.PREFIX + "§aThe first position was set to §e" +
                             (int) e.getClickedBlock().getLocation().getX() + ", " +
                             (int) e.getClickedBlock().getLocation().getY() + ", " +
                             (int) e.getClickedBlock().getLocation().getZ() + " §a(" +
@@ -47,7 +46,7 @@ public class SelectorListener implements Listener {
                         } else {
                             main.getRegionManager().addSelectedLocations(player.getUniqueId(), new SelectedLocations(null, e.getClickedBlock().getLocation()));
                         }
-                        player.sendMessage(main.PREFIX + "§aThe second location was set to §e" +
+                        player.sendMessage(main.PREFIX + "§aThe second position was set to §e" +
                                 (int) e.getClickedBlock().getLocation().getX() + ", " +
                                 (int) e.getClickedBlock().getLocation().getY() + ", " +
                                 (int) e.getClickedBlock().getLocation().getZ()+ " §a(" +

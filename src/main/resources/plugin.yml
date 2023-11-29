@@ -14,3 +14,7 @@ commands:
   paste:
   tool:
   delete:
+  copy:
+  position:
+    aliases : pos
+  clear:

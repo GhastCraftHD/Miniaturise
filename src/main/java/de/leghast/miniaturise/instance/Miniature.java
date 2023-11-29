@@ -1,32 +1,22 @@
 package de.leghast.miniaturise.instance;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.EntityType;
-import org.bukkit.util.Transformation;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.ceil;
-
 public class Miniature {
-
-    private Region region;
 
     private List<MiniatureBlock> blocks;
 
     private double size;
 
-    public Miniature(@NotNull Region region, Location origin, double size){
-        this.region = region;
-
+    public Miniature(Region region, Location origin, double size){
         blocks = new ArrayList<>();
         for(Block block : region.getBlocks()){
-            if(block.getType() != Material.AIR && bordersAir(block) && bordersTransparent(block)) {
+            if(!block.getType().isAir() && bordersAir(block) && bordersTransparent(block)) {
                 MiniatureBlock mb;
                 mb = new MiniatureBlock(
                         block.getX() - (int) origin.getX(),
@@ -36,6 +26,26 @@ public class Miniature {
                         size);
                 blocks.add(mb);
             }
+        }
+        this.size = size;
+    }
+
+    public Miniature(PlacedMiniature placedMiniature, Location origin, double size){
+        blocks = new ArrayList<>();
+        if(!placedMiniature.getBlockDisplays().isEmpty()){
+            for(BlockDisplay bd : placedMiniature.getBlockDisplays()){
+                MiniatureBlock mb;
+                mb = new MiniatureBlock(
+                        bd.getX() - origin.getX(),
+                        bd.getY() - origin.getY(),
+                        bd.getZ() - origin.getZ(),
+                        bd.getBlock(),
+                        size);
+                blocks.add(mb);
+            }
+            this.size = size;
+        }else{
+            blocks = null;
         }
     }
 
@@ -58,35 +68,21 @@ public class Miniature {
     }
 
     private boolean bordersAir(Block block) {
-        if (block.getRelative(0, 1, 0).getType() == Material.AIR) {
-            return true;
-        }
-        if (block.getRelative(0, -1, 0).getType() == Material.AIR) {
-            return true;
-        }
-        if (block.getRelative(1, 0, 0).getType() == Material.AIR ||
-                block.getRelative(-1, 0, 0).getType() == Material.AIR ||
-                block.getRelative(0, 0, 1).getType() == Material.AIR ||
-                block.getRelative(0, 0, -1).getType() == Material.AIR) {
-            return true;
-        }
-        return false;
+        return block.getRelative(0, 1, 0).getType().isAir() ||
+                block.getRelative(0, -1, 0).getType().isAir() ||
+                block.getRelative(1, 0, 0).getType().isAir() ||
+                block.getRelative(-1, 0, 0).getType().isAir() ||
+                block.getRelative(0, 0, 1).getType().isAir() ||
+                block.getRelative(0, 0, -1).getType().isAir();
     }
 
     private boolean bordersTransparent(Block block) {
-        if (block.getRelative(0, 1, 0).getType().isTransparent()) {
-            return true;
-        }
-        if (block.getRelative(0, -1, 0).getType().isTransparent()) {
-            return true;
-        }
-        if (block.getRelative(1, 0, 0).getType().isTransparent() ||
+        return block.getRelative(0, 1, 0).getType().isTransparent() ||
+                block.getRelative(0, -1, 0).getType().isTransparent() ||
+                block.getRelative(1, 0, 0).getType().isTransparent() ||
                 block.getRelative(-1, 0, 0).getType().isTransparent() ||
                 block.getRelative(0, 0, 1).getType().isTransparent() ||
-                block.getRelative(0, 0, -1).getType().isTransparent()) {
-            return true;
-        }
-        return false;
+                block.getRelative(0, 0, -1).getType().isTransparent();
     }
 
 }

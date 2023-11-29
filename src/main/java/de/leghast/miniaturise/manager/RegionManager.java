@@ -117,4 +117,9 @@ public class RegionManager {
         regions.remove(uuid);
     }
 
+    public void removeClipboard(UUID uuid){
+        removeSelectedLocations(uuid);
+        removeRegion(uuid);
+    }
+
 }

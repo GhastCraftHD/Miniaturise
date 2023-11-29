@@ -1,7 +1,8 @@
 package de.leghast.miniaturise;
 
 import de.leghast.miniaturise.command.*;
-import de.leghast.miniaturise.listener.SelectorListener;
+import de.leghast.miniaturise.listener.PlayerQuitListener;
+import de.leghast.miniaturise.listener.PlayerInteractListener;
 import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.manager.MiniatureManager;
 import de.leghast.miniaturise.manager.RegionManager;
@@ -38,7 +39,8 @@ public final class Miniaturise extends JavaPlugin {
     }
 
     private void registerListeners(){
-        Bukkit.getPluginManager().registerEvents(new SelectorListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
     }
 
     private void getCommands(){
@@ -49,6 +51,9 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("paste").setExecutor(new PasteCommand(this));
         getCommand("tool").setExecutor(new ToolCommand(this));
         getCommand("delete").setExecutor(new DeleteCommand(this));
+        getCommand("copy").setExecutor(new CopyCommand(this));
+        getCommand("position").setExecutor(new PositionCommand(this));
+        getCommand("clear").setExecutor(new ClearCommand(this));
     }
 
     /**

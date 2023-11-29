@@ -5,6 +5,7 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Transformation;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,30 +16,36 @@ public class PlacedMiniature {
     private List<BlockDisplay> blockDisplays;
     private double blockSize;
 
-    public PlacedMiniature(List<MiniatureBlock> blocks, Location origin){
-        blockDisplays = new ArrayList<>();
-        blockSize = blocks.get(0).getSize();
+    public PlacedMiniature(List<MiniatureBlock> blocks, Location origin) throws InvalidParameterException {
+        if(!blocks.isEmpty()){
+            blockDisplays = new ArrayList<>();
+            blockSize = blocks.get(0).getSize();
 
-        for(MiniatureBlock mb : blocks) {
-            BlockDisplay bd;
-            bd = (BlockDisplay) origin.getWorld().spawnEntity(new Location(
-                            origin.getWorld(),
-                            mb.getX() + ceil(origin.getX()),
-                            mb.getY() + ceil(origin.getY()),
-                            mb.getZ() + ceil(origin.getZ())),
-                    EntityType.BLOCK_DISPLAY);
-            bd.setBlock(mb.getBlockData());
-            Transformation transformation = bd.getTransformation();
-            transformation.getScale().set(mb.getSize());
-            bd.setTransformation(transformation);
-            blockDisplays.add(bd);
+            for(MiniatureBlock mb : blocks) {
+                BlockDisplay bd;
+                bd = (BlockDisplay) origin.getWorld().spawnEntity(new Location(
+                                origin.getWorld(),
+                                mb.getX() + ceil(origin.getX()),
+                                mb.getY() + ceil(origin.getY()),
+                                mb.getZ() + ceil(origin.getZ())),
+                        EntityType.BLOCK_DISPLAY);
+                bd.setBlock(mb.getBlockData());
+                Transformation transformation = bd.getTransformation();
+                transformation.getScale().set(mb.getSize());
+                bd.setTransformation(transformation);
+                blockDisplays.add(bd);
+            }
+        }else{
+            throw new InvalidParameterException("The miniature block list is empty");
         }
     }
 
-    public PlacedMiniature(List<BlockDisplay> blockDisplays){
+    public PlacedMiniature(List<BlockDisplay> blockDisplays) throws InvalidParameterException{
         this.blockDisplays = blockDisplays;
         if(!blockDisplays.isEmpty()){
             blockSize = blockDisplays.get(0).getTransformation().getScale().x;
+        }else{
+            throw new InvalidParameterException("The block display list is empty");
         }
     }
 
@@ -46,6 +53,18 @@ public class PlacedMiniature {
         for(BlockDisplay bd : blockDisplays){
             bd.remove();
         }
+    }
+
+    public void scalePlacedMiniature(){
+        Miniature miniature = new Miniature(this, blockDisplays.get(0).getLocation(), blockSize);
+    }
+
+    public int getBlockCount(){
+        return blockDisplays.size();
+    }
+
+    public List<BlockDisplay> getBlockDisplays(){
+        return blockDisplays;
     }
 
 }
