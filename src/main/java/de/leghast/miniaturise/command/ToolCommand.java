@@ -34,8 +34,12 @@ public class ToolCommand implements CommandExecutor {
                         return true;
                     }else if(args.length == 2){
                         if(player.getInventory().getItemInMainHand().getType() != Material.AIR){
-                            ConfigManager.setSelectorToolMaterial(player.getInventory().getItemInMainHand().getType());
-                            player.sendMessage(main.PREFIX + "§aThe selector tool was set to §eminecraft:" + ConfigManager.getSelectorToolMaterial().name().toLowerCase());
+                            if(player.getInventory().getItemInMainHand().getType() != ConfigManager.getSelectorToolMaterial()){
+                                ConfigManager.setSelectorToolMaterial(player.getInventory().getItemInMainHand().getType());
+                                player.sendMessage(main.PREFIX + "§aThe selector tool was set to §eminecraft:" + ConfigManager.getSelectorToolMaterial().name().toLowerCase());
+                            }else{
+                                player.sendMessage(main.PREFIX + "§cThe selector tool is already set to §eminecraft:" + ConfigManager.getSelectorToolMaterial().name().toLowerCase());
+                            }
                         }else{
                             player.sendMessage(main.PREFIX + "§cPlease hold an item in your main hand or specify the item in the command");
                         }
