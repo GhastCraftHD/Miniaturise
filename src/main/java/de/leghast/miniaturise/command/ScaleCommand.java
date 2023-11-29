@@ -27,7 +27,7 @@ public class ScaleCommand implements CommandExecutor {
                     if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
                         try{
                             Miniature miniature = main.getMiniatureManager().getMiniature(player.getUniqueId());
-                            miniature.scaleMiniature(Double.parseDouble(args[0]));
+                            miniature.scaleMiniature(Double.parseDouble(args[1]));
                             player.sendMessage(main.PREFIX + "§aThe selected miniature was scaled to §e" + miniature.getSize() + " §ablocks");
                             return true;
                         }catch (NumberFormatException e){
@@ -37,13 +37,26 @@ public class ScaleCommand implements CommandExecutor {
                     }else{
                         player.sendMessage(main.PREFIX + "§cPlease create a miniature first");
                     }
+                }else{
+                    player.sendMessage(main.PREFIX + "§cPlease provide a valid scale");
                 }
             }else if(args.length >= 1 && (args[0].equalsIgnoreCase("miniature") || args[0].equalsIgnoreCase("m"))){
-                if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-                    main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).scalePlacedMiniature();
+                if(args.length == 2){
+                    try{
+                        if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
+                            main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).scalePlacedMiniature(Double.parseDouble(args[1]));
+                        }else{
+                            player.sendMessage(main.PREFIX + "§cYou have not placed/selected a placed miniature yet");
+                        }
+                    }catch (NumberFormatException e){
+                        player.sendMessage(main.PREFIX + "§cPlease provide a valid scale");
+                        return false;
+                    }
                 }else{
-                    player.sendMessage(main.PREFIX + "§cYou have not placed/selected a placed miniature yet");
+                    player.sendMessage(main.PREFIX + "§cPlease provide a valid scale");
                 }
+            }else{
+                player.sendMessage(main.PREFIX + "§cPlease specify, what you want to scale");
             }
         }
         return false;

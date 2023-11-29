@@ -55,8 +55,22 @@ public class PlacedMiniature {
         }
     }
 
-    public void scalePlacedMiniature(){
-        Miniature miniature = new Miniature(this, blockDisplays.get(0).getLocation(), blockSize);
+    public void scalePlacedMiniature(double scale){
+        Location origin = blockDisplays.get(0).getLocation();
+        Miniature miniature = new Miniature(this, origin, blockSize);
+        miniature.scaleMiniature(scale);
+        for(int i = 0; i < getBlockCount(); i++){
+            BlockDisplay bd = blockDisplays.get(i);
+            MiniatureBlock mb = miniature.getBlocks().get(i);
+            bd.teleport(new Location( bd.getWorld(),
+                    mb.getX() + origin.getX(),
+                    mb.getY() + origin.getY(),
+                    mb.getZ() + origin.getZ()));
+            Transformation transformation = bd.getTransformation();
+            transformation.getScale().set(mb.getSize());
+            bd.setTransformation(transformation);
+        }
+        blockSize *= scale;
     }
 
     public int getBlockCount(){
