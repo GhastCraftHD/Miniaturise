@@ -58,6 +58,9 @@ public class SelectCommand implements CommandExecutor {
                         }
                         if(!blockDisplays.isEmpty()){
                             if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
+                                if(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()) != null){
+
+                                }
                                 main.getMiniatureManager().getPlacedMiniatures().replace(player.getUniqueId(), new PlacedMiniature(blockDisplays));
                             }else{
                                 main.getMiniatureManager().addPlacedMiniature(player.getUniqueId(), new PlacedMiniature(blockDisplays));

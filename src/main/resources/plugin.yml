@@ -8,13 +8,23 @@ website: https://www.github.com/LeGhast/Miniaturise
 commands:
   select:
     aliases: sel
+    description: Selects the region, if you have selected the two corner locations. Also selects any placed miniatures, that are in the defined region
   scale:
+    description: Scales either the miniature in the clipboard or the selected placed miniature
   cut:
+    description: Cuts the selected region (blocks) from the world
   tools:
+    description: Lists up all tools and what item they are bound to
   paste:
+    description: Pastes the miniature from the clipboard to the world
   tool:
+    description: Get or set specific tools
   delete:
+    description: Deletes the last placed miniature
   copy:
+    description: Copies the placed miniatures from the region, if you have selected the two corner locations.
   position:
     aliases : pos
+    description: Sets the corner position of a selectable region
   clear:
+    description: Clears your clipboard

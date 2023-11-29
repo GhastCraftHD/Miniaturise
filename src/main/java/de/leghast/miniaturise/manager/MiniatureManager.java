@@ -74,7 +74,7 @@ public class MiniatureManager {
      * @param uuid The UUID of the player, you want to check if they have placed a miniature
      */
     public boolean hasPlacedMiniature(UUID uuid){
-        return placedMiniatures.containsKey(uuid) && getPlacedMiniature(uuid).getBlockDisplays() != null;
+        return placedMiniatures.containsKey(uuid);
     }
 
     /**

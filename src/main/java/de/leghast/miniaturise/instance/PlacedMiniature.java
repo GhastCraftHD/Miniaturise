@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Transformation;
+import org.bukkit.util.Vector;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -71,6 +72,12 @@ public class PlacedMiniature {
             bd.setTransformation(transformation);
         }
         blockSize *= scale;
+    }
+
+    public void movePlacedMiniature(Vector addition){
+        for(BlockDisplay bd : blockDisplays){
+            bd.teleport(bd.getLocation().add(addition));
+        }
     }
 
     public int getBlockCount(){

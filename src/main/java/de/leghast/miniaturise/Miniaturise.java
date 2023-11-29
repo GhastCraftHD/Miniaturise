@@ -1,6 +1,9 @@
 package de.leghast.miniaturise;
 
 import de.leghast.miniaturise.command.*;
+import de.leghast.miniaturise.completer.PositionTabCompleter;
+import de.leghast.miniaturise.completer.ScaleTabCompleter;
+import de.leghast.miniaturise.completer.ToolTabCompleter;
 import de.leghast.miniaturise.listener.PlayerQuitListener;
 import de.leghast.miniaturise.listener.PlayerInteractListener;
 import de.leghast.miniaturise.manager.ConfigManager;
@@ -25,7 +28,8 @@ public final class Miniaturise extends JavaPlugin {
         ConfigManager.setupConfig(this);
         initialiseManagers();
         registerListeners();
-        getCommands();
+        setCommands();
+        setTabCompleters();
     }
 
     @Override
@@ -43,7 +47,7 @@ public final class Miniaturise extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
     }
 
-    private void getCommands(){
+    private void setCommands(){
         getCommand("select").setExecutor(new SelectCommand(this));
         getCommand("scale").setExecutor(new ScaleCommand(this));
         getCommand("cut").setExecutor(new CutCommand(this));
@@ -54,6 +58,12 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("copy").setExecutor(new CopyCommand(this));
         getCommand("position").setExecutor(new PositionCommand(this));
         getCommand("clear").setExecutor(new ClearCommand(this));
+    }
+
+    public void setTabCompleters(){
+        getCommand("position").setTabCompleter(new PositionTabCompleter());
+        getCommand("scale").setTabCompleter(new ScaleTabCompleter());
+        getCommand("tool").setTabCompleter(new ToolTabCompleter());
     }
 
     /**
