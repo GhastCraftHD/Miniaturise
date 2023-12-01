@@ -21,10 +21,12 @@ public class CutCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(sender instanceof Player player){
             if(main.getRegionManager().hasRegion(player.getUniqueId())){
+                int blockAmount = 0;
                 for(Block block : main.getRegionManager().getRegion(player.getUniqueId()).getBlocks()){
+                    blockAmount++;
                     block.setType(Material.AIR);
                 }
-                player.sendMessage(main.PREFIX + "§aThe selected region was cut from the world");
+                player.sendMessage(main.PREFIX + "§aThe selected region was cut from the world §e(" + blockAmount + " block" + (blockAmount == 1 ? "" : "s") + ")");
             }else{
                 player.sendMessage(main.PREFIX + "§cPlease select a region first");
             }

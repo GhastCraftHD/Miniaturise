@@ -28,3 +28,7 @@ commands:
     description: Sets the corner position of a selectable region
   clear:
     description: Clears your clipboard
+  adjust:
+    description: Opens the settings for the adjuster tool
+  rotate:
+    description: Rotates the last placed miniature (only works with single block miniatures)

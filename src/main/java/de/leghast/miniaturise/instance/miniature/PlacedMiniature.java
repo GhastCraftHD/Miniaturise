@@ -1,4 +1,4 @@
-package de.leghast.miniaturise.instance;
+package de.leghast.miniaturise.instance.miniature;
 
 import org.bukkit.Location;
 import org.bukkit.entity.BlockDisplay;
@@ -50,16 +50,16 @@ public class PlacedMiniature {
         }
     }
 
-    public void removePlacedMiniature(){
+    public void remove(){
         for(BlockDisplay bd : blockDisplays){
             bd.remove();
         }
     }
 
-    public void scalePlacedMiniature(double scale){
+    public void scale(double scale){
         Location origin = blockDisplays.get(0).getLocation();
         Miniature miniature = new Miniature(this, origin, blockSize);
-        miniature.scaleMiniature(scale);
+        miniature.scale(scale);
         for(int i = 0; i < getBlockCount(); i++){
             BlockDisplay bd = blockDisplays.get(i);
             MiniatureBlock mb = miniature.getBlocks().get(i);
@@ -74,10 +74,18 @@ public class PlacedMiniature {
         blockSize *= scale;
     }
 
-    public void movePlacedMiniature(Vector addition){
+    public void move(Vector addition){
         for(BlockDisplay bd : blockDisplays){
             bd.teleport(bd.getLocation().add(addition));
         }
+    }
+
+    public void rotate(){
+
+    }
+
+    public double getBlockSize() {
+        return blockSize;
     }
 
     public int getBlockCount(){

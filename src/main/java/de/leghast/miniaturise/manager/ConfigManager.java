@@ -68,4 +68,12 @@ public class ConfigManager {
         config.set("default-size", size);
     }
 
+    public static Material getAdjusterToolMaterial(){
+        return Material.matchMaterial(config.getString("adjuster-tool"));
+    }
+
+    public static void setAdjusterToolMaterial(Material material){
+        config.set("adjuster-tool", material.name());
+    }
+
 }

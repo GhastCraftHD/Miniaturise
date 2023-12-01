@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.SelectedLocations;
+import de.leghast.miniaturise.instance.region.SelectedLocations;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

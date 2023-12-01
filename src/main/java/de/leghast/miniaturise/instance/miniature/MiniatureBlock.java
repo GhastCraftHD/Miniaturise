@@ -1,4 +1,4 @@
-package de.leghast.miniaturise.instance;
+package de.leghast.miniaturise.instance.miniature;
 
 import org.bukkit.block.data.BlockData;
 

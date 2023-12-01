@@ -1,15 +1,12 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.Miniature;
+import de.leghast.miniaturise.instance.miniature.Miniature;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 public class ScaleCommand implements CommandExecutor {
 
@@ -27,33 +24,33 @@ public class ScaleCommand implements CommandExecutor {
                     if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
                         try{
                             Miniature miniature = main.getMiniatureManager().getMiniature(player.getUniqueId());
-                            miniature.scaleMiniature(Double.parseDouble(args[1]));
+                            miniature.scale(Double.parseDouble(args[1]));
                             player.sendMessage(main.PREFIX + "§aThe selected miniature was scaled to §e" + miniature.getSize() + " §ablocks");
                             return true;
                         }catch (NumberFormatException e){
-                            player.sendMessage(main.PREFIX + "§cPlease provide a valid scale");
+                            player.sendMessage(main.PREFIX + "§cPlease provide a valid scale factor");
                             return false;
                         }
                     }else{
                         player.sendMessage(main.PREFIX + "§cPlease create a miniature first");
                     }
                 }else{
-                    player.sendMessage(main.PREFIX + "§cPlease provide a valid scale");
+                    player.sendMessage(main.PREFIX + "§cPlease provide a valid scale factor");
                 }
             }else if(args.length >= 1 && (args[0].equalsIgnoreCase("miniature") || args[0].equalsIgnoreCase("m"))){
                 if(args.length == 2){
                     try{
                         if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-                            main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).scalePlacedMiniature(Double.parseDouble(args[1]));
+                            main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).scale(Double.parseDouble(args[1]));
                         }else{
                             player.sendMessage(main.PREFIX + "§cYou have not placed/selected a placed miniature yet");
                         }
                     }catch (NumberFormatException e){
-                        player.sendMessage(main.PREFIX + "§cPlease provide a valid scale");
+                        player.sendMessage(main.PREFIX + "§cPlease provide a valid scale factor");
                         return false;
                     }
                 }else{
-                    player.sendMessage(main.PREFIX + "§cPlease provide a valid scale");
+                    player.sendMessage(main.PREFIX + "§cPlease provide a valid scale factor");
                 }
             }else{
                 player.sendMessage(main.PREFIX + "§cPlease specify, what you want to scale");

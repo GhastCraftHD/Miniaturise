@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.PlacedMiniature;
+import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +34,7 @@ public class PasteCommand implements CommandExecutor {
                             (int) player.getLocation().getX() + ", " +
                             (int) player.getLocation().getY() + ", " +
                             (int) player.getLocation().getZ() + " §a(" +
-                            main.getDimensionName(player.getLocation().getWorld().getEnvironment().name()) + ") §e(" + placedMiniature.getBlockCount() + " blocks)");
+                            main.getDimensionName(player.getLocation().getWorld().getEnvironment().name()) + ") §e(" + placedMiniature.getBlockCount() + " block" + (placedMiniature.getBlockCount() == 1 ? "" : "s") + ")");
                 }catch (InvalidParameterException e){
                     player.sendMessage(main.PREFIX + "§cThe miniature in you clipboard contains no blocks");
                 }

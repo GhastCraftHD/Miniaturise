@@ -1,9 +1,9 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.Miniature;
-import de.leghast.miniaturise.instance.PlacedMiniature;
-import de.leghast.miniaturise.instance.Region;
+import de.leghast.miniaturise.instance.miniature.Miniature;
+import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
+import de.leghast.miniaturise.instance.region.Region;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

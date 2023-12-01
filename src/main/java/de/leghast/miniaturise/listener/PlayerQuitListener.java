@@ -20,6 +20,7 @@ public class PlayerQuitListener implements Listener {
         UUID uuid = e.getPlayer().getUniqueId();
         main.getRegionManager().removeClipboard(uuid);
         main.getMiniatureManager().removeClipboard(uuid);
+        main.getSettingsManager().removeAdjusterSettings(uuid);
     }
 
 }

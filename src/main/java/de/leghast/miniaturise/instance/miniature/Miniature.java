@@ -1,8 +1,11 @@
-package de.leghast.miniaturise.instance;
+package de.leghast.miniaturise.instance.miniature;
 
+import de.leghast.miniaturise.instance.region.Region;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.util.BoundingBox;
+import org.bukkit.util.VoxelShape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,7 @@ public class Miniature {
     public Miniature(Region region, Location origin, double size){
         blocks = new ArrayList<>();
         for(Block block : region.getBlocks()){
-            if(!block.getType().isAir() && bordersAir(block) && bordersTransparent(block)) {
+            if(!block.getType().isAir() && (bordersAir(block) || bordersNotFullBlock(block))) {
                 MiniatureBlock mb;
                 mb = new MiniatureBlock(
                         block.getX() - (int) origin.getX(),
@@ -49,7 +52,7 @@ public class Miniature {
         }
     }
 
-    public void scaleMiniature(double scale){
+    public void scale(double scale){
         for(MiniatureBlock mb : blocks){
             mb.setX(mb.getX() * scale);
             mb.setY(mb.getY() * scale);
@@ -75,14 +78,25 @@ public class Miniature {
                 block.getRelative(0, 0, 1).getType().isAir() ||
                 block.getRelative(0, 0, -1).getType().isAir();
     }
+    private boolean bordersNotFullBlock(Block block) {
+        return isNotFullBlock(block.getRelative(0, 1, 0)) ||
+                isNotFullBlock(block.getRelative(0, -1, 0)) ||
+                isNotFullBlock(block.getRelative(1, 0, 0)) ||
+                isNotFullBlock(block.getRelative(-1, 0, 0)) ||
+                isNotFullBlock(block.getRelative(0, 0, 1)) ||
+                isNotFullBlock(block.getRelative(0, 0, -1));
+    }
 
-    private boolean bordersTransparent(Block block) {
-        return block.getRelative(0, 1, 0).getType().isTransparent() ||
-                block.getRelative(0, -1, 0).getType().isTransparent() ||
-                block.getRelative(1, 0, 0).getType().isTransparent() ||
-                block.getRelative(-1, 0, 0).getType().isTransparent() ||
-                block.getRelative(0, 0, 1).getType().isTransparent() ||
-                block.getRelative(0, 0, -1).getType().isTransparent();
+    private boolean isNotFullBlock(Block block){
+        VoxelShape collisionShape = block.getCollisionShape();
+        if(collisionShape != null){
+            double volume = 0;
+            for(BoundingBox bb : collisionShape.getBoundingBoxes()){
+                volume += bb.getVolume();
+            }
+            return volume != 1;
+        }
+        return true;
     }
 
 }

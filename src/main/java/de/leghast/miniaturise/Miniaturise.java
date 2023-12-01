@@ -9,6 +9,7 @@ import de.leghast.miniaturise.listener.PlayerInteractListener;
 import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.manager.MiniatureManager;
 import de.leghast.miniaturise.manager.RegionManager;
+import de.leghast.miniaturise.manager.SettingsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +21,7 @@ public final class Miniaturise extends JavaPlugin {
 
     private MiniatureManager miniatureManager;
     private RegionManager regionManager;
+    private SettingsManager settingsManager;
 
     public final String PREFIX = "§7[§eMiniaturise§7] ";
 
@@ -40,6 +42,7 @@ public final class Miniaturise extends JavaPlugin {
     private void initialiseManagers(){
         miniatureManager = new MiniatureManager(this);
         regionManager = new RegionManager(this);
+        settingsManager = new SettingsManager(this);
     }
 
     private void registerListeners(){
@@ -58,6 +61,8 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("copy").setExecutor(new CopyCommand(this));
         getCommand("position").setExecutor(new PositionCommand(this));
         getCommand("clear").setExecutor(new ClearCommand(this));
+        getCommand("adjust").setExecutor(new AdjustCommand(this));
+        getCommand("rotate").setExecutor(new RotateCommand(this));
     }
 
     public void setTabCompleters(){
@@ -78,6 +83,10 @@ public final class Miniaturise extends JavaPlugin {
      */
     public RegionManager getRegionManager(){
         return regionManager;
+    }
+
+    public SettingsManager getSettingsManager(){
+        return settingsManager;
     }
 
     public String getDimensionName(String string){

@@ -1,9 +1,9 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.Miniature;
-import de.leghast.miniaturise.instance.PlacedMiniature;
-import de.leghast.miniaturise.instance.Region;
+import de.leghast.miniaturise.instance.miniature.Miniature;
+import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
+import de.leghast.miniaturise.instance.region.Region;
 import de.leghast.miniaturise.manager.ConfigManager;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
@@ -66,7 +66,7 @@ public class SelectCommand implements CommandExecutor {
                                 main.getMiniatureManager().addPlacedMiniature(player.getUniqueId(), new PlacedMiniature(blockDisplays));
                             }
                         }
-                        player.sendMessage(main.PREFIX + "§aThe region was selected §e(" + miniature.getBlocks().size() + " blocks)");
+                        player.sendMessage(main.PREFIX + "§aThe region was selected §e(" + miniature.getBlocks().size() + " block" + (miniature.getBlocks().size() == 1 ? "" : "s") + ")");
                         return true;
                     }catch(IllegalArgumentException e){
                         player.sendMessage(main.PREFIX + "§c" + e.getMessage());

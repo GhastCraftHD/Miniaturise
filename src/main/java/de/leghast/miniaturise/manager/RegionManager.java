@@ -1,8 +1,8 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.Region;
-import de.leghast.miniaturise.instance.SelectedLocations;
+import de.leghast.miniaturise.instance.region.Region;
+import de.leghast.miniaturise.instance.region.SelectedLocations;
 
 import java.util.HashMap;
 import java.util.UUID;

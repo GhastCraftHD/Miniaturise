@@ -20,6 +20,7 @@ public class ToolTabCompleter implements TabCompleter {
             return StringUtil.copyPartialMatches(args[0], results, new ArrayList<>());
         }else if(args.length == 2){
             results.add("selector");
+            results.add("adjuster");
             return StringUtil.copyPartialMatches(args[1], results, new ArrayList<>());
         }
         return new ArrayList<>();

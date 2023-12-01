@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.SelectedLocations;
+import de.leghast.miniaturise.instance.region.SelectedLocations;
 import de.leghast.miniaturise.manager.ConfigManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
