@@ -4,18 +4,18 @@ public class SizeSettings {
 
     private AdjusterSettings parent;
 
-    private double customFactor = 0;
+    private double factor = 1;
 
     public SizeSettings(AdjusterSettings parent){
         this.parent = parent;
     }
 
-    public double getCustomFactor(){
-        return customFactor;
+    public double getFactor(){
+        return factor;
     }
 
-    public void setCustomFactor(double factor){
-        this.customFactor = factor;
+    public void setFactor(double factor){
+        this.factor = factor;
     }
 
 }

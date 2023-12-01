@@ -80,8 +80,19 @@ public class PlacedMiniature {
         }
     }
 
-    public void rotate(){
-
+    public void move(String axis, double addition){
+        axis = axis.toLowerCase();
+        switch (axis){
+            case "x" ->{
+                move(new Vector(addition, 0, 0));
+            }
+            case "y" ->{
+                move(new Vector(0, addition, 0));
+            }
+            case "z" ->{
+                move(new Vector(0, 0, addition));
+            }
+        }
     }
 
     public double getBlockSize() {

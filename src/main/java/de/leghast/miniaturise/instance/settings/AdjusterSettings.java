@@ -1,6 +1,6 @@
 package de.leghast.miniaturise.instance.settings;
 
-import de.leghast.miniaturise.ui.Interface;
+import de.leghast.miniaturise.ui.Page;
 import org.bukkit.entity.Player;
 
 public class AdjusterSettings {
@@ -10,7 +10,7 @@ public class AdjusterSettings {
     private PositionSettings positionSettings;
     private SizeSettings sizeSettings;
 
-    private Interface lastSelectedInterface;
+    private Page lastPage;
 
     public AdjusterSettings(Player player){
         this.player = player;
@@ -18,7 +18,7 @@ public class AdjusterSettings {
         positionSettings = new PositionSettings(this);
         sizeSettings = new SizeSettings(this);
 
-        lastSelectedInterface = Interface.POSITION;
+        lastPage = Page.POSITION;
     }
 
     public PositionSettings getPositionSettings(){
@@ -27,6 +27,14 @@ public class AdjusterSettings {
 
     public SizeSettings getSizeSettings(){
         return sizeSettings;
+    }
+
+    public Page getLastPage(){
+        return lastPage;
+    }
+
+    public void setLastPage(Page lastPage){
+        this.lastPage = lastPage;
     }
 
 }

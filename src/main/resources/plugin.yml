@@ -30,5 +30,3 @@ commands:
     description: Clears your clipboard
   adjust:
     description: Opens the settings for the adjuster tool
-  rotate:
-    description: Rotates the last placed miniature (only works with single block miniatures)

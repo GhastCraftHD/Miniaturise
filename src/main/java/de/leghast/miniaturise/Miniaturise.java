@@ -4,6 +4,7 @@ import de.leghast.miniaturise.command.*;
 import de.leghast.miniaturise.completer.PositionTabCompleter;
 import de.leghast.miniaturise.completer.ScaleTabCompleter;
 import de.leghast.miniaturise.completer.ToolTabCompleter;
+import de.leghast.miniaturise.listener.InventoryClickListener;
 import de.leghast.miniaturise.listener.PlayerQuitListener;
 import de.leghast.miniaturise.listener.PlayerInteractListener;
 import de.leghast.miniaturise.manager.ConfigManager;
@@ -48,6 +49,7 @@ public final class Miniaturise extends JavaPlugin {
     private void registerListeners(){
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(this), this);
     }
 
     private void setCommands(){
@@ -62,7 +64,6 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("position").setExecutor(new PositionCommand(this));
         getCommand("clear").setExecutor(new ClearCommand(this));
         getCommand("adjust").setExecutor(new AdjustCommand(this));
-        getCommand("rotate").setExecutor(new RotateCommand(this));
     }
 
     public void setTabCompleters(){
