@@ -2,7 +2,7 @@ package de.leghast.miniaturise.ui.page;
 
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.manager.ConfigManager;
-import de.leghast.miniaturise.ui.Axis;
+import de.leghast.miniaturise.instance.settings.Axis;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -91,7 +91,7 @@ public class PositionPage {
                 PageUtil.addGlint(miniatureBlockSize);
             }
         }
-        content[14] = miniatureBlockSize;;
+        content[14] = miniatureBlockSize;
 
         ItemStack custom = new ItemStack(Material.PAPER);
         ItemMeta customMeta = custom.getItemMeta();

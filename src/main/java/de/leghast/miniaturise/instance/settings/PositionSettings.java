@@ -1,6 +1,6 @@
 package de.leghast.miniaturise.instance.settings;
 
-import de.leghast.miniaturise.ui.Axis;
+import de.leghast.miniaturise.util.Util;
 
 public class PositionSettings {
 
@@ -20,6 +20,14 @@ public class PositionSettings {
 
     public void setFactor(double factor){
         this.factor = factor;
+    }
+
+    public void setFactor(String factor){
+        try{
+            this.factor = Double.parseDouble(factor);
+        }catch (NumberFormatException e){
+            parent.getPlayer().sendMessage(Util.PREFIX + "§cPlease provide a valid factor");
+        }
     }
 
     public Axis getAxis(){

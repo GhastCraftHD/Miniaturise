@@ -16,6 +16,11 @@ public class SelectedLocations {
         this.loc2 = loc2;
     }
 
+    public SelectedLocations(){
+        this.loc1 = null;
+        this.loc2 = null;
+    }
+
     /**
      * @return The first location, that was selected
      * */

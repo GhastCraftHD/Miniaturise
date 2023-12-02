@@ -10,7 +10,7 @@ public class AdjusterSettings {
     private PositionSettings positionSettings;
     private SizeSettings sizeSettings;
 
-    private Page lastPage;
+    private Page page;
 
     public AdjusterSettings(Player player){
         this.player = player;
@@ -18,7 +18,7 @@ public class AdjusterSettings {
         positionSettings = new PositionSettings(this);
         sizeSettings = new SizeSettings(this);
 
-        lastPage = Page.POSITION;
+        page = Page.POSITION;
     }
 
     public PositionSettings getPositionSettings(){
@@ -29,12 +29,16 @@ public class AdjusterSettings {
         return sizeSettings;
     }
 
-    public Page getLastPage(){
-        return lastPage;
+    public Page getPage(){
+        return page;
     }
 
-    public void setLastPage(Page lastPage){
-        this.lastPage = lastPage;
+    public void setPage(Page page){
+        this.page = page;
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
 }

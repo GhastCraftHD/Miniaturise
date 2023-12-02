@@ -5,6 +5,7 @@ import de.leghast.miniaturise.instance.miniature.Miniature;
 import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
 import de.leghast.miniaturise.instance.region.Region;
 import de.leghast.miniaturise.manager.ConfigManager;
+import de.leghast.miniaturise.util.Util;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,7 +40,8 @@ public class SelectCommand implements CommandExecutor {
                         }
                         Miniature miniature = new Miniature(region, player.getLocation(), ConfigManager.getDefaultSize());
                         if(miniature.getBlocks().size() >= ConfigManager.getMaxEntityLimit()){
-                            player.sendMessage(main.PREFIX + "§cThe current selection §e(" + miniature.getBlocks().size() +" blocks) §cexceeds the limit of §e" + ConfigManager.getMaxEntityLimit() + " §cblocks");
+                            player.sendMessage(Util.PREFIX + "§cThe current selection §e(" + miniature.getBlocks().size() +
+                                    " blocks) §cexceeds the limit of §e" + ConfigManager.getMaxEntityLimit() + " §cblocks");
                             main.getRegionManager().removeRegion(player.getUniqueId());
                             return false;
                         }
@@ -48,14 +50,9 @@ public class SelectCommand implements CommandExecutor {
                         }else{
                             main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
                         }
-                        List<BlockDisplay> blockDisplays = new ArrayList<>();
-                        for(Chunk chunk : player.getWorld().getLoadedChunks()){
-                            for(Entity entity : chunk.getEntities()){
-                                if(entity instanceof BlockDisplay && region.contains(entity.getLocation())){
-                                    blockDisplays.add((BlockDisplay) entity);
-                                }
-                            }
-                        }
+
+                        List<BlockDisplay> blockDisplays = Util.getBlockDisplaysFromRegion(player, region);
+
                         if(!blockDisplays.isEmpty()){
                             if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
                                 if(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()) != null){
@@ -66,17 +63,18 @@ public class SelectCommand implements CommandExecutor {
                                 main.getMiniatureManager().addPlacedMiniature(player.getUniqueId(), new PlacedMiniature(blockDisplays));
                             }
                         }
-                        player.sendMessage(main.PREFIX + "§aThe region was selected §e(" + miniature.getBlocks().size() + " block" + (miniature.getBlocks().size() == 1 ? "" : "s") + ")");
+                        player.sendMessage(Util.PREFIX + "§aThe region was selected §e(" + miniature.getBlocks().size() +
+                                " block" + (miniature.getBlocks().size() == 1 ? "" : "s") + ")");
                         return true;
                     }catch(IllegalArgumentException e){
-                        player.sendMessage(main.PREFIX + "§c" + e.getMessage());
+                        player.sendMessage(Util.PREFIX + "§c" + e.getMessage());
                         return false;
                     }
                 }else{
-                    player.sendMessage(main.PREFIX + "§cPlease select two locations");
+                    player.sendMessage(Util.PREFIX + "§cPlease select two locations");
                 }
             }else{
-                player.sendMessage(main.PREFIX + "§cYou have not selected any locations");
+                player.sendMessage(Util.PREFIX + "§cYou have not selected any locations");
             }
         }
         return false;

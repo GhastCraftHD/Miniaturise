@@ -24,8 +24,6 @@ public final class Miniaturise extends JavaPlugin {
     private RegionManager regionManager;
     private SettingsManager settingsManager;
 
-    public final String PREFIX = "§7[§eMiniaturise§7] ";
-
     @Override
     public void onEnable() {
         ConfigManager.setupConfig(this);
@@ -90,20 +88,4 @@ public final class Miniaturise extends JavaPlugin {
         return settingsManager;
     }
 
-    public String getDimensionName(String string){
-        switch (string){
-            case "NORMAL" -> {
-                return "minecraft:overworld";
-            }
-            case "NETHER" -> {
-                return "minecraft:the_nether";
-            }
-            case "THE_END" -> {
-                return "minecraft:the_end";
-            }
-            default -> {
-                return "Invalid dimension";
-            }
-        }
-    }
 }

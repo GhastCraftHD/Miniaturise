@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.util.Util;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -26,9 +27,10 @@ public class CutCommand implements CommandExecutor {
                     blockAmount++;
                     block.setType(Material.AIR);
                 }
-                player.sendMessage(main.PREFIX + "§aThe selected region was cut from the world §e(" + blockAmount + " block" + (blockAmount == 1 ? "" : "s") + ")");
+                player.sendMessage(Util.PREFIX + "§aThe selected region was cut from the world §e(" +
+                        blockAmount + " block" + (blockAmount == 1 ? "" : "s") + ")");
             }else{
-                player.sendMessage(main.PREFIX + "§cPlease select a region first");
+                player.sendMessage(Util.PREFIX + "§cPlease select a region first");
             }
         }
         return false;

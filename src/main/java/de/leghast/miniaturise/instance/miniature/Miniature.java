@@ -52,7 +52,7 @@ public class Miniature {
         }
     }
 
-    public void scale(double scale){
+    public void scaleUp(double scale){
         for(MiniatureBlock mb : blocks){
             mb.setX(mb.getX() * scale);
             mb.setY(mb.getY() * scale);
@@ -62,12 +62,26 @@ public class Miniature {
         size *= scale;
     }
 
+    public void scaleDown(double scale){
+        for(MiniatureBlock mb : blocks){
+            mb.setX(mb.getX() / scale);
+            mb.setY(mb.getY() / scale);
+            mb.setZ(mb.getZ() / scale);
+            mb.setSize(mb.getSize() / scale);
+        }
+        size /= scale;
+    }
+
     public double getSize(){
         return size;
     }
 
     public List<MiniatureBlock> getBlocks(){
         return blocks;
+    }
+
+    public int getBlockCount(){
+        return blocks.size();
     }
 
     private boolean bordersAir(Block block) {

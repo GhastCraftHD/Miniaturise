@@ -1,4 +1,4 @@
-max-entity-limit: 10000
+max-entity-limit: 1500
 default-size: 1
 selector-tool : WOODEN_SHOVEL
 adjuster-tool: BRUSH

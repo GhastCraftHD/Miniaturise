@@ -23,7 +23,7 @@ public class AdjustCommand implements CommandExecutor {
             if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
                 main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
             }
-            new Interface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getLastPage());
+            new Interface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
             return true;
         }
         return false;

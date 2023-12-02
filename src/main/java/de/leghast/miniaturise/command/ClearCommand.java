@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.util.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,7 +21,7 @@ public class ClearCommand implements CommandExecutor {
         if(sender instanceof Player player){
             main.getRegionManager().removeClipboard(player.getUniqueId());
             main.getMiniatureManager().removeClipboard(player.getUniqueId());
-            player.sendMessage(main.PREFIX + "§aYour clipboard was cleared");
+            player.sendMessage(Util.PREFIX + "§aYour clipboard was cleared");
         }
         return false;
     }

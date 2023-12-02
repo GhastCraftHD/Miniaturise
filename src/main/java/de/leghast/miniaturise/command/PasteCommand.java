@@ -2,6 +2,7 @@ package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
+import de.leghast.miniaturise.util.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,22 +25,23 @@ public class PasteCommand implements CommandExecutor {
             if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
                 try{
                     PlacedMiniature placedMiniature;
-                    placedMiniature = new PlacedMiniature(main.getMiniatureManager().getMiniature(player.getUniqueId()).getBlocks(), player.getLocation());
+                    placedMiniature = new PlacedMiniature(main.getMiniatureManager().getMiniature(player.getUniqueId()).getBlocks(),player.getLocation());
                     if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
                         main.getMiniatureManager().getPlacedMiniatures().replace(player.getUniqueId(), placedMiniature);
                     }else{
                         main.getMiniatureManager().addPlacedMiniature(player.getUniqueId(), placedMiniature);
                     }
-                    player.sendMessage(main.PREFIX + "§aThe miniature was placed at §e" +
+                    player.sendMessage(Util.PREFIX + "§aThe miniature was placed at §e" +
                             (int) player.getLocation().getX() + ", " +
                             (int) player.getLocation().getY() + ", " +
                             (int) player.getLocation().getZ() + " §a(" +
-                            main.getDimensionName(player.getLocation().getWorld().getEnvironment().name()) + ") §e(" + placedMiniature.getBlockCount() + " block" + (placedMiniature.getBlockCount() == 1 ? "" : "s") + ")");
+                            Util.getDimensionName(player.getLocation().getWorld().getEnvironment().name()) + ") §e(" +
+                            placedMiniature.getBlockCount() + " block" + (placedMiniature.getBlockCount() == 1 ? "" : "s") + ")");
                 }catch (InvalidParameterException e){
-                    player.sendMessage(main.PREFIX + "§cThe miniature in you clipboard contains no blocks");
+                    player.sendMessage(Util.PREFIX + "§cThe miniature in you clipboard contains no blocks");
                 }
             }else{
-                player.sendMessage(main.PREFIX + "§cPlease create a miniature first");
+                player.sendMessage(Util.PREFIX + "§cPlease create a miniature first");
             }
         }
         return false;

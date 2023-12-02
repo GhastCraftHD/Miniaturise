@@ -1,5 +1,6 @@
 package de.leghast.miniaturise.instance.miniature;
 
+import de.leghast.miniaturise.instance.settings.Axis;
 import org.bukkit.Location;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
@@ -56,10 +57,23 @@ public class PlacedMiniature {
         }
     }
 
-    public void scale(double scale){
+    public void scaleUp(double scale){
         Location origin = blockDisplays.get(0).getLocation();
         Miniature miniature = new Miniature(this, origin, blockSize);
-        miniature.scale(scale);
+        miniature.scaleUp(scale);
+        rearrange(origin, miniature);
+        blockSize *= scale;
+    }
+
+    public void scaleDown(double scale){
+        Location origin = blockDisplays.get(0).getLocation();
+        Miniature miniature = new Miniature(this, origin, blockSize);
+        miniature.scaleDown(scale);
+        rearrange(origin, miniature);
+        blockSize /= scale;
+    }
+
+    private void rearrange(Location origin, Miniature miniature) {
         for(int i = 0; i < getBlockCount(); i++){
             BlockDisplay bd = blockDisplays.get(i);
             MiniatureBlock mb = miniature.getBlocks().get(i);
@@ -71,7 +85,6 @@ public class PlacedMiniature {
             transformation.getScale().set(mb.getSize());
             bd.setTransformation(transformation);
         }
-        blockSize *= scale;
     }
 
     public void move(Vector addition){
@@ -80,16 +93,15 @@ public class PlacedMiniature {
         }
     }
 
-    public void move(String axis, double addition){
-        axis = axis.toLowerCase();
+    public void move(Axis axis, double addition){
         switch (axis){
-            case "x" ->{
+            case X ->{
                 move(new Vector(addition, 0, 0));
             }
-            case "y" ->{
+            case Y ->{
                 move(new Vector(0, addition, 0));
             }
-            case "z" ->{
+            case Z ->{
                 move(new Vector(0, 0, addition));
             }
         }

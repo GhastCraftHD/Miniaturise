@@ -4,6 +4,7 @@ import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.instance.miniature.Miniature;
 import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
 import de.leghast.miniaturise.instance.region.Region;
+import de.leghast.miniaturise.util.Util;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,28 +35,23 @@ public class CopyCommand implements CommandExecutor {
                     }else{
                         main.getRegionManager().addRegion(player.getUniqueId(), region);
                     }
-                    List<BlockDisplay> blockDisplays = new ArrayList<>();
-                    for(Chunk chunk : player.getWorld().getLoadedChunks()){
-                        for(Entity entity : chunk.getEntities()){
-                            if(entity instanceof BlockDisplay && region.contains(entity.getLocation())){
-                                blockDisplays.add((BlockDisplay) entity);
-                            }
-                        }
-                    }
+
+                    List<BlockDisplay> blockDisplays = Util.getBlockDisplaysFromRegion(player, region);
 
                     if(!blockDisplays.isEmpty()){
-                        Miniature miniature = new Miniature(new PlacedMiniature(blockDisplays), player.getLocation(), blockDisplays.get(0).getTransformation().getScale().x());
+                        Miniature miniature = new Miniature(new PlacedMiniature(blockDisplays), player.getLocation(),
+                                blockDisplays.get(0).getTransformation().getScale().x());
                         if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
                             main.getMiniatureManager().getMiniatures().replace(player.getUniqueId(), miniature);
                         }else{
                             main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
                         }
-                        player.sendMessage(main.PREFIX + "§aThe placed miniature was copied §e(" + miniature.getBlocks().size() + " blocks)");
+                        player.sendMessage(Util.PREFIX + "§aThe placed miniature was copied §e(" + miniature.getBlocks().size() + " blocks)");
                     }else{
-                        player.sendMessage(main.PREFIX + "§cThere is no miniature in the selected region");
+                        player.sendMessage(Util.PREFIX + "§cThere is no miniature in the selected region");
                     }
                 }catch(IllegalArgumentException e){
-                    player.sendMessage(main.PREFIX + "§c" + e.getMessage());
+                    player.sendMessage(Util.PREFIX + "§c" + e.getMessage());
                     return false;
                 }
         }
