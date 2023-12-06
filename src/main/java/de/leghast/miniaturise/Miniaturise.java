@@ -2,6 +2,7 @@ package de.leghast.miniaturise;
 
 import de.leghast.miniaturise.command.*;
 import de.leghast.miniaturise.completer.PositionTabCompleter;
+import de.leghast.miniaturise.completer.RotateTabCompleter;
 import de.leghast.miniaturise.completer.ScaleTabCompleter;
 import de.leghast.miniaturise.completer.ToolTabCompleter;
 import de.leghast.miniaturise.listener.InventoryClickListener;
@@ -62,12 +63,14 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("position").setExecutor(new PositionCommand(this));
         getCommand("clear").setExecutor(new ClearCommand(this));
         getCommand("adjust").setExecutor(new AdjustCommand(this));
+        getCommand("rotate").setExecutor(new RotateCommand(this));
     }
 
     public void setTabCompleters(){
         getCommand("position").setTabCompleter(new PositionTabCompleter());
         getCommand("scale").setTabCompleter(new ScaleTabCompleter());
         getCommand("tool").setTabCompleter(new ToolTabCompleter());
+        getCommand("rotate").setTabCompleter(new RotateTabCompleter());
     }
 
     /**

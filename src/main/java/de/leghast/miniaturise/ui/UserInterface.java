@@ -6,11 +6,10 @@ import de.leghast.miniaturise.ui.page.SizePage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
-public class Interface {
+public class UserInterface {
 
-    public Interface(Miniaturise main, Player player, Page page){
+    public UserInterface(Miniaturise main, Player player, Page page){
         Inventory inv = Bukkit.createInventory(null, 45, page.getTitle());
         switch (page){
             case POSITION -> {

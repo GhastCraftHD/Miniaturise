@@ -5,6 +5,7 @@ import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
 import de.leghast.miniaturise.instance.region.SelectedLocations;
 import de.leghast.miniaturise.instance.settings.AdjusterSettings;
 import de.leghast.miniaturise.manager.ConfigManager;
+import de.leghast.miniaturise.ui.UserInterface;
 import de.leghast.miniaturise.util.Util;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -93,14 +94,21 @@ public class PlayerInteractListener implements Listener {
             }
         }else if(action.isRightClick()){
             if(hand == EquipmentSlot.HAND){
-                PlacedMiniature placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
-                AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
-                switch (main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage()){
-                    case POSITION -> {
-                        placedMiniature.move(settings.getPositionSettings().getAxis(), settings.getPositionSettings().getFactor());
+                if(player.isSneaking()){
+                    if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
+                        main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
                     }
-                    case SIZE -> {
-                        placedMiniature.scaleUp(settings.getSizeSettings().getFactor());
+                    new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+                }else{
+                    PlacedMiniature placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
+                    AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
+                    switch (main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage()){
+                        case POSITION -> {
+                            placedMiniature.move(settings.getPositionSettings().getAxis(), settings.getPositionSettings().getFactor());
+                        }
+                        case SIZE -> {
+                            placedMiniature.scaleUp(settings.getSizeSettings().getFactor());
+                        }
                     }
                 }
             }

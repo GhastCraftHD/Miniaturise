@@ -20,7 +20,7 @@ commands:
   tool:
     description: Get or set specific tools
   delete:
-    description: Deletes the last placed miniature
+    description: Deletes the selected placed miniature
   copy:
     description: Copies the placed miniatures from the region, if you have selected the two corner locations.
   position:
@@ -30,3 +30,5 @@ commands:
     description: Clears your clipboard
   adjust:
     description: Opens the settings for the adjuster tool
+  rotate:
+    description: Rotates the selected placed miniature

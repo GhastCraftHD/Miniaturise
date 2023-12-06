@@ -6,7 +6,7 @@ import de.leghast.miniaturise.instance.settings.PositionSettings;
 import de.leghast.miniaturise.instance.settings.SizeSettings;
 import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.instance.settings.Axis;
-import de.leghast.miniaturise.ui.Interface;
+import de.leghast.miniaturise.ui.UserInterface;
 import de.leghast.miniaturise.ui.Page;
 import de.leghast.miniaturise.util.Util;
 import org.bukkit.entity.Player;
@@ -75,7 +75,7 @@ public class InventoryClickListener implements Listener {
             }
         }
 
-        new Interface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
     }
 
     private void handleSizeInteractions(int slot, Player player){
@@ -106,7 +106,7 @@ public class InventoryClickListener implements Listener {
             }
         }
 
-        new Interface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
     }
 
 }

@@ -6,7 +6,12 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
+import org.joml.AxisAngle4f;
+import org.joml.Matrix3f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
+import javax.xml.crypto.dsig.Transform;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +91,59 @@ public class PlacedMiniature {
             bd.setTransformation(transformation);
         }
     }
+
+    public void rotate(Axis axis, float angle){
+        Location origin = blockDisplays.get(0).getLocation();
+        angle = (float) Math.toRadians(angle);
+
+        for(BlockDisplay bd : blockDisplays){
+
+            Transformation transformation = bd.getTransformation();
+
+            switch (axis){
+                case X -> transformation.getLeftRotation().rotateX(angle);
+                case Y -> transformation.getLeftRotation().rotateY(angle);
+                case Z -> transformation.getLeftRotation().rotateZ(angle);
+            }
+
+            bd.setTransformation(transformation);
+
+            Vector3f newPositionVector = getRotatedPosition(
+                    bd.getLocation().toVector().toVector3f(),
+                    origin.toVector().toVector3f(),
+                    axis,
+                    angle
+            );
+
+            Location newLocation = new Location(
+                    bd.getLocation().getWorld(),
+                    newPositionVector.x,
+                    newPositionVector.y,
+                    newPositionVector.z
+            );
+
+            bd.teleport(newLocation);
+        }
+
+    }
+
+    private Vector3f getRotatedPosition(Vector3f pointToRotate, Vector3f origin, Axis axis, float angle){
+        pointToRotate.sub(origin);
+        Matrix3f rotationMatrix = new Matrix3f();
+
+        switch (axis){
+            case X -> rotationMatrix.rotationX(angle);
+            case Y -> rotationMatrix.rotationY(angle);
+            case Z -> rotationMatrix.rotationZ(angle);
+        }
+
+        rotationMatrix.transform(pointToRotate);
+
+        pointToRotate.add(origin);
+
+        return pointToRotate;
+    }
+
 
     public void move(Vector addition){
         for(BlockDisplay bd : blockDisplays){

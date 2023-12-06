@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.ui.Interface;
+import de.leghast.miniaturise.ui.UserInterface;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +23,7 @@ public class AdjustCommand implements CommandExecutor {
             if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
                 main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
             }
-            new Interface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+            new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
             return true;
         }
         return false;
