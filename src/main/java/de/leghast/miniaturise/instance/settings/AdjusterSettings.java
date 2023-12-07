@@ -9,6 +9,7 @@ public class AdjusterSettings {
 
     private PositionSettings positionSettings;
     private SizeSettings sizeSettings;
+    private RotationSettings rotationSettings;
 
     private Page page;
 
@@ -17,6 +18,7 @@ public class AdjusterSettings {
 
         positionSettings = new PositionSettings(this);
         sizeSettings = new SizeSettings(this);
+        rotationSettings = new RotationSettings(this);
 
         page = Page.POSITION;
     }
@@ -27,6 +29,10 @@ public class AdjusterSettings {
 
     public SizeSettings getSizeSettings(){
         return sizeSettings;
+    }
+
+    public RotationSettings getRotationSettings(){
+        return rotationSettings;
     }
 
     public Page getPage(){

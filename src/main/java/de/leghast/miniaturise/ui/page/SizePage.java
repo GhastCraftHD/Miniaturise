@@ -37,6 +37,16 @@ public class SizePage {
         PageUtil.addGlint(size);
         content[9] = size;
 
+        ItemStack rotation = new ItemStack(Material.ITEM_FRAME);
+        ItemMeta rotationMeta = rotation.getItemMeta();
+        rotationMeta.setDisplayName("§eRotation");
+        List<String> rotationLore = new ArrayList<>();
+        rotationLore.add("§7Adjust the rotation");
+        rotationLore.add("§7of the placed miniature");
+        rotationMeta.setLore(rotationLore);
+        rotation.setItemMeta(rotationMeta);
+        content[18] = rotation;
+
         ItemStack adjuster = new ItemStack(ConfigManager.getAdjusterToolMaterial());
         ItemMeta adjusterMeta = size.getItemMeta();
         adjusterMeta.setDisplayName("§6Adjuster Tool");

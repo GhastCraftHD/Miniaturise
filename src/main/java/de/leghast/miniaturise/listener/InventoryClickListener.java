@@ -1,11 +1,8 @@
 package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.settings.AdjusterSettings;
-import de.leghast.miniaturise.instance.settings.PositionSettings;
-import de.leghast.miniaturise.instance.settings.SizeSettings;
+import de.leghast.miniaturise.instance.settings.*;
 import de.leghast.miniaturise.manager.ConfigManager;
-import de.leghast.miniaturise.instance.settings.Axis;
 import de.leghast.miniaturise.ui.UserInterface;
 import de.leghast.miniaturise.ui.Page;
 import de.leghast.miniaturise.util.Util;
@@ -34,8 +31,10 @@ public class InventoryClickListener implements Listener {
         }else if(title.contains(Page.SIZE.getTitle())){
             handleSizeInteractions(e.getRawSlot(), player);
             e.setCancelled(true);
+        }else if(title.contains(Page.ROTATION.getTitle())){
+            handleRotationInteractions(e.getRawSlot(), player);
+            e.setCancelled(true);
         }
-
     }
 
     private void handlePositionInteractions(int slot, Player player){
@@ -48,6 +47,9 @@ public class InventoryClickListener implements Listener {
             }
             case 9 -> {
                 settings.setPage(Page.SIZE);
+            }
+            case 18 ->{
+                settings.setPage(Page.ROTATION);
             }
             case 11 -> {
                 positionSettings.setFactor(0.25);
@@ -89,6 +91,9 @@ public class InventoryClickListener implements Listener {
             case 8 -> {
                 player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
             }
+            case 18 ->{
+                settings.setPage(Page.ROTATION);
+            }
             case 20 -> {
                 sizeSettings.setFactor(0.25);
             }
@@ -103,6 +108,49 @@ public class InventoryClickListener implements Listener {
             }
             case 24 -> {
                 Util.setCustomNumberInput(main, player, settings.getPage());
+            }
+        }
+
+        new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+    }
+
+    private void handleRotationInteractions(int slot, Player player){
+        AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
+        RotationSettings rotationSettings = settings.getRotationSettings();
+
+        switch (slot){
+            case 0 -> {
+                settings.setPage(Page.POSITION);
+            }
+            case 8 -> {
+                player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+            }
+            case 9 -> {
+                settings.setPage(Page.SIZE);
+            }
+            case 11 -> {
+                rotationSettings.setFactor(22.5);
+            }
+            case 12 -> {
+                rotationSettings.setFactor(45);
+            }
+            case 13 -> {
+                rotationSettings.setFactor(90);
+            }
+            case 14 -> {
+                rotationSettings.setFactor(180);
+            }
+            case 15 -> {
+                Util.setCustomNumberInput(main, player, settings.getPage());
+            }
+            case 30 -> {
+                rotationSettings.setAxis(Axis.X);
+            }
+            case 31 -> {
+                rotationSettings.setAxis(Axis.Y);
+            }
+            case 32 -> {
+                rotationSettings.setAxis(Axis.Z);
             }
         }
 

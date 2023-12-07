@@ -91,6 +91,9 @@ public class PlayerInteractListener implements Listener {
                 case SIZE -> {
                     placedMiniature.scaleDown(settings.getSizeSettings().getFactor());
                 }
+                case ROTATION -> {
+                    placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) -settings.getRotationSettings().getFactor());
+                }
             }
         }else if(action.isRightClick()){
             if(hand == EquipmentSlot.HAND){
@@ -108,6 +111,9 @@ public class PlayerInteractListener implements Listener {
                         }
                         case SIZE -> {
                             placedMiniature.scaleUp(settings.getSizeSettings().getFactor());
+                        }
+                        case ROTATION -> {
+                            placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) settings.getRotationSettings().getFactor());
                         }
                     }
                 }

@@ -1,8 +1,8 @@
 package de.leghast.miniaturise.ui.page;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.instance.settings.Axis;
+import de.leghast.miniaturise.manager.ConfigManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,13 +11,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PositionPage {
+public class RotationPage {
 
-    public static ItemStack[] getPositionPage(Miniaturise main, Player player){
+    public static ItemStack[] getRotationPage(Miniaturise main, Player player){
         ItemStack[] content = new ItemStack[45];
 
-        double factor = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPositionSettings().getFactor();
-        Axis axis = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPositionSettings().getAxis();
+        double factor = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getRotationSettings().getFactor();
+        Axis axis = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getRotationSettings().getAxis();
 
         ItemStack position = new ItemStack(Material.MAGENTA_GLAZED_TERRACOTTA);
         ItemMeta positionMeta = position.getItemMeta();
@@ -27,7 +27,6 @@ public class PositionPage {
         positionLore.add("§7of the placed miniature");
         positionMeta.setLore(positionLore);
         position.setItemMeta(positionMeta);
-        PageUtil.addGlint(position);
         content[0] = position;
 
         ItemStack size = new ItemStack(Material.PUFFERFISH);
@@ -48,6 +47,7 @@ public class PositionPage {
         rotationLore.add("§7of the placed miniature");
         rotationMeta.setLore(rotationLore);
         rotation.setItemMeta(rotationMeta);
+        PageUtil.addGlint(rotation);
         content[18] = rotation;
 
         ItemStack adjuster = new ItemStack(ConfigManager.getAdjusterToolMaterial());
@@ -62,55 +62,45 @@ public class PositionPage {
 
         ItemStack quarter = new ItemStack(Material.COAL);
         ItemMeta quarterMeta = quarter.getItemMeta();
-        quarterMeta.setDisplayName("§70.25 blocks");
+        quarterMeta.setDisplayName("§722.5 degrees");
         quarter.setItemMeta(quarterMeta);
-        if(factor == 0.25){
+        if(factor == 22.5){
             PageUtil.addGlint(quarter);
         }
         content[11] = quarter;
 
         ItemStack half = new ItemStack(Material.IRON_INGOT);
         ItemMeta halfMeta = half.getItemMeta();
-        halfMeta.setDisplayName("§70.5 blocks");
+        halfMeta.setDisplayName("§745 degrees");
         half.setItemMeta(halfMeta);
-        if(factor == 0.5){
+        if(factor == 45){
             PageUtil.addGlint(half);
         }
         content[12] = half;
 
         ItemStack full = new ItemStack(Material.DIAMOND);
         ItemMeta fullMeta = full.getItemMeta();
-        fullMeta.setDisplayName("§71 block");
+        fullMeta.setDisplayName("§790 degrees");
         full.setItemMeta(fullMeta);
-        if(factor == 1){
+        if(factor == 90){
             PageUtil.addGlint(full);
         }
         content[13] = full;
 
         ItemStack miniatureBlockSize = new ItemStack(Material.GRASS_BLOCK);
         ItemMeta miniatureBlockSizeMeta = miniatureBlockSize.getItemMeta();
-        if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-            double blockSize = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize();
-            miniatureBlockSizeMeta.setDisplayName("§7Miniature block size (" + blockSize + " block" + (blockSize == 1 ? "" : "s") + ")");
-        }else{
-            miniatureBlockSizeMeta.setDisplayName("§7Miniature block size §c(not set yet)");
-        }
+        miniatureBlockSizeMeta.setDisplayName("§7180 degrees");
         miniatureBlockSize.setItemMeta(miniatureBlockSizeMeta);
-        if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())) {
-            if (factor == main.getMiniatureManager().getMiniature(player.getUniqueId()).getSize()) {
-                PageUtil.addGlint(miniatureBlockSize);
-            }
+        if(factor == 180){
+            PageUtil.addGlint(miniatureBlockSize);
         }
         content[14] = miniatureBlockSize;
 
         ItemStack custom = new ItemStack(Material.PAPER);
         ItemMeta customMeta = custom.getItemMeta();
-        customMeta.setDisplayName("§7Custom factor §e(" + factor + " block" + (factor == 1 ? "" : "s") + ")");
+        customMeta.setDisplayName("§7Custom factor §e(" + factor + " degree" + (factor == 1 ? "" : "s") + ")");
         custom.setItemMeta(customMeta);
-        boolean condition = factor != 0.25 && factor != 0.5 && factor != 1;
-        if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-            condition = condition && factor != main.getMiniatureManager().getMiniature(player.getUniqueId()).getSize();
-        }
+        boolean condition = factor != 22.5 && factor != 45 && factor != 90 && factor != 180;
         if(condition){
             PageUtil.addGlint(custom);
         }
