@@ -9,7 +9,7 @@ Use the **selector tool** (wooden shovel by default) or the **/position** comman
 
 Use **/select** to select the region
 
-Use **/scale selection <value>** to scale your miniature
+Use **/scale selection [value]** to scale your miniature
 
 Use **/paste** to paste the miniature relative to your position
 
@@ -19,12 +19,12 @@ Use **/delete** to remove the placed miniature from your world
 
 Use **/clear** to clear your clipboard
 
-Use **/scale miniature <value>** to scale a placed miniature
+Use **/scale miniature [value]** to scale a placed miniature
 
 Use **/tools** for a overview of all tools and the items they are bound to
 
-Use **/tool get <tool>** to get a tool
+Use **/tool get [tool]** to get a tool
 
-Use **/tool set <tool>** to bind the tool to a new item
+Use **/tool set [tool]** to bind the tool to a new item
 
 
