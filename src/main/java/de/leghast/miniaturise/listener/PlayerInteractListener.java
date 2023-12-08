@@ -85,15 +85,9 @@ public class PlayerInteractListener implements Listener {
             PlacedMiniature placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
             AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
             switch (main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage()){
-                case POSITION -> {
-                    placedMiniature.move(settings.getPositionSettings().getAxis(), -settings.getPositionSettings().getFactor());
-                }
-                case SIZE -> {
-                    placedMiniature.scaleDown(settings.getSizeSettings().getFactor());
-                }
-                case ROTATION -> {
-                    placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) -settings.getRotationSettings().getFactor());
-                }
+                case POSITION -> placedMiniature.move(settings.getPositionSettings().getAxis(), -settings.getPositionSettings().getFactor());
+                case SIZE -> placedMiniature.scaleDown(settings.getSizeSettings().getFactor());
+                case ROTATION -> placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) -settings.getRotationSettings().getFactor());
             }
         }else if(action.isRightClick()){
             if(hand == EquipmentSlot.HAND){
@@ -106,15 +100,9 @@ public class PlayerInteractListener implements Listener {
                     PlacedMiniature placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
                     AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
                     switch (main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage()){
-                        case POSITION -> {
-                            placedMiniature.move(settings.getPositionSettings().getAxis(), settings.getPositionSettings().getFactor());
-                        }
-                        case SIZE -> {
-                            placedMiniature.scaleUp(settings.getSizeSettings().getFactor());
-                        }
-                        case ROTATION -> {
-                            placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) settings.getRotationSettings().getFactor());
-                        }
+                        case POSITION -> placedMiniature.move(settings.getPositionSettings().getAxis(), settings.getPositionSettings().getFactor());
+                        case SIZE -> placedMiniature.scaleUp(settings.getSizeSettings().getFactor());
+                        case ROTATION -> placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) settings.getRotationSettings().getFactor());
                     }
                 }
             }

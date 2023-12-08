@@ -3,7 +3,6 @@ package de.leghast.miniaturise.util;
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.instance.region.Region;
 import de.leghast.miniaturise.instance.settings.AdjusterSettings;
-import de.leghast.miniaturise.instance.settings.PositionSettings;
 import de.leghast.miniaturise.ui.Page;
 import de.leghast.miniaturise.ui.page.PageUtil;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -18,7 +17,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Util {
 
