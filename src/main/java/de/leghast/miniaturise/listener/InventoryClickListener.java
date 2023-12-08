@@ -42,39 +42,17 @@ public class InventoryClickListener implements Listener {
         PositionSettings positionSettings = settings.getPositionSettings();
 
         switch (slot){
-            case 8 -> {
-                player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
-            }
-            case 9 -> {
-                settings.setPage(Page.SIZE);
-            }
-            case 18 ->{
-                settings.setPage(Page.ROTATION);
-            }
-            case 11 -> {
-                positionSettings.setFactor(0.25);
-            }
-            case 12 -> {
-                positionSettings.setFactor(0.5);
-            }
-            case 13 -> {
-                positionSettings.setFactor(1);
-            }
-            case 14 -> {
-                positionSettings.setFactor(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize());
-            }
-            case 15 -> {
-                Util.setCustomNumberInput(main, player, settings.getPage());
-            }
-            case 30 -> {
-                positionSettings.setAxis(Axis.X);
-            }
-            case 31 -> {
-                positionSettings.setAxis(Axis.Y);
-            }
-            case 32 -> {
-                positionSettings.setAxis(Axis.Z);
-            }
+            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+            case 9 -> settings.setPage(Page.SIZE);
+            case 18 -> settings.setPage(Page.ROTATION);
+            case 11 -> positionSettings.setFactor(0.25);
+            case 12 -> positionSettings.setFactor(0.5);
+            case 13 -> positionSettings.setFactor(1);
+            case 14 -> positionSettings.setFactor(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize());
+            case 15 -> Util.setCustomNumberInput(main, player, settings.getPage());
+            case 30 -> positionSettings.setAxis(Axis.X);
+            case 31 -> positionSettings.setAxis(Axis.Y);
+            case 32 -> positionSettings.setAxis(Axis.Z);
         }
 
         new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
@@ -85,30 +63,14 @@ public class InventoryClickListener implements Listener {
         SizeSettings sizeSettings = settings.getSizeSettings();
 
         switch (slot){
-            case 0 -> {
-                settings.setPage(Page.POSITION);
-            }
-            case 8 -> {
-                player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
-            }
-            case 18 ->{
-                settings.setPage(Page.ROTATION);
-            }
-            case 20 -> {
-                sizeSettings.setFactor(0.25);
-            }
-            case 21 -> {
-                sizeSettings.setFactor(0.5);
-            }
-            case 22 -> {
-                sizeSettings.setFactor(1);
-            }
-            case 23 -> {
-                sizeSettings.setFactor(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize());
-            }
-            case 24 -> {
-                Util.setCustomNumberInput(main, player, settings.getPage());
-            }
+            case 0 -> settings.setPage(Page.POSITION);
+            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+            case 18 -> settings.setPage(Page.ROTATION);
+            case 20 -> sizeSettings.setFactor(0.25);
+            case 21 -> sizeSettings.setFactor(0.5);
+            case 22 -> sizeSettings.setFactor(1);
+            case 23 -> sizeSettings.setFactor(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize());
+            case 24 -> Util.setCustomNumberInput(main, player, settings.getPage());
         }
 
         new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
@@ -119,39 +81,17 @@ public class InventoryClickListener implements Listener {
         RotationSettings rotationSettings = settings.getRotationSettings();
 
         switch (slot){
-            case 0 -> {
-                settings.setPage(Page.POSITION);
-            }
-            case 8 -> {
-                player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
-            }
-            case 9 -> {
-                settings.setPage(Page.SIZE);
-            }
-            case 11 -> {
-                rotationSettings.setFactor(22.5);
-            }
-            case 12 -> {
-                rotationSettings.setFactor(45);
-            }
-            case 13 -> {
-                rotationSettings.setFactor(90);
-            }
-            case 14 -> {
-                rotationSettings.setFactor(180);
-            }
-            case 15 -> {
-                Util.setCustomNumberInput(main, player, settings.getPage());
-            }
-            case 30 -> {
-                rotationSettings.setAxis(Axis.X);
-            }
-            case 31 -> {
-                rotationSettings.setAxis(Axis.Y);
-            }
-            case 32 -> {
-                rotationSettings.setAxis(Axis.Z);
-            }
+            case 0 -> settings.setPage(Page.POSITION);
+            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+            case 9 -> settings.setPage(Page.SIZE);
+            case 11 -> rotationSettings.setFactor(22.5);
+            case 12 -> rotationSettings.setFactor(45);
+            case 13 -> rotationSettings.setFactor(90);
+            case 14 -> rotationSettings.setFactor(180);
+            case 15 -> Util.setCustomNumberInput(main, player, settings.getPage());
+            case 30 -> rotationSettings.setAxis(Axis.X);
+            case 31 -> rotationSettings.setAxis(Axis.Y);
+            case 32 -> rotationSettings.setAxis(Axis.Z);
         }
 
         new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());

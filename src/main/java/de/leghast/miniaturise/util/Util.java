@@ -67,12 +67,9 @@ public class Util {
                     if(slot == AnvilGUI.Slot.OUTPUT){
                         AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
                         switch (page){
-                            case POSITION -> {
-                                settings.getPositionSettings().setFactor(stateSnapshot.getText());
-                            }
-                            case SIZE -> {
-                                settings.getSizeSettings().setFactor(stateSnapshot.getText());
-                            }
+                            case POSITION -> settings.getPositionSettings().setFactor(stateSnapshot.getText());
+                            case SIZE -> settings.getSizeSettings().setFactor(stateSnapshot.getText());
+                            case ROTATION -> settings.getRotationSettings().setFactor(stateSnapshot.getText());
                         }
                         return Arrays.asList(AnvilGUI.ResponseAction.close());
                     }
