@@ -1,5 +1,5 @@
 # Miniaturise
-A Minecraft paper plugin that helps you to create miniatures of your builds (Idea by reyzixDE)
+A Minecraft Paper plugin that helps you to create miniatures of your builds and makes working with Block Displays easy (Idea by reyzixDE)
 
 ## Install
 Simply download the latest release and drag it into the "plugins" folder of your paper server
