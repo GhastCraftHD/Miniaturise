@@ -1,22 +1,30 @@
 # Miniaturise
-A Minecraft paper plugin that helps you to create miniatures of your builds
+A Minecraft Paper plugin that helps you to create miniatures of your builds and makes working with Block Displays easy (Idea by reyzixDE)
 
 ## Install
 Simply download the latest release and drag it into the "plugins" folder of your paper server
 
 ## Usage
-Use a wooden shovel to select the region by using left and right click
+Use the **selector tool** (wooden shovel by default) or the **/position** command to mark the region that you want to miniaturise
 
-Type /select in the chat to select the region between the two set locations
+Use **/select** to select the region
 
-Set the scale of the miniature with /scale 
+Use **/scale selection [value]** to scale your miniature
 
-Place you miniature into your world with /paste
+Use **/paste** to paste the miniature relative to your position
 
-Delete the miniature that was pasted last with /delete
+Use **/adjust** and the **adjuster tool** (brush by default) to adjust size and position of your placed miniature
 
-Cut your selection from the world with /cut
+Use **/delete** to remove the placed miniature from your world
 
-Change the default selection tool with /tool set
+Use **/clear** to clear your clipboard
 
-Clear all miniatures from a specific region with /clear
+Use **/scale miniature [value]** to scale a placed miniature
+
+Use **/tools** for a overview of all tools and the items they are bound to
+
+Use **/tool get [tool]** to get a tool
+
+Use **/tool set [tool]** to bind the tool to a new item
+
+
