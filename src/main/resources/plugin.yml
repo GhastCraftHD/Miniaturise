@@ -3,7 +3,7 @@ version: '${project.version}'
 main: de.leghast.miniaturise.Miniaturise
 api-version: '1.20'
 authors: [GhastCraftHD]
-description: A tool which lets you create miniatures of your builds and makes working with block displays easy
+description: A tool which lets you create miniatures of your builds and makes working with block displays easy (Idea by reyzixDE)
 website: https://www.github.com/LeGhast/Miniaturise
 commands:
   select:

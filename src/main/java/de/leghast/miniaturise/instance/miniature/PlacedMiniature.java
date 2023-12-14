@@ -6,12 +6,9 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
-import org.joml.AxisAngle4f;
 import org.joml.Matrix3f;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import javax.xml.crypto.dsig.Transform;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +112,7 @@ public class PlacedMiniature {
                     angle
             );
 
+
             Location newLocation = new Location(
                     bd.getLocation().getWorld(),
                     newPositionVector.x,
@@ -144,7 +142,6 @@ public class PlacedMiniature {
         return pointToRotate;
     }
 
-
     public void move(Vector addition){
         for(BlockDisplay bd : blockDisplays){
             bd.teleport(bd.getLocation().add(addition));
@@ -153,15 +150,9 @@ public class PlacedMiniature {
 
     public void move(Axis axis, double addition){
         switch (axis){
-            case X ->{
-                move(new Vector(addition, 0, 0));
-            }
-            case Y ->{
-                move(new Vector(0, addition, 0));
-            }
-            case Z ->{
-                move(new Vector(0, 0, addition));
-            }
+            case X -> move(new Vector(addition, 0, 0));
+            case Y -> move(new Vector(0, addition, 0));
+            case Z -> move(new Vector(0, 0, addition));
         }
     }
 
