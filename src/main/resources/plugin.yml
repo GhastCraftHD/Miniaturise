@@ -32,3 +32,8 @@ commands:
     description: Opens the settings for the adjuster tool
   rotate:
     description: Rotates the selected placed miniature
+
+permissions:
+  miniaturise.use:
+    default: op
+    description: The permission that lets you use Miniaturise

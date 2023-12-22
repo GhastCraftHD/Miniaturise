@@ -23,49 +23,51 @@ public class ToolCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(sender instanceof Player player){
-            if(args.length >= 2 && args[0].equalsIgnoreCase("set")){
-                switch (args[1]){
-                    case "selector" -> {
-                        if(args.length == 3 && Material.matchMaterial(args[2]) != null){
-                            ConfigManager.setSelectorToolMaterial(Material.matchMaterial(args[2]));
-                            player.sendMessage(Util.PREFIX + "§aThe selector tool was set to §eminecraft:" +
-                                    ConfigManager.getSelectorToolMaterial().name().toLowerCase());    
-                        }else{
-                            player.sendMessage(Util.PREFIX + "§cPlease specify a valid item/block");
-                        }
-                        if(args.length == 2 && player.getInventory().getItemInMainHand().getType().isAir()){
-                            if(player.getInventory().getItemInMainHand().getType() != ConfigManager.getSelectorToolMaterial()){
-                                ConfigManager.setSelectorToolMaterial(player.getInventory().getItemInMainHand().getType());
+            if(player.hasPermission("miniaturise.use")){
+                if(args.length >= 2 && args[0].equalsIgnoreCase("set")){
+                    switch (args[1]){
+                        case "selector" -> {
+                            if(args.length == 3 && Material.matchMaterial(args[2]) != null){
+                                ConfigManager.setSelectorToolMaterial(Material.matchMaterial(args[2]));
                                 player.sendMessage(Util.PREFIX + "§aThe selector tool was set to §eminecraft:" +
                                         ConfigManager.getSelectorToolMaterial().name().toLowerCase());
                             }else{
-                                player.sendMessage(Util.PREFIX + "§cThe selector tool is already set to §eminecraft:" +
-                                        ConfigManager.getSelectorToolMaterial().name().toLowerCase());
-                            }    
-                        }else{
-                            player.sendMessage(Util.PREFIX + "§cPlease hold an item in your main hand or specify the item in the command");    
+                                player.sendMessage(Util.PREFIX + "§cPlease specify a valid item/block");
+                            }
+                            if(args.length == 2 && player.getInventory().getItemInMainHand().getType().isAir()){
+                                if(player.getInventory().getItemInMainHand().getType() != ConfigManager.getSelectorToolMaterial()){
+                                    ConfigManager.setSelectorToolMaterial(player.getInventory().getItemInMainHand().getType());
+                                    player.sendMessage(Util.PREFIX + "§aThe selector tool was set to §eminecraft:" +
+                                            ConfigManager.getSelectorToolMaterial().name().toLowerCase());
+                                }else{
+                                    player.sendMessage(Util.PREFIX + "§cThe selector tool is already set to §eminecraft:" +
+                                            ConfigManager.getSelectorToolMaterial().name().toLowerCase());
+                                }
+                            }else{
+                                player.sendMessage(Util.PREFIX + "§cPlease hold an item in your main hand or specify the item in the command");
+                            }
+                        }
+                        case "adjuster" -> {
+
+                        }
+                        default -> {
+                            player.sendMessage(Util.PREFIX + "§cPlease specify a valid tool");
                         }
                     }
-                    case "adjuster" -> {
-                        
+                }else if(args.length == 2 && args[0].equalsIgnoreCase("get")){
+                    switch (args[1]){
+                        case "selector" -> {
+                            player.getInventory().addItem(new ItemStack(ConfigManager.getSelectorToolMaterial()));
+                            player.sendMessage(Util.PREFIX + "§aYou recieved the §eselector §atool");
+                        }
+                        case "adjuster" -> {
+                            player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+                            player.sendMessage(Util.PREFIX + "§aYou recieved the §eadjuster §atool");
+                        }
                     }
-                    default -> {
-                        player.sendMessage(Util.PREFIX + "§cPlease specify a valid tool");
-                    }
+                }else{
+                    player.sendMessage(Util.PREFIX + "§cUsage /tool <set/get> <tool>");
                 }
-            }else if(args.length == 2 && args[0].equalsIgnoreCase("get")){
-                switch (args[1]){
-                    case "selector" -> {
-                        player.getInventory().addItem(new ItemStack(ConfigManager.getSelectorToolMaterial()));
-                        player.sendMessage(Util.PREFIX + "§aYou recieved the §eselector §atool");    
-                    }
-                    case "adjuster" -> {
-                        player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
-                        player.sendMessage(Util.PREFIX + "§aYou recieved the §eadjuster §atool");
-                    }
-                }   
-            }else{
-                player.sendMessage(Util.PREFIX + "§cUsage /tool <set/get> <tool>");
             }
         }
         return false;

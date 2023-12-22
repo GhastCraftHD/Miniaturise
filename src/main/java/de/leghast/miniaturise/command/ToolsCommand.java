@@ -21,10 +21,12 @@ public class ToolsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(sender instanceof Player player){
-            player.sendMessage(Util.PREFIX + "§aThese items/blocks are currently bound to tools:");
-            player.sendMessage(Util.PREFIX + "§a  - Selector: §eminecraft:" + ConfigManager.getSelectorToolMaterial().name().toLowerCase());
-            player.sendMessage(Util.PREFIX + "§a  - Adjuster: §eminecraft:" + ConfigManager.getAdjusterToolMaterial().name().toLowerCase());
-            return true;
+            if(player.hasPermission("miniaturise.use")){
+                player.sendMessage(Util.PREFIX + "§aThese items/blocks are currently bound to tools:");
+                player.sendMessage(Util.PREFIX + "§a  - Selector: §eminecraft:" + ConfigManager.getSelectorToolMaterial().name().toLowerCase());
+                player.sendMessage(Util.PREFIX + "§a  - Adjuster: §eminecraft:" + ConfigManager.getAdjusterToolMaterial().name().toLowerCase());
+                return true;
+            }
         }
         return false;
     }

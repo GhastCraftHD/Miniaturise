@@ -5,6 +5,7 @@ import de.leghast.miniaturise.instance.miniature.Miniature;
 import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
 import de.leghast.miniaturise.instance.region.Region;
 import de.leghast.miniaturise.util.Util;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,32 +29,36 @@ public class CopyCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(sender instanceof Player player){
-                try{
-                    Region region = new Region(main.getRegionManager().getSelectedLocations(player.getUniqueId()));
-                    if(main.getRegionManager().hasRegion(player.getUniqueId())) {
-                        main.getRegionManager().getRegions().replace(player.getUniqueId(), region);
-                    }else{
-                        main.getRegionManager().addRegion(player.getUniqueId(), region);
-                    }
-
-                    List<BlockDisplay> blockDisplays = Util.getBlockDisplaysFromRegion(player, region);
-
-                    if(!blockDisplays.isEmpty()){
-                        Miniature miniature = new Miniature(new PlacedMiniature(blockDisplays), player.getLocation(),
-                                blockDisplays.get(0).getTransformation().getScale().x());
-                        if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
-                            main.getMiniatureManager().getMiniatures().replace(player.getUniqueId(), miniature);
-                        }else{
-                            main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
+            if(player.hasPermission("miniaturise.use")) {
+                Bukkit.getScheduler().runTaskAsynchronously(main, () -> {
+                    try {
+                        Region region = new Region(main.getRegionManager().getSelectedLocations(player.getUniqueId()));
+                        if (main.getRegionManager().hasRegion(player.getUniqueId())) {
+                            main.getRegionManager().getRegions().replace(player.getUniqueId(), region);
+                        } else {
+                            main.getRegionManager().addRegion(player.getUniqueId(), region);
                         }
-                        player.sendMessage(Util.PREFIX + "§aThe placed miniature was copied §e(" + miniature.getBlocks().size() + " blocks)");
-                    }else{
-                        player.sendMessage(Util.PREFIX + "§cThere is no miniature in the selected region");
+
+                        List<BlockDisplay> blockDisplays = Util.getBlockDisplaysFromRegion(player, region);
+
+                        if (!blockDisplays.isEmpty()) {
+                            Miniature miniature = new Miniature(new PlacedMiniature(blockDisplays), player.getLocation(),
+                                    blockDisplays.get(0).getTransformation().getScale().x());
+                            if (main.getMiniatureManager().hasMiniature(player.getUniqueId())) {
+                                main.getMiniatureManager().getMiniatures().replace(player.getUniqueId(), miniature);
+                            } else {
+                                main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
+                            }
+                            player.sendMessage(Util.PREFIX + "§aThe placed miniature was copied §e(" + miniature.getBlocks().size() + " blocks)");
+                        } else {
+                            player.sendMessage(Util.PREFIX + "§cThere is no miniature in the selected region");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        player.sendMessage(Util.PREFIX + "§c" + e.getMessage());
                     }
-                }catch(IllegalArgumentException e){
-                    player.sendMessage(Util.PREFIX + "§c" + e.getMessage());
-                    return false;
-                }
+                });
+            }
+
         }
         return false;
     }

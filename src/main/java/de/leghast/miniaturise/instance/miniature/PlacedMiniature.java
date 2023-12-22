@@ -1,6 +1,8 @@
 package de.leghast.miniaturise.instance.miniature;
 
+import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.instance.settings.Axis;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
@@ -60,68 +62,80 @@ public class PlacedMiniature {
     }
 
     public void scaleUp(double scale){
-        Location origin = blockDisplays.get(0).getLocation();
-        Miniature miniature = new Miniature(this, origin, blockSize);
-        miniature.scaleUp(scale);
-        rearrange(origin, miniature);
-        blockSize *= scale;
+        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
+            Location origin = blockDisplays.get(0).getLocation();
+            Miniature miniature = new Miniature(this, origin, blockSize);
+            miniature.scaleUp(scale);
+            rearrange(origin, miniature);
+            blockSize *= scale;
+        });
     }
 
     public void scaleDown(double scale){
-        Location origin = blockDisplays.get(0).getLocation();
-        Miniature miniature = new Miniature(this, origin, blockSize);
-        miniature.scaleDown(scale);
-        rearrange(origin, miniature);
-        blockSize /= scale;
+        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
+            Location origin = blockDisplays.get(0).getLocation();
+            Miniature miniature = new Miniature(this, origin, blockSize);
+            miniature.scaleDown(scale);
+            rearrange(origin, miniature);
+            blockSize /= scale;
+                });
     }
 
     private void rearrange(Location origin, Miniature miniature) {
-        for(int i = 0; i < getBlockCount(); i++){
-            BlockDisplay bd = blockDisplays.get(i);
-            MiniatureBlock mb = miniature.getBlocks().get(i);
-            bd.teleport(new Location( bd.getWorld(),
-                    mb.getX() + origin.getX(),
-                    mb.getY() + origin.getY(),
-                    mb.getZ() + origin.getZ()));
-            Transformation transformation = bd.getTransformation();
-            transformation.getScale().set(mb.getSize());
-            bd.setTransformation(transformation);
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
+            for(int i = 0; i < getBlockCount(); i++){
+                BlockDisplay bd = blockDisplays.get(i);
+                MiniatureBlock mb = miniature.getBlocks().get(i);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
+                    bd.teleport(new Location( bd.getWorld(),
+                            mb.getX() + origin.getX(),
+                            mb.getY() + origin.getY(),
+                            mb.getZ() + origin.getZ()));
+                    Transformation transformation = bd.getTransformation();
+                    transformation.getScale().set(mb.getSize());
+                    bd.setTransformation(transformation);
+                });
+            }
+        });
     }
 
     public void rotate(Axis axis, float angle){
         Location origin = blockDisplays.get(0).getLocation();
-        angle = (float) Math.toRadians(angle);
+        float finalAngle = (float) Math.toRadians(angle);
+        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
 
-        for(BlockDisplay bd : blockDisplays){
+            for(BlockDisplay bd : blockDisplays){
 
-            Transformation transformation = bd.getTransformation();
+                Transformation transformation = bd.getTransformation();
 
-            switch (axis){
-                case X -> transformation.getLeftRotation().rotateX(angle);
-                case Y -> transformation.getLeftRotation().rotateY(angle);
-                case Z -> transformation.getLeftRotation().rotateZ(angle);
+                switch (axis){
+                    case X -> transformation.getLeftRotation().rotateX(finalAngle);
+                    case Y -> transformation.getLeftRotation().rotateY(finalAngle);
+                    case Z -> transformation.getLeftRotation().rotateZ(finalAngle);
+                }
+
+                Vector3f newPositionVector = getRotatedPosition(
+                        bd.getLocation().toVector().toVector3f(),
+                        origin.toVector().toVector3f(),
+                        axis,
+                        finalAngle
+                );
+
+                Location newLocation = new Location(
+                        bd.getLocation().getWorld(),
+                        newPositionVector.x,
+                        newPositionVector.y,
+                        newPositionVector.z
+                );
+                Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
+                    bd.setTransformation(transformation);
+                    bd.teleport(newLocation);
+                });
+
             }
-
-            bd.setTransformation(transformation);
-
-            Vector3f newPositionVector = getRotatedPosition(
-                    bd.getLocation().toVector().toVector3f(),
-                    origin.toVector().toVector3f(),
-                    axis,
-                    angle
-            );
+        });
 
 
-            Location newLocation = new Location(
-                    bd.getLocation().getWorld(),
-                    newPositionVector.x,
-                    newPositionVector.y,
-                    newPositionVector.z
-            );
-
-            bd.teleport(newLocation);
-        }
 
     }
 
@@ -143,9 +157,11 @@ public class PlacedMiniature {
     }
 
     public void move(Vector addition){
-        for(BlockDisplay bd : blockDisplays){
-            bd.teleport(bd.getLocation().add(addition));
-        }
+        Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
+            for(BlockDisplay bd : blockDisplays){
+                bd.teleport(bd.getLocation().add(addition));
+            }
+        });
     }
 
     public void move(Axis axis, double addition){
@@ -166,6 +182,10 @@ public class PlacedMiniature {
 
     public List<BlockDisplay> getBlockDisplays(){
         return blockDisplays;
+    }
+
+    private Miniaturise getMain(){
+        return (Miniaturise) Bukkit.getPluginManager().getPlugin("Miniaturise");
     }
 
 }

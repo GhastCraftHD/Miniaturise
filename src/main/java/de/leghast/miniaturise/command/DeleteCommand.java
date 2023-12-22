@@ -20,22 +20,24 @@ public class DeleteCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(sender instanceof Player player){
-            if(main.getMiniatureManager().hasMiniature(player.getUniqueId())){
-                PlacedMiniature placedMiniature;
-                placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
-                int deletedEntities = 0;
-                if(placedMiniature != null){
-                    deletedEntities = placedMiniature.getBlockCount();
-                    placedMiniature.remove();
-                    main.getMiniatureManager().getPlacedMiniatures().replace(player.getUniqueId(), null);
-                    player.sendMessage(Util.PREFIX + "§aThe placed miniature was deleted §e(" + deletedEntities +
-                            " block" + (deletedEntities == 1 ? "" : "s") + ")");
-                }else{
+            if(player.hasPermission("miniaturise.use")) {
+                if (main.getMiniatureManager().hasMiniature(player.getUniqueId())) {
+                    PlacedMiniature placedMiniature;
+                    placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
+                    int deletedEntities = 0;
+                    if (placedMiniature != null) {
+                        deletedEntities = placedMiniature.getBlockCount();
+                        placedMiniature.remove();
+                        main.getMiniatureManager().getPlacedMiniatures().replace(player.getUniqueId(), null);
+                        player.sendMessage(Util.PREFIX + "§aThe placed miniature was deleted §e(" + deletedEntities +
+                                " block" + (deletedEntities == 1 ? "" : "s") + ")");
+                    } else {
+                        player.sendMessage(Util.PREFIX + "§cYou have not selected a placed miniature");
+                    }
+                } else {
                     player.sendMessage(Util.PREFIX + "§cYou have not selected a placed miniature");
+                    return false;
                 }
-            }else{
-                player.sendMessage(Util.PREFIX + "§cYou have not selected a placed miniature");
-                return false;
             }
         }
         return false;

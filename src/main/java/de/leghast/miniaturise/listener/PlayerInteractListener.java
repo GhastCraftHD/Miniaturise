@@ -33,15 +33,17 @@ public class PlayerInteractListener implements Listener {
         Player player = e.getPlayer();
         Material material = player.getInventory().getItemInMainHand().getType();
 
-        if(material == ConfigManager.getSelectorToolMaterial()){
-            e.setCancelled(true);
-            handleSelectorInteraction(player, e.getAction(), e.getClickedBlock(), e.getHand());
-        }else if(material == ConfigManager.getAdjusterToolMaterial()){
-            e.setCancelled(true);
-            if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-                handleAdjusterInteraction(player, e.getAction(), e.getHand());
-            }else{
-                player.sendMessage(Util.PREFIX + "§cYou have not selected a placed miniature");
+        if(player.hasPermission("miniaturise.use")){
+            if(material == ConfigManager.getSelectorToolMaterial()){
+                e.setCancelled(true);
+                handleSelectorInteraction(player, e.getAction(), e.getClickedBlock(), e.getHand());
+            }else if(material == ConfigManager.getAdjusterToolMaterial()){
+                e.setCancelled(true);
+                if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
+                    handleAdjusterInteraction(player, e.getAction(), e.getHand());
+                }else{
+                    player.sendMessage(Util.PREFIX + "§cYou have not selected a placed miniature");
+                }
             }
         }
     }

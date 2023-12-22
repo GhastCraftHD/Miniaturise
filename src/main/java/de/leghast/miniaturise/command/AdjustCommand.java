@@ -20,11 +20,13 @@ public class AdjustCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(sender instanceof Player player){
-            if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
-                main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
+            if(player.hasPermission("miniaturise.use")) {
+                if (!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())) {
+                    main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
+                }
+                new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+                return true;
             }
-            new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
-            return true;
         }
         return false;
     }
