@@ -27,6 +27,6 @@ Use **/tool get [tool]** to get a tool
 
 Use **/tool set [tool]** to bind the tool to a new item
 
-![A 16x16 block selection scaled down to 1 block](https://i.ibb.co/NF1jKJC/2023-12-22-12-50-44.png)
+![](https://github.com/LeGhast/Miniaturise/blob/master/miniaturise.jpg?raw=true)
 
 
