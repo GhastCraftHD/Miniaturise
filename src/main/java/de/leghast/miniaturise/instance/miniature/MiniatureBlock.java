@@ -6,7 +6,7 @@ import org.bukkit.block.data.BlockData;
  * This class caches all necessary information for a block from a miniature that has not been spawned in yet
  * @author GhastCraftHD
  */
-public class MiniatureBlock {
+public class MiniatureBlock{
 
     private double x;
     private double y;

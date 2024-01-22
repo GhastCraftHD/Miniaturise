@@ -57,7 +57,6 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("cut").setExecutor(new CutCommand(this));
         getCommand("tools").setExecutor(new ToolsCommand(this));
         getCommand("paste").setExecutor(new PasteCommand(this));
-        getCommand("tool").setExecutor(new ToolCommand(this));
         getCommand("delete").setExecutor(new DeleteCommand(this));
         getCommand("copy").setExecutor(new CopyCommand(this));
         getCommand("position").setExecutor(new PositionCommand(this));
