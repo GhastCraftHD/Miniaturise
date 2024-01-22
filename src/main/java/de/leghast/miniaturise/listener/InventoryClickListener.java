@@ -6,6 +6,7 @@ import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.ui.UserInterface;
 import de.leghast.miniaturise.ui.Page;
 import de.leghast.miniaturise.util.Util;
+import org.bukkit.Axis;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +40,7 @@ public class InventoryClickListener implements Listener {
 
     private void handlePositionInteractions(int slot, Player player){
         AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
-        PositionSettings positionSettings = settings.getPositionSettings();
+        DimensionSettings positionSettings = settings.getPositionSettings();
 
         switch (slot){
             case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
@@ -53,14 +54,25 @@ public class InventoryClickListener implements Listener {
             case 30 -> positionSettings.setAxis(Axis.X);
             case 31 -> positionSettings.setAxis(Axis.Y);
             case 32 -> positionSettings.setAxis(Axis.Z);
+            case 26 -> {
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
+            case 44 -> {
+                main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).remove();
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
         }
 
-        new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        if(slot != 26 && slot != 44){
+            new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        }
     }
 
     private void handleSizeInteractions(int slot, Player player){
         AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
-        SizeSettings sizeSettings = settings.getSizeSettings();
+        FactorSettings sizeSettings = settings.getSizeSettings();
 
         switch (slot){
             case 0 -> settings.setPage(Page.POSITION);
@@ -71,14 +83,25 @@ public class InventoryClickListener implements Listener {
             case 22 -> sizeSettings.setFactor(1);
             case 23 -> sizeSettings.setFactor(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize());
             case 24 -> Util.setCustomNumberInput(main, player, settings.getPage());
+            case 26 -> {
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
+            case 44 -> {
+                main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).remove();
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
         }
 
-        new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        if(slot != 26 && slot != 44){
+            new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        }
     }
 
     private void handleRotationInteractions(int slot, Player player){
         AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
-        RotationSettings rotationSettings = settings.getRotationSettings();
+        DimensionSettings rotationSettings = settings.getRotationSettings();
 
         switch (slot){
             case 0 -> settings.setPage(Page.POSITION);
@@ -92,9 +115,20 @@ public class InventoryClickListener implements Listener {
             case 30 -> rotationSettings.setAxis(Axis.X);
             case 31 -> rotationSettings.setAxis(Axis.Y);
             case 32 -> rotationSettings.setAxis(Axis.Z);
+            case 26 -> {
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
+            case 44 -> {
+                main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).remove();
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
         }
 
-        new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        if(slot != 26 && slot != 44){
+            new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package de.leghast.miniaturise.ui;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.settings.RotationSettings;
 import de.leghast.miniaturise.ui.page.PositionPage;
 import de.leghast.miniaturise.ui.page.RotationPage;
 import de.leghast.miniaturise.ui.page.SizePage;

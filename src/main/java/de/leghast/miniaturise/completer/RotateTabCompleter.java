@@ -1,6 +1,6 @@
 package de.leghast.miniaturise.completer;
 
-import de.leghast.miniaturise.instance.settings.Axis;
+import org.bukkit.Axis;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

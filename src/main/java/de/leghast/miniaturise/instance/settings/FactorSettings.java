@@ -2,14 +2,15 @@ package de.leghast.miniaturise.instance.settings;
 
 import de.leghast.miniaturise.util.Util;
 
-public class SizeSettings {
+public class FactorSettings {
 
     private AdjusterSettings parent;
 
-    private double factor = 1;
+    private double factor;
 
-    public SizeSettings(AdjusterSettings parent){
+    public FactorSettings(AdjusterSettings parent, double factor){
         this.parent = parent;
+        this.factor = factor;
     }
 
     public double getFactor(){
@@ -23,10 +24,11 @@ public class SizeSettings {
     public void setFactor(String factor){
         try{
             this.factor = Double.parseDouble(factor);
-            parent.getPlayer().sendMessage(Util.PREFIX + "§aThe factor was set to §e" + factor + " blocks");
-        }catch (NumberFormatException e){
+            parent.getPlayer().sendMessage(Util.PREFIX + "§aThe factor was set to §e" + this.factor + " block" + (this.factor == 1 ? "" : "s"));
+        }catch(NumberFormatException e){
             parent.getPlayer().sendMessage(Util.PREFIX + "§cPlease provide a valid factor");
         }
     }
+
 
 }

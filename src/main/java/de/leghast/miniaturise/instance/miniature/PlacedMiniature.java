@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.instance.miniature;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.settings.Axis;
+import org.bukkit.Axis;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.BlockDisplay;

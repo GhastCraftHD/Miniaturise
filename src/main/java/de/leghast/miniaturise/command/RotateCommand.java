@@ -1,8 +1,8 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.settings.Axis;
 import de.leghast.miniaturise.util.Util;
+import org.bukkit.Axis;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

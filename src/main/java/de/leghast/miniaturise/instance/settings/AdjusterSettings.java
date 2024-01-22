@@ -7,31 +7,31 @@ public class AdjusterSettings {
 
     private Player player;
 
-    private PositionSettings positionSettings;
-    private SizeSettings sizeSettings;
-    private RotationSettings rotationSettings;
+    private DimensionSettings positionSettings;
+    private FactorSettings sizeSettings;
+    private DimensionSettings rotationSettings;
 
     private Page page;
 
     public AdjusterSettings(Player player){
         this.player = player;
 
-        positionSettings = new PositionSettings(this);
-        sizeSettings = new SizeSettings(this);
-        rotationSettings = new RotationSettings(this);
+        positionSettings = new DimensionSettings(this, 1);
+        sizeSettings = new FactorSettings(this, 0.5);
+        rotationSettings = new DimensionSettings(this, 45);
 
         page = Page.POSITION;
     }
 
-    public PositionSettings getPositionSettings(){
+    public DimensionSettings getPositionSettings(){
         return positionSettings;
     }
 
-    public SizeSettings getSizeSettings(){
+    public FactorSettings getSizeSettings(){
         return sizeSettings;
     }
 
-    public RotationSettings getRotationSettings(){
+    public DimensionSettings getRotationSettings(){
         return rotationSettings;
     }
 

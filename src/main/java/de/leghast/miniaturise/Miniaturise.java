@@ -6,6 +6,7 @@ import de.leghast.miniaturise.completer.RotateTabCompleter;
 import de.leghast.miniaturise.completer.ScaleTabCompleter;
 import de.leghast.miniaturise.completer.ToolTabCompleter;
 import de.leghast.miniaturise.listener.InventoryClickListener;
+import de.leghast.miniaturise.listener.PlayerJoinListener;
 import de.leghast.miniaturise.listener.PlayerQuitListener;
 import de.leghast.miniaturise.listener.PlayerInteractListener;
 import de.leghast.miniaturise.manager.ConfigManager;
@@ -14,6 +15,11 @@ import de.leghast.miniaturise.manager.RegionManager;
 import de.leghast.miniaturise.manager.SettingsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * The main plugin class of the Miniaturise Minecraft paper plugin
@@ -25,6 +31,11 @@ public final class Miniaturise extends JavaPlugin {
     private RegionManager regionManager;
     private SettingsManager settingsManager;
 
+    private String owner = "LeGhast";
+    private String repo = "Miniaturise";
+
+    private boolean updateAvailable;
+
     @Override
     public void onEnable() {
         ConfigManager.setupConfig(this);
@@ -32,11 +43,7 @@ public final class Miniaturise extends JavaPlugin {
         registerListeners();
         setCommands();
         setTabCompleters();
-    }
-
-    @Override
-    public void onDisable() {
-        saveConfig();
+        updateAvailable = isUpdateAvailable("v" + getDescription().getVersion());
     }
 
     private void initialiseManagers(){
@@ -49,27 +56,27 @@ public final class Miniaturise extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(this), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
     }
 
     private void setCommands(){
-        getCommand("select").setExecutor(new SelectCommand(this));
-        getCommand("scale").setExecutor(new ScaleCommand(this));
-        getCommand("cut").setExecutor(new CutCommand(this));
-        getCommand("tools").setExecutor(new ToolsCommand(this));
-        getCommand("paste").setExecutor(new PasteCommand(this));
-        getCommand("delete").setExecutor(new DeleteCommand(this));
-        getCommand("copy").setExecutor(new CopyCommand(this));
-        getCommand("position").setExecutor(new PositionCommand(this));
-        getCommand("clear").setExecutor(new ClearCommand(this));
-        getCommand("adjust").setExecutor(new AdjustCommand(this));
-        getCommand("rotate").setExecutor(new RotateCommand(this));
+        getCommand("mselect").setExecutor(new SelectCommand(this));
+        getCommand("mscale").setExecutor(new ScaleCommand(this));
+        getCommand("mcut").setExecutor(new CutCommand(this));
+        getCommand("mtools").setExecutor(new ToolsCommand(this));
+        getCommand("mpaste").setExecutor(new PasteCommand(this));
+        getCommand("mdelete").setExecutor(new DeleteCommand(this));
+        getCommand("mcopy").setExecutor(new CopyCommand(this));
+        getCommand("mposition").setExecutor(new PositionCommand(this));
+        getCommand("mclear").setExecutor(new ClearCommand(this));
+        getCommand("madjust").setExecutor(new AdjustCommand(this));
+        getCommand("mrotate").setExecutor(new RotateCommand(this));
     }
 
     public void setTabCompleters(){
-        getCommand("position").setTabCompleter(new PositionTabCompleter());
-        getCommand("scale").setTabCompleter(new ScaleTabCompleter());
-        getCommand("tool").setTabCompleter(new ToolTabCompleter());
-        getCommand("rotate").setTabCompleter(new RotateTabCompleter());
+        getCommand("mposition").setTabCompleter(new PositionTabCompleter());
+        getCommand("mscale").setTabCompleter(new ScaleTabCompleter());
+        getCommand("mrotate").setTabCompleter(new RotateTabCompleter());
     }
 
     /**
@@ -88,6 +95,52 @@ public final class Miniaturise extends JavaPlugin {
 
     public SettingsManager getSettingsManager(){
         return settingsManager;
+    }
+
+    public String getLatestReleaseVersion(){
+        String apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest";
+
+        try {
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            try {
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/vnd.github.v3+json");
+
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+
+                    reader.close();
+
+                    return response.toString().contains("tag_name")
+                            ? response.toString().split("\"tag_name\":\"")[1].split("\",")[0]
+                            : null;
+                } else {
+                    System.out.println("Error: " + connection.getResponseCode() + " " + connection.getResponseMessage());
+                    return null;
+                }
+            } finally {
+                connection.disconnect();
+            }
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    private boolean isUpdateAvailable(String currentVersion){
+        String latestVersion = getLatestReleaseVersion();
+        return latestVersion != null && !latestVersion.equals(currentVersion);
+    }
+
+    public boolean isUpdateAvailable(){
+        return updateAvailable;
     }
 
 }

@@ -6,31 +6,29 @@ authors: [GhastCraftHD]
 description: A tool which lets you create miniatures of your builds and makes working with block displays easy (Idea by reyzixDE)
 website: https://www.github.com/LeGhast/Miniaturise
 commands:
-  select:
-    aliases: sel
+  mselect:
+    aliases: msel
     description: Selects the region, if you have selected the two corner locations. Also selects any placed miniatures, that are in the defined region
-  scale:
+  mscale:
     description: Scales either the miniature in the clipboard or the selected placed miniature
-  cut:
+  mcut:
     description: Cuts the selected region (blocks) from the world
-  tools:
+  mtools:
     description: Lists up all tools and what item they are bound to
-  paste:
+  mpaste:
     description: Pastes the miniature from the clipboard to the world
-  tool:
-    description: Get or set specific tools
-  delete:
+  mdelete:
     description: Deletes the selected placed miniature
-  copy:
+  mcopy:
     description: Copies the placed miniatures from the region, if you have selected the two corner locations.
-  position:
-    aliases : pos
+  mposition:
+    aliases : mpos
     description: Sets the corner position of a selectable region
-  clear:
+  mclear:
     description: Clears your clipboard
-  adjust:
+  madjust:
     description: Opens the settings for the adjuster tool
-  rotate:
+  mrotate:
     description: Rotates the selected placed miniature
 
 permissions:
