@@ -27,4 +27,6 @@ Use **/tool get [tool]** to get a tool
 
 Use **/tool set [tool]** to bind the tool to a new item
 
+![](https://github.com/LeGhast/Miniaturise/blob/master/miniaturise.jpg?raw=true)
+
 
