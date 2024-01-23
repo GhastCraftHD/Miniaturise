@@ -4,7 +4,8 @@ public enum Page {
 
     POSITION("§eAdjust miniature position"),
     SIZE("§eAdjust miniature size"),
-    ROTATION("§eAdjust miniature rotation");
+    ROTATION("§eAdjust miniature rotation"),
+    SAVED("§eSelect a saved miniature");
 
     private String title;
 

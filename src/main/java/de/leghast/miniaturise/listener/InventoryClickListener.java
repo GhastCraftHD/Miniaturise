@@ -35,6 +35,8 @@ public class InventoryClickListener implements Listener {
         }else if(title.contains(Page.ROTATION.getTitle())){
             handleRotationInteractions(e.getRawSlot(), player);
             e.setCancelled(true);
+        }else if(title.contains(Page.SAVED.getTitle())){
+            handleSavedInteractions(e.getRawSlot(), player);
         }
     }
 
@@ -46,6 +48,7 @@ public class InventoryClickListener implements Listener {
             case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
             case 9 -> settings.setPage(Page.SIZE);
             case 18 -> settings.setPage(Page.ROTATION);
+            case 27 -> settings.setPage(Page.SAVED);
             case 11 -> positionSettings.setFactor(0.25);
             case 12 -> positionSettings.setFactor(0.5);
             case 13 -> positionSettings.setFactor(1);
@@ -78,6 +81,7 @@ public class InventoryClickListener implements Listener {
             case 0 -> settings.setPage(Page.POSITION);
             case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
             case 18 -> settings.setPage(Page.ROTATION);
+            case 27 -> settings.setPage(Page.SAVED);
             case 20 -> sizeSettings.setFactor(0.25);
             case 21 -> sizeSettings.setFactor(0.5);
             case 22 -> sizeSettings.setFactor(1);
@@ -107,6 +111,7 @@ public class InventoryClickListener implements Listener {
             case 0 -> settings.setPage(Page.POSITION);
             case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
             case 9 -> settings.setPage(Page.SIZE);
+            case 27 -> settings.setPage(Page.SAVED);
             case 11 -> rotationSettings.setFactor(22.5);
             case 12 -> rotationSettings.setFactor(45);
             case 13 -> rotationSettings.setFactor(90);
@@ -128,6 +133,28 @@ public class InventoryClickListener implements Listener {
 
         if(slot != 26 && slot != 44){
             new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+        }
+    }
+
+    private void handleSavedInteractions(int slot, Player player){
+        AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
+
+        switch(slot){
+            case 0 -> settings.setPage(Page.POSITION);
+            case 9 -> settings.setPage(Page.SIZE);
+            case 18 -> settings.setPage(Page.ROTATION);
+            case 26 -> {
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
+            case 44 -> {
+                main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).remove();
+                main.getMiniatureManager().removeClipboard(player.getUniqueId());
+                player.closeInventory();
+            }
+            default -> {
+                
+            }
         }
     }
 

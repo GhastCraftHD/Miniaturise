@@ -4,15 +4,11 @@ import de.leghast.miniaturise.command.*;
 import de.leghast.miniaturise.completer.PositionTabCompleter;
 import de.leghast.miniaturise.completer.RotateTabCompleter;
 import de.leghast.miniaturise.completer.ScaleTabCompleter;
-import de.leghast.miniaturise.completer.ToolTabCompleter;
 import de.leghast.miniaturise.listener.InventoryClickListener;
 import de.leghast.miniaturise.listener.PlayerJoinListener;
 import de.leghast.miniaturise.listener.PlayerQuitListener;
 import de.leghast.miniaturise.listener.PlayerInteractListener;
-import de.leghast.miniaturise.manager.ConfigManager;
-import de.leghast.miniaturise.manager.MiniatureManager;
-import de.leghast.miniaturise.manager.RegionManager;
-import de.leghast.miniaturise.manager.SettingsManager;
+import de.leghast.miniaturise.manager.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +26,7 @@ public final class Miniaturise extends JavaPlugin {
     private MiniatureManager miniatureManager;
     private RegionManager regionManager;
     private SettingsManager settingsManager;
+    private SaveManager saveManager;
 
     private String owner = "LeGhast";
     private String repo = "Miniaturise";
@@ -50,6 +47,7 @@ public final class Miniaturise extends JavaPlugin {
         miniatureManager = new MiniatureManager(this);
         regionManager = new RegionManager(this);
         settingsManager = new SettingsManager(this);
+        saveManager = new SaveManager(this);
     }
 
     private void registerListeners(){
@@ -65,12 +63,13 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("mcut").setExecutor(new CutCommand(this));
         getCommand("mtools").setExecutor(new ToolsCommand(this));
         getCommand("mpaste").setExecutor(new PasteCommand(this));
-        getCommand("mdelete").setExecutor(new DeleteCommand(this));
+        getCommand("mremove").setExecutor(new RemoveCommand(this));
         getCommand("mcopy").setExecutor(new CopyCommand(this));
         getCommand("mposition").setExecutor(new PositionCommand(this));
         getCommand("mclear").setExecutor(new ClearCommand(this));
         getCommand("madjust").setExecutor(new AdjustCommand(this));
         getCommand("mrotate").setExecutor(new RotateCommand(this));
+        getCommand("msave").setExecutor(new SaveCommand(this));
     }
 
     public void setTabCompleters(){
@@ -95,6 +94,10 @@ public final class Miniaturise extends JavaPlugin {
 
     public SettingsManager getSettingsManager(){
         return settingsManager;
+    }
+
+    public SaveManager getSaveManager(){
+        return saveManager;
     }
 
     public String getLatestReleaseVersion(){

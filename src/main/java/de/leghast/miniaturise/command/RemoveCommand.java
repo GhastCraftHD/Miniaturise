@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class DeleteCommand implements CommandExecutor {
+public class RemoveCommand implements CommandExecutor {
 
     private Miniaturise main;
 
-    public DeleteCommand(Miniaturise main){
+    public RemoveCommand(Miniaturise main){
         this.main = main;
     }
 

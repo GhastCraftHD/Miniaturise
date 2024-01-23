@@ -17,7 +17,7 @@ commands:
     description: Lists up all tools and what item they are bound to
   mpaste:
     description: Pastes the miniature from the clipboard to the world
-  mdelete:
+  mremove:
     description: Deletes the selected placed miniature
   mcopy:
     description: Copies the placed miniatures from the region, if you have selected the two corner locations.
@@ -30,6 +30,8 @@ commands:
     description: Opens the settings for the adjuster tool
   mrotate:
     description: Rotates the selected placed miniature
+  msave:
+    description: Saves the miniature from your clipboard to a file
 
 permissions:
   miniaturise.use:

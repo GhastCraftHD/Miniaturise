@@ -52,6 +52,16 @@ public class PageUtil {
         rotation.setItemMeta(rotationMeta);
         content[18] = rotation;
 
+        ItemStack saved = new ItemStack(Material.BAMBOO_HANGING_SIGN);
+        ItemMeta savedMeta = saved.getItemMeta();
+        savedMeta.setDisplayName("§eSaved Miniatures");
+        List<String> savedLore = new ArrayList<>();
+        savedLore.add("§7View all your");
+        savedLore.add("§7saved miniatures");
+        savedMeta.setLore(savedLore);
+        saved.setItemMeta(savedMeta);
+        content[27] = saved;
+
         ItemStack adjuster = new ItemStack(ConfigManager.getAdjusterToolMaterial());
         ItemMeta adjusterMeta = size.getItemMeta();
         adjusterMeta.setDisplayName("§6Adjuster Tool");
@@ -66,6 +76,7 @@ public class PageUtil {
             case POSITION -> PageUtil.addGlint(position);
             case SIZE -> PageUtil.addGlint(size);
             case ROTATION -> PageUtil.addGlint(rotation);
+            case SAVED -> PageUtil.addGlint(saved);
         }
     }
 

@@ -1,17 +1,24 @@
 package de.leghast.miniaturise.instance.miniature;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.data.BlockData;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * This class caches all necessary information for a block from a miniature that has not been spawned in yet
  * @author GhastCraftHD
  */
-public class MiniatureBlock{
+public class MiniatureBlock implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1;
 
     private double x;
     private double y;
     private double z;
-    private BlockData blockData;
+    private String blockData;
     private double size;
 
     /**
@@ -26,7 +33,7 @@ public class MiniatureBlock{
         this.x = x;
         this.y = y;
         this.z = z;
-        this.blockData = blockData;
+        this.blockData = blockData.getAsString();
         this.size = size;
     }
 
@@ -45,7 +52,7 @@ public class MiniatureBlock{
 
 
     public BlockData getBlockData(){
-        return blockData;
+        return Bukkit.createBlockData(blockData);
     }
 
     public double getSize(){
@@ -61,10 +68,6 @@ public class MiniatureBlock{
     }
     public void setZ(double z){
         this.z = z;
-    }
-
-    public void setBlockData(BlockData blockData){
-        this.blockData = blockData;
     }
 
     public void setSize(double size){

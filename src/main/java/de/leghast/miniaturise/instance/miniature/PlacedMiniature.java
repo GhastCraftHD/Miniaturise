@@ -17,7 +17,7 @@ import java.util.List;
 
 import static java.lang.Math.ceil;
 
-public class PlacedMiniature {
+public class PlacedMiniature{
 
     private List<BlockDisplay> blockDisplays;
     private double blockSize;
@@ -99,21 +99,36 @@ public class PlacedMiniature {
         });
     }
 
+    /**
+     * Rotates the miniature around a specified axis by a given angle.
+     *
+     * @param axis  The axis around which the miniature is to be rotated. This can be X, Y, or Z.
+     * @param angle The angle by which the miniature is to be rotated, in degrees.
+     */
     public void rotate(Axis axis, float angle){
+        // Get the location of the first block in the miniature as the origin of rotation
         Location origin = blockDisplays.get(0).getLocation();
+
+        // Convert the angle from degrees to radians for the rotation
         float finalAngle = (float) Math.toRadians(angle);
+
+        // Run the rotation task asynchronously to avoid blocking the main thread
         Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
 
+            // Iterate over each block in the miniature
             for(BlockDisplay bd : blockDisplays){
 
+                // Get the current transformation of the block
                 Transformation transformation = bd.getTransformation();
 
+                // Rotate the block around the specified axis by the given angle
                 switch (axis){
                     case X -> transformation.getLeftRotation().rotateX(finalAngle);
                     case Y -> transformation.getLeftRotation().rotateY(finalAngle);
                     case Z -> transformation.getLeftRotation().rotateZ(finalAngle);
                 }
 
+                // Calculate the new position of the block after rotation
                 Vector3f newPositionVector = getRotatedPosition(
                         bd.getLocation().toVector().toVector3f(),
                         origin.toVector().toVector3f(),
@@ -121,12 +136,15 @@ public class PlacedMiniature {
                         finalAngle
                 );
 
+                // Create a new location for the block with the calculated position
                 Location newLocation = new Location(
                         bd.getLocation().getWorld(),
                         newPositionVector.x,
                         newPositionVector.y,
                         newPositionVector.z
                 );
+
+                // Schedule a task to update the block's transformation and teleport it to the new location
                 Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
                     bd.setTransformation(transformation);
                     bd.teleport(newLocation);
@@ -134,13 +152,19 @@ public class PlacedMiniature {
 
             }
         });
-
-
-
     }
 
-    private Vector3f getRotatedPosition(Vector3f pointToRotate, Vector3f origin, Axis axis, float angle){
-        pointToRotate.sub(origin);
+    /**
+     * Calculates the new position of a point after rotation around a specified axis by a given angle.
+     *
+     * @param rotationOrigin The point to be rotated around.
+     * @param origin The origin of rotation.
+     * @param axis The axis around which the point is to be rotated. This can be X, Y, or Z.
+     * @param angle The angle by which the point is to be rotated, in radians.
+     * @return The new position of the point after rotation.
+     */
+    private Vector3f getRotatedPosition(Vector3f rotationOrigin, Vector3f origin, Axis axis, float angle){
+        rotationOrigin.sub(origin);
         Matrix3f rotationMatrix = new Matrix3f();
 
         switch (axis){
@@ -149,13 +173,18 @@ public class PlacedMiniature {
             case Z -> rotationMatrix.rotationZ(angle);
         }
 
-        rotationMatrix.transform(pointToRotate);
+        rotationMatrix.transform(rotationOrigin);
 
-        pointToRotate.add(origin);
+        rotationOrigin.add(origin);
 
-        return pointToRotate;
+        return rotationOrigin;
     }
 
+    /**
+     * Moves all blocks in the miniature by a specified vector.
+     *
+     * @param addition The vector by which the blocks are to be moved.
+     */
     public void move(Vector addition){
         Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
             for(BlockDisplay bd : blockDisplays){
@@ -164,6 +193,12 @@ public class PlacedMiniature {
         });
     }
 
+    /**
+     * Moves all blocks in the miniature along a specified axis by a given distance.
+     *
+     * @param axis The axis along which the blocks are to be moved. This can be X, Y, or Z.
+     * @param addition The distance by which the blocks are to be moved.
+     */
     public void move(Axis axis, double addition){
         switch (axis){
             case X -> move(new Vector(addition, 0, 0));
@@ -172,20 +207,40 @@ public class PlacedMiniature {
         }
     }
 
+    /**
+     * Returns the size of the blocks in the miniature.
+     *
+     * @return The size of the blocks.
+     */
     public double getBlockSize() {
         return blockSize;
     }
 
+    /**
+     * Returns the number of blocks in the miniature.
+     *
+     * @return The number of blocks.
+     */
     public int getBlockCount(){
         return blockDisplays.size();
     }
 
+    /**
+     * Returns a list of all blocks in the miniature.
+     *
+     * @return The list of blocks.
+     */
     public List<BlockDisplay> getBlockDisplays(){
         return blockDisplays;
     }
 
+    /**
+     * Returns the main instance of the Miniaturise plugin.
+     *
+     * @return The main instance of the Miniaturise plugin.
+     */
+    @Deprecated
     private Miniaturise getMain(){
         return (Miniaturise) Bukkit.getPluginManager().getPlugin("Miniaturise");
     }
-
 }

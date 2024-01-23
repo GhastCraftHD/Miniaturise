@@ -43,7 +43,7 @@ public class RotateCommand implements CommandExecutor {
                         }
                     }
                 } else {
-                    player.sendMessage(Util.PREFIX + "§cUsage /rotate <axis> <angle>");
+                    player.sendMessage(Util.PREFIX + "§cUsage /mrotate <axis> <angle>");
                 }
             }
         }
