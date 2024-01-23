@@ -7,25 +7,27 @@ Simply download the latest release and drag it into the "plugins" folder of your
 ## Usage
 Use the **selector tool** (wooden shovel by default) or the **/position** command to mark the region that you want to miniaturise
 
-Use **/select** to select the region
+Use **/mselect** to select the region
 
-Use **/scale selection [value]** to scale your miniature
+Use **/mscale selection [value]** to scale your miniature
 
-Use **/paste** to paste the miniature relative to your position
+Use **/mpaste** to paste the miniature relative to your position
 
-Use **/adjust** and the **adjuster tool** (brush by default) to adjust size and position of your placed miniature
+Use **/madjust** and the **adjuster tool** (brush by default) to adjust size and position of your placed miniature
 
-Use **/delete** to remove the placed miniature from your world
+Use **/mdelete** to remove the placed miniature from your world
 
-Use **/clear** to clear your clipboard
+Use **/mclear** to clear your clipboard
 
-Use **/scale miniature [value]** to scale a placed miniature
+Use **/mscale miniature [value]** to scale a placed miniature
 
-Use **/tools** for a overview of all tools and the items they are bound to
+Use **/mtools** for a overview of all tools and the items they are bound to
 
-Use **/tool get [tool]** to get a tool
+Use **/msave filename** to save your clipboard to a file
 
-Use **/tool set [tool]** to bind the tool to a new item
+Use **mload filename** to load a miniature from a file
+
+**filename** specifies the name of the file without the file extension .mcminiature
 
 ![](https://github.com/LeGhast/Miniaturise/blob/master/miniaturise.jpg?raw=true)
 
