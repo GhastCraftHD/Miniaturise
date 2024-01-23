@@ -32,6 +32,8 @@ commands:
     description: Rotates the selected placed miniature
   msave:
     description: Saves the miniature from your clipboard to a file
+  mload:
+    description: Loads a miniature from a file to your clipboard
 
 permissions:
   miniaturise.use:

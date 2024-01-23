@@ -1,17 +1,22 @@
 package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.instance.miniature.Miniature;
 import de.leghast.miniaturise.instance.settings.*;
 import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.ui.UserInterface;
 import de.leghast.miniaturise.ui.Page;
+import de.leghast.miniaturise.ui.page.PageUtil;
 import de.leghast.miniaturise.util.Util;
 import org.bukkit.Axis;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import java.io.IOException;
 
 public class InventoryClickListener implements Listener {
 
@@ -36,7 +41,8 @@ public class InventoryClickListener implements Listener {
             handleRotationInteractions(e.getRawSlot(), player);
             e.setCancelled(true);
         }else if(title.contains(Page.SAVED.getTitle())){
-            handleSavedInteractions(e.getRawSlot(), player);
+            handleSavedInteractions(e.getRawSlot(), player, e.getInventory());
+            e.setCancelled(true);
         }
     }
 
@@ -48,7 +54,7 @@ public class InventoryClickListener implements Listener {
             case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
             case 9 -> settings.setPage(Page.SIZE);
             case 18 -> settings.setPage(Page.ROTATION);
-            case 27 -> settings.setPage(Page.SAVED);
+            //case 27 -> settings.setPage(Page.SAVED);
             case 11 -> positionSettings.setFactor(0.25);
             case 12 -> positionSettings.setFactor(0.5);
             case 13 -> positionSettings.setFactor(1);
@@ -81,7 +87,7 @@ public class InventoryClickListener implements Listener {
             case 0 -> settings.setPage(Page.POSITION);
             case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
             case 18 -> settings.setPage(Page.ROTATION);
-            case 27 -> settings.setPage(Page.SAVED);
+            //case 27 -> settings.setPage(Page.SAVED);
             case 20 -> sizeSettings.setFactor(0.25);
             case 21 -> sizeSettings.setFactor(0.5);
             case 22 -> sizeSettings.setFactor(1);
@@ -111,7 +117,7 @@ public class InventoryClickListener implements Listener {
             case 0 -> settings.setPage(Page.POSITION);
             case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
             case 9 -> settings.setPage(Page.SIZE);
-            case 27 -> settings.setPage(Page.SAVED);
+            //case 27 -> settings.setPage(Page.SAVED);
             case 11 -> rotationSettings.setFactor(22.5);
             case 12 -> rotationSettings.setFactor(45);
             case 13 -> rotationSettings.setFactor(90);
@@ -136,7 +142,7 @@ public class InventoryClickListener implements Listener {
         }
     }
 
-    private void handleSavedInteractions(int slot, Player player){
+    private void handleSavedInteractions(int slot, Player player, Inventory inv){
         AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
 
         switch(slot){
@@ -153,8 +159,23 @@ public class InventoryClickListener implements Listener {
                 player.closeInventory();
             }
             default -> {
-                
+                ItemStack itemStack = inv.getItem(slot);
+                if(itemStack != null){
+                    if(itemStack.getItemMeta().getLore() == PageUtil.getLoaderLore()){
+                        try {
+                            Miniature miniature = main.getSaveManager().deserialize(itemStack.getItemMeta().getDisplayName());
+                            main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
+                            player.sendMessage(Util.PREFIX + "§aThe miniature §e" + itemStack.getItemMeta().getDisplayName() + ".mcminiature §a was loaded to your clipboard");
+                        } catch (Exception e) {
+                            player.sendMessage(Util.PREFIX + "§cThe miniature could not be loaded");
+                        }
+                        player.closeInventory();
+                    }
+                }
             }
+        }
+        if(slot != 26 && slot != 44){
+            new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
         }
     }
 

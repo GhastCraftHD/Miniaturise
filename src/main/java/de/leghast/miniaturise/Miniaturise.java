@@ -70,6 +70,7 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("madjust").setExecutor(new AdjustCommand(this));
         getCommand("mrotate").setExecutor(new RotateCommand(this));
         getCommand("msave").setExecutor(new SaveCommand(this));
+        getCommand("mload").setExecutor(new LoadCommand(this));
     }
 
     public void setTabCompleters(){

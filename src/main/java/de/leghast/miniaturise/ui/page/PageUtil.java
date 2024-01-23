@@ -52,7 +52,7 @@ public class PageUtil {
         rotation.setItemMeta(rotationMeta);
         content[18] = rotation;
 
-        ItemStack saved = new ItemStack(Material.BAMBOO_HANGING_SIGN);
+        /*ItemStack saved = new ItemStack(Material.BAMBOO_HANGING_SIGN);
         ItemMeta savedMeta = saved.getItemMeta();
         savedMeta.setDisplayName("§eSaved Miniatures");
         List<String> savedLore = new ArrayList<>();
@@ -60,7 +60,7 @@ public class PageUtil {
         savedLore.add("§7saved miniatures");
         savedMeta.setLore(savedLore);
         saved.setItemMeta(savedMeta);
-        content[27] = saved;
+        content[27] = saved;*/
 
         ItemStack adjuster = new ItemStack(ConfigManager.getAdjusterToolMaterial());
         ItemMeta adjusterMeta = size.getItemMeta();
@@ -76,8 +76,14 @@ public class PageUtil {
             case POSITION -> PageUtil.addGlint(position);
             case SIZE -> PageUtil.addGlint(size);
             case ROTATION -> PageUtil.addGlint(rotation);
-            case SAVED -> PageUtil.addGlint(saved);
+            //case SAVED -> PageUtil.addGlint(saved);
         }
+    }
+
+    public static List<String> getLoaderLore(){
+        List<String> lore = new ArrayList<>();
+        lore.add("§7Click to load");
+        return lore;
     }
 
     public static void addGeneralItems(ItemStack[] content){
