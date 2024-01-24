@@ -25,7 +25,7 @@ Use **/mtools** for a overview of all tools and the items they are bound to
 
 Use **/msave filename** to save your clipboard to a file
 
-Use **mload filename** to load a miniature from a file
+Use **/mload filename** to load a miniature from a file
 
 **filename** specifies the name of the file without the file extension .mcminiature
 
