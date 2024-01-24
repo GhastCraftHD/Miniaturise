@@ -5,7 +5,7 @@ A Minecraft Paper plugin that helps you to create miniatures of your builds and 
 Simply download the latest release and drag it into the "plugins" folder of your paper server
 
 ## Usage
-Use the **selector tool** (wooden shovel by default) or the **/position** command to mark the region that you want to miniaturise
+Use the **selector tool** (wooden shovel by default) or the **/mposition** command to mark the region that you want to miniaturise
 
 Use **/mselect** to select the region
 
