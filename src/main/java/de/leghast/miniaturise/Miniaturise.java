@@ -16,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.function.Consumer;
+import java.util.logging.Level;
 
 /**
  * The main plugin class of the Miniaturise Minecraft paper plugin
@@ -31,7 +33,8 @@ public final class Miniaturise extends JavaPlugin {
     private String owner = "LeGhast";
     private String repo = "Miniaturise";
 
-    private boolean updateAvailable;
+    private boolean updateAvailable = false;
+    private String latestVersion = getDescription().getVersion();
 
     @Override
     public void onEnable() {
@@ -40,7 +43,6 @@ public final class Miniaturise extends JavaPlugin {
         registerListeners();
         setCommands();
         setTabCompleters();
-        updateAvailable = isUpdateAvailable("v" + getDescription().getVersion());
     }
 
     private void initialiseManagers(){
@@ -101,7 +103,8 @@ public final class Miniaturise extends JavaPlugin {
         return saveManager;
     }
 
-    public String getLatestReleaseVersion(){
+    public void checkForUpdateAsync() {
+    Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
         String apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest";
 
         try {
@@ -123,28 +126,29 @@ public final class Miniaturise extends JavaPlugin {
 
                     reader.close();
 
-                    return response.toString().contains("tag_name")
+                    latestVersion = response.toString().contains("tag_name")
                             ? response.toString().split("\"tag_name\":\"")[1].split("\",")[0]
                             : null;
+
+                    updateAvailable = latestVersion != null && !latestVersion.equals("v" + getDescription().getVersion());
                 } else {
-                    System.out.println("Error: " + connection.getResponseCode() + " " + connection.getResponseMessage());
-                    return null;
+                    getLogger().log(Level.INFO ,"Error: " + connection.getResponseCode() + " " + connection.getResponseMessage());
                 }
             } finally {
                 connection.disconnect();
             }
-        }catch (Exception e){
-            return null;
+        } catch (Exception e) {
+            getLogger().log(Level.INFO, "Couldn't fetch latest version");
         }
-    }
-
-    private boolean isUpdateAvailable(String currentVersion){
-        String latestVersion = getLatestReleaseVersion();
-        return latestVersion != null && !latestVersion.equals(currentVersion);
-    }
+    });
+}
 
     public boolean isUpdateAvailable(){
         return updateAvailable;
+    }
+
+    public String getLatestReleaseVersion(){
+        return latestVersion;
     }
 
 }

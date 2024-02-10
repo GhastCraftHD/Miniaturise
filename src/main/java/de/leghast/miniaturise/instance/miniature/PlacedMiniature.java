@@ -24,79 +24,82 @@ public class PlacedMiniature{
 
     public PlacedMiniature(List<MiniatureBlock> blocks, Location origin) throws InvalidParameterException {
         if(!blocks.isEmpty()){
-            blockDisplays = new ArrayList<>();
-            blockSize = blocks.get(0).getSize();
+    blockDisplays = new ArrayList<>();
+    blockSize = blocks.get(0).getSize();
 
-            for(MiniatureBlock mb : blocks) {
-                BlockDisplay bd;
-                bd = (BlockDisplay) origin.getWorld().spawnEntity(new Location(
-                                origin.getWorld(),
-                                mb.getX() + ceil(origin.getX()),
-                                mb.getY() + ceil(origin.getY()),
-                                mb.getZ() + ceil(origin.getZ())),
-                        EntityType.BLOCK_DISPLAY);
-                bd.setBlock(mb.getBlockData());
-                Transformation transformation = bd.getTransformation();
-                transformation.getScale().set(mb.getSize());
-                bd.setTransformation(transformation);
-                blockDisplays.add(bd);
-            }
-        }else{
-            throw new InvalidParameterException("The miniature block list is empty");
-        }
+    for(MiniatureBlock mb : blocks) {
+        Bukkit.getScheduler().runTask(Miniaturise.getPlugin(Miniaturise.class), () -> {
+            BlockDisplay bd;
+            bd = (BlockDisplay) origin.getWorld().spawnEntity(new Location(
+                            origin.getWorld(),
+                            mb.getX() + ceil(origin.getX()),
+                            mb.getY() + ceil(origin.getY()),
+                            mb.getZ() + ceil(origin.getZ())),
+                    EntityType.BLOCK_DISPLAY);
+            bd.setBlock(mb.getBlockData());
+            Transformation transformation = bd.getTransformation();
+            transformation.getScale().set(mb.getSize());
+            bd.setTransformation(transformation);
+            blockDisplays.add(bd);
+        });
+    }
+}else{
+    throw new InvalidParameterException("The miniature block list is empty");
+}
     }
 
     public PlacedMiniature(List<BlockDisplay> blockDisplays) throws InvalidParameterException{
         this.blockDisplays = blockDisplays;
-        if(!blockDisplays.isEmpty()){
-            blockSize = blockDisplays.get(0).getTransformation().getScale().x;
-        }else{
-            throw new InvalidParameterException("The block display list is empty");
-        }
+if(!blockDisplays.isEmpty()){
+    Bukkit.getScheduler().runTask(Miniaturise.getPlugin(Miniaturise.class), () -> {
+        blockSize = blockDisplays.get(0).getTransformation().getScale().x;
+    });
+}else{
+    throw new InvalidParameterException("The block display list is empty");
+}
     }
 
     public void remove(){
-        for(BlockDisplay bd : blockDisplays){
-            bd.remove();
-        }
+        Bukkit.getScheduler().runTask(Miniaturise.getPlugin(Miniaturise.class), () -> {
+    for(BlockDisplay bd : blockDisplays){
+        bd.remove();
+    }
+});
     }
 
     public void scaleUp(double scale){
-        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
-            Location origin = blockDisplays.get(0).getLocation();
-            Miniature miniature = new Miniature(this, origin, blockSize);
-            miniature.scaleUp(scale);
-            rearrange(origin, miniature);
-            blockSize *= scale;
-        });
+            Bukkit.getScheduler().runTask(Miniaturise.getPlugin(Miniaturise.class), () -> {
+    Location origin = blockDisplays.get(0).getLocation();
+    Miniature miniature = new Miniature(this, origin, blockSize);
+    miniature.scaleUp(scale);
+    rearrange(origin, miniature);
+});
     }
 
     public void scaleDown(double scale){
-        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
-            Location origin = blockDisplays.get(0).getLocation();
-            Miniature miniature = new Miniature(this, origin, blockSize);
-            miniature.scaleDown(scale);
-            rearrange(origin, miniature);
-            blockSize /= scale;
-                });
+            Bukkit.getScheduler().runTask(Miniaturise.getPlugin(Miniaturise.class), () -> {
+    Location origin = blockDisplays.get(0).getLocation();
+    Miniature miniature = new Miniature(this, origin, blockSize);
+    miniature.scaleDown(scale);
+    rearrange(origin, miniature);
+    blockSize /= scale;
+});
     }
 
     private void rearrange(Location origin, Miniature miniature) {
-        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
-            for(int i = 0; i < getBlockCount(); i++){
-                BlockDisplay bd = blockDisplays.get(i);
-                MiniatureBlock mb = miniature.getBlocks().get(i);
-                Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
-                    bd.teleport(new Location( bd.getWorld(),
-                            mb.getX() + origin.getX(),
-                            mb.getY() + origin.getY(),
-                            mb.getZ() + origin.getZ()));
-                    Transformation transformation = bd.getTransformation();
-                    transformation.getScale().set(mb.getSize());
-                    bd.setTransformation(transformation);
-                });
-            }
-        });
+            Bukkit.getScheduler().runTask(Miniaturise.getPlugin(Miniaturise.class), () -> {
+    for(int i = 0; i < getBlockCount(); i++){
+        BlockDisplay bd = blockDisplays.get(i);
+        MiniatureBlock mb = miniature.getBlocks().get(i);
+        bd.teleport(new Location( bd.getWorld(),
+                mb.getX() + origin.getX(),
+                mb.getY() + origin.getY(),
+                mb.getZ() + origin.getZ()));
+        Transformation transformation = bd.getTransformation();
+        transformation.getScale().set(mb.getSize());
+        bd.setTransformation(transformation);
+    }
+});
     }
 
     /**
@@ -107,51 +110,46 @@ public class PlacedMiniature{
      */
     public void rotate(Axis axis, float angle){
         // Get the location of the first block in the miniature as the origin of rotation
-        Location origin = blockDisplays.get(0).getLocation();
+        Bukkit.getScheduler().runTask(Miniaturise.getPlugin(Miniaturise.class), () -> {
+    Location origin = blockDisplays.get(0).getLocation();
 
-        // Convert the angle from degrees to radians for the rotation
-        float finalAngle = (float) Math.toRadians(angle);
+    // Convert the angle from degrees to radians for the rotation
+    float finalAngle = (float) Math.toRadians(angle);
 
-        // Run the rotation task asynchronously to avoid blocking the main thread
-        Bukkit.getScheduler().runTaskAsynchronously(getMain(), () -> {
+    // Iterate over each block in the miniature
+    for(BlockDisplay bd : blockDisplays){
 
-            // Iterate over each block in the miniature
-            for(BlockDisplay bd : blockDisplays){
+        // Get the current transformation of the block
+        Transformation transformation = bd.getTransformation();
 
-                // Get the current transformation of the block
-                Transformation transformation = bd.getTransformation();
+        // Rotate the block around the specified axis by the given angle
+        switch (axis){
+            case X -> transformation.getLeftRotation().rotateX(finalAngle);
+            case Y -> transformation.getLeftRotation().rotateY(finalAngle);
+            case Z -> transformation.getLeftRotation().rotateZ(finalAngle);
+        }
 
-                // Rotate the block around the specified axis by the given angle
-                switch (axis){
-                    case X -> transformation.getLeftRotation().rotateX(finalAngle);
-                    case Y -> transformation.getLeftRotation().rotateY(finalAngle);
-                    case Z -> transformation.getLeftRotation().rotateZ(finalAngle);
-                }
+        // Calculate the new position of the block after rotation
+        Vector3f newPositionVector = getRotatedPosition(
+                bd.getLocation().toVector().toVector3f(),
+                origin.toVector().toVector3f(),
+                axis,
+                finalAngle
+        );
 
-                // Calculate the new position of the block after rotation
-                Vector3f newPositionVector = getRotatedPosition(
-                        bd.getLocation().toVector().toVector3f(),
-                        origin.toVector().toVector3f(),
-                        axis,
-                        finalAngle
-                );
+        // Create a new location for the block with the calculated position
+        Location newLocation = new Location(
+                bd.getLocation().getWorld(),
+                newPositionVector.x,
+                newPositionVector.y,
+                newPositionVector.z
+        );
 
-                // Create a new location for the block with the calculated position
-                Location newLocation = new Location(
-                        bd.getLocation().getWorld(),
-                        newPositionVector.x,
-                        newPositionVector.y,
-                        newPositionVector.z
-                );
-
-                // Schedule a task to update the block's transformation and teleport it to the new location
-                Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
-                    bd.setTransformation(transformation);
-                    bd.teleport(newLocation);
-                });
-
-            }
-        });
+        // Update the block's transformation and teleport it to the new location
+        bd.setTransformation(transformation);
+        bd.teleport(newLocation);
+    }
+});
     }
 
     /**
@@ -186,11 +184,9 @@ public class PlacedMiniature{
      * @param addition The vector by which the blocks are to be moved.
      */
     public void move(Vector addition){
-        Bukkit.getScheduler().scheduleSyncDelayedTask(getMain(), () -> {
             for(BlockDisplay bd : blockDisplays){
                 bd.teleport(bd.getLocation().add(addition));
             }
-        });
     }
 
     /**
@@ -234,13 +230,4 @@ public class PlacedMiniature{
         return blockDisplays;
     }
 
-    /**
-     * Returns the main instance of the Miniaturise plugin.
-     *
-     * @return The main instance of the Miniaturise plugin.
-     */
-    @Deprecated
-    private Miniaturise getMain(){
-        return (Miniaturise) Bukkit.getPluginManager().getPlugin("Miniaturise");
-    }
 }
