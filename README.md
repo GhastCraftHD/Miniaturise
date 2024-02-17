@@ -29,6 +29,8 @@ Use **/mload filename** to load a miniature from a file
 
 **filename** specifies the name of the file without the file extension .mcminiature
 
+The **miniature files** are located under [yourserver]/plugins/Miniaturise/miniatures
+
 ![](https://github.com/LeGhast/Miniaturise/blob/master/miniaturise.jpg?raw=true)
 
 
