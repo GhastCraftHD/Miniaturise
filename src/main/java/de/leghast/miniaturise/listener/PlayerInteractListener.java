@@ -1,9 +1,9 @@
 package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
-import de.leghast.miniaturise.instance.region.SelectedLocations;
-import de.leghast.miniaturise.instance.settings.AdjusterSettings;
+import de.leghast.miniaturise.miniature.PlacedMiniature;
+import de.leghast.miniaturise.region.SelectedLocations;
+import de.leghast.miniaturise.settings.AdjusterSettings;
 import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.ui.UserInterface;
 import de.leghast.miniaturise.util.Util;
@@ -34,10 +34,10 @@ public class PlayerInteractListener implements Listener {
         Material material = player.getInventory().getItemInMainHand().getType();
 
         if(player.hasPermission("miniaturise.use")){
-            if(material == ConfigManager.getSelectorToolMaterial()){
+            if(material == ConfigManager.SELECTOR_TOOL){
                 e.setCancelled(true);
                 handleSelectorInteraction(player, e.getAction(), e.getClickedBlock(), e.getHand());
-            }else if(material == ConfigManager.getAdjusterToolMaterial()){
+            }else if(material == ConfigManager.ADJUSTER_TOOL){
                 e.setCancelled(true);
                 if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
                     handleAdjusterInteraction(player, e.getAction(), e.getHand());

@@ -1,8 +1,8 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.miniature.Miniature;
-import de.leghast.miniaturise.util.Util;
+import de.leghast.miniaturise.constant.Message;
+import de.leghast.miniaturise.miniature.Miniature;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LoadCommand implements CommandExecutor {
 
-    private Miniaturise main;
+    private final Miniaturise main;
 
     public LoadCommand(Miniaturise main){
         this.main = main;
@@ -20,23 +20,30 @@ public class LoadCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if(sender instanceof Player player){
-            if(args.length == 1){
-                if(main.getSaveManager().fileExists(args[0])){
-                    try {
-                        Miniature miniature = main.getSaveManager().deserialize(args[0]);
-                        main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
-                        player.sendMessage(Util.PREFIX + "§e" + args[0] + " §awas loaded to your clipboard");
-                    } catch (Exception e) {
-                        player.sendMessage(Util.PREFIX + "§cThe miniature could not be loaded");
-                    }
-                }else{
-                    player.sendMessage(Util.PREFIX + "§cThe file §e" + args[0] + " §ccould not be found");
-                }
-            }else{
-                player.sendMessage(Util.PREFIX + "§cUsage: /mload <filename>");
-            }
+        if(!(sender instanceof Player player)) return false;
+        if(!player.hasPermission(Miniaturise.PERMISSION)) return false;
+
+        if(args.length != 1){
+            player.sendMessage(Message.LOAD_COMMAND_USAGE);
+            return true;
         }
-        return false;
+
+        if(args[0].endsWith(".mcminiature")){
+            args[0] = args[0].replace(".mcminiature", "");
+        }
+
+        if(main.getSaveManager().fileExists(args[0])){
+            try {
+                Miniature miniature = main.getSaveManager().deserialize(args[0]);
+                main.getMiniatureManager().addMiniature(player.getUniqueId(), miniature);
+                player.sendMessage(Message.loadedMiniatureFromFile(args[0]));
+            } catch (Exception e) {
+                player.sendMessage(Message.COULD_NOT_LOAD_MINIATURE);
+            }
+        }else{
+            player.sendMessage(Message.couldNotFindFile(args[0]));
+        }
+
+        return true;
     }
 }

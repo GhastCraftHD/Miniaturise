@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.constant.Message;
 import de.leghast.miniaturise.manager.ConfigManager;
 import de.leghast.miniaturise.util.Util;
 import org.bukkit.command.Command;
@@ -12,22 +13,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class ToolsCommand implements CommandExecutor {
 
-    private Miniaturise main;
-
-    public ToolsCommand(Miniaturise main){
-        this.main = main;
-    }
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if(sender instanceof Player player){
-            if(player.hasPermission("miniaturise.use")){
-                player.sendMessage(Util.PREFIX + "§aThese items/blocks are currently bound to tools:");
-                player.sendMessage(Util.PREFIX + "§a  - Selector: §eminecraft:" + ConfigManager.getSelectorToolMaterial().name().toLowerCase());
-                player.sendMessage(Util.PREFIX + "§a  - Adjuster: §eminecraft:" + ConfigManager.getAdjusterToolMaterial().name().toLowerCase());
-                return true;
-            }
-        }
-        return false;
+        if(!(sender instanceof Player player)) return false;
+        if(!player.hasPermission(Miniaturise.PERMISSION)) return false;
+
+        player.sendMessage(Message.TOOLS);
+        return true;
+
     }
 }

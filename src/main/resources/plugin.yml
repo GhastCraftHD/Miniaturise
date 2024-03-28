@@ -1,10 +1,10 @@
-name: Miniaturise
-version: '${project.version}'
+name: $name
+version: $version
 main: de.leghast.miniaturise.Miniaturise
-api-version: '1.20'
+api-version: "$apiVersion"
 authors: [GhastCraftHD]
-description: A tool which lets you create miniatures of your builds and makes working with block displays easy (Idea by reyzixDE)
-website: https://www.github.com/LeGhast/Miniaturise
+description: $description
+website: https://www.github.com/GhastCraftHD/Miniaturise
 commands:
   mselect:
     aliases: msel
@@ -37,5 +37,5 @@ commands:
 
 permissions:
   miniaturise.use:
-    default: true
+    default: op
     description: The permission that lets you use Miniaturise

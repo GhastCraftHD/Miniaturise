@@ -1,11 +1,15 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.region.Region;
-import de.leghast.miniaturise.instance.region.SelectedLocations;
+import de.leghast.miniaturise.region.Region;
+import de.leghast.miniaturise.region.SelectedLocations;
+import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * This class manages the selected locations and region of all online players
@@ -120,6 +124,15 @@ public class RegionManager {
     public void removeClipboard(UUID uuid){
         removeSelectedLocations(uuid);
         removeRegion(uuid);
+    }
+
+    public List<BlockDisplay> getBlockDisplaysFromRegion(Player player, Region region){
+
+        return player.getWorld().getEntities()
+                .stream()
+                .filter(entity -> entity instanceof BlockDisplay && region.contains(entity.getLocation()))
+                .map(entity -> (BlockDisplay) entity)
+                .collect(Collectors.toList());
     }
 
 }

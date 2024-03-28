@@ -1,22 +1,16 @@
 package de.leghast.miniaturise.util;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.region.Region;
-import de.leghast.miniaturise.instance.settings.AdjusterSettings;
+import de.leghast.miniaturise.settings.AdjusterSettings;
 import de.leghast.miniaturise.ui.Page;
 import de.leghast.miniaturise.ui.page.PageUtil;
 import net.wesjd.anvilgui.AnvilGUI;
-import org.bukkit.Chunk;
 import org.bukkit.Material;
-import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Util {
 
@@ -37,18 +31,6 @@ public class Util {
                 return "Invalid dimension";
             }
         }
-    }
-
-    public static List<BlockDisplay> getBlockDisplaysFromRegion(Player player, Region region){
-        List<BlockDisplay> blockDisplays = new ArrayList<>();
-        for(Chunk chunk : player.getWorld().getLoadedChunks()){
-            for(Entity entity : chunk.getEntities()){
-                if(entity instanceof BlockDisplay && region.contains(entity.getLocation())){
-                    blockDisplays.add((BlockDisplay) entity);
-                }
-            }
-        }
-        return blockDisplays;
     }
 
     public static void setCustomNumberInput(Miniaturise main, Player player, Page page){

@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.miniature.Miniature;
+import de.leghast.miniaturise.miniature.Miniature;
 
 import java.io.*;
 

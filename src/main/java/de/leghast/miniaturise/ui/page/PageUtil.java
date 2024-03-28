@@ -62,7 +62,7 @@ public class PageUtil {
         saved.setItemMeta(savedMeta);
         content[27] = saved;*/
 
-        ItemStack adjuster = new ItemStack(ConfigManager.getAdjusterToolMaterial());
+        ItemStack adjuster = new ItemStack(ConfigManager.ADJUSTER_TOOL);
         ItemMeta adjusterMeta = size.getItemMeta();
         adjusterMeta.setDisplayName("§6Adjuster Tool");
         List<String> adjusterLore = new ArrayList<>();

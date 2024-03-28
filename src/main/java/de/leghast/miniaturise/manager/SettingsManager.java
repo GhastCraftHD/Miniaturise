@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.settings.AdjusterSettings;
+import de.leghast.miniaturise.settings.AdjusterSettings;
 import org.bukkit.Bukkit;
 
 import java.util.HashMap;

@@ -1,9 +1,11 @@
 package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.miniature.Miniature;
-import de.leghast.miniaturise.instance.settings.*;
+import de.leghast.miniaturise.miniature.Miniature;
 import de.leghast.miniaturise.manager.ConfigManager;
+import de.leghast.miniaturise.settings.AdjusterSettings;
+import de.leghast.miniaturise.settings.DimensionSettings;
+import de.leghast.miniaturise.settings.FactorSettings;
 import de.leghast.miniaturise.ui.UserInterface;
 import de.leghast.miniaturise.ui.Page;
 import de.leghast.miniaturise.ui.page.PageUtil;
@@ -15,8 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import java.io.IOException;
 
 public class InventoryClickListener implements Listener {
 
@@ -51,7 +51,7 @@ public class InventoryClickListener implements Listener {
         DimensionSettings positionSettings = settings.getPositionSettings();
 
         switch (slot){
-            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.ADJUSTER_TOOL));
             case 9 -> settings.setPage(Page.SIZE);
             case 18 -> settings.setPage(Page.ROTATION);
             //case 27 -> settings.setPage(Page.SAVED);
@@ -85,7 +85,7 @@ public class InventoryClickListener implements Listener {
 
         switch (slot){
             case 0 -> settings.setPage(Page.POSITION);
-            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.ADJUSTER_TOOL));
             case 18 -> settings.setPage(Page.ROTATION);
             //case 27 -> settings.setPage(Page.SAVED);
             case 20 -> sizeSettings.setFactor(0.25);
@@ -115,7 +115,7 @@ public class InventoryClickListener implements Listener {
 
         switch (slot){
             case 0 -> settings.setPage(Page.POSITION);
-            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.getAdjusterToolMaterial()));
+            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.ADJUSTER_TOOL));
             case 9 -> settings.setPage(Page.SIZE);
             //case 27 -> settings.setPage(Page.SAVED);
             case 11 -> rotationSettings.setFactor(22.5);

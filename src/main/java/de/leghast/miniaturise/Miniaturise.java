@@ -18,31 +18,40 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.function.Consumer;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * The main plugin class of the Miniaturise Minecraft paper plugin
+ * The main plugin class of the Miniaturise plugin
  * @author GhastCraftHD
  * */
 public final class Miniaturise extends JavaPlugin {
+
+    public static Logger logger;
+    public static final String PERMISSION = "miniaturise.use";
 
     private MiniatureManager miniatureManager;
     private RegionManager regionManager;
     private SettingsManager settingsManager;
     private SaveManager saveManager;
 
-    private String owner = "LeGhast";
-    private String repo = "Miniaturise";
-
     private boolean updateAvailable = false;
-    private String latestVersion = getDescription().getVersion();
+    private String latestVersion = this.getPluginMeta().getVersion();
 
     @Override
     public void onEnable() {
-        ConfigManager.setupConfig(this);
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
         initialiseManagers();
         registerListeners();
         setCommands();
         setTabCompleters();
+        checkForUpdate();
+        Miniaturise.logger = this.getLogger();
+    }
+
+    @Override
+    public void onDisable(){
+        this.saveConfig();
     }
 
     private void initialiseManagers(){
@@ -50,6 +59,7 @@ public final class Miniaturise extends JavaPlugin {
         regionManager = new RegionManager(this);
         settingsManager = new SettingsManager(this);
         saveManager = new SaveManager(this);
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> ConfigManager.setUpConfig(this));
     }
 
     private void registerListeners(){
@@ -63,7 +73,7 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("mselect").setExecutor(new SelectCommand(this));
         getCommand("mscale").setExecutor(new ScaleCommand(this));
         getCommand("mcut").setExecutor(new CutCommand(this));
-        getCommand("mtools").setExecutor(new ToolsCommand(this));
+        getCommand("mtools").setExecutor(new ToolsCommand());
         getCommand("mpaste").setExecutor(new PasteCommand(this));
         getCommand("mremove").setExecutor(new RemoveCommand(this));
         getCommand("mcopy").setExecutor(new CopyCommand(this));
@@ -103,45 +113,47 @@ public final class Miniaturise extends JavaPlugin {
         return saveManager;
     }
 
-    public void checkForUpdateAsync() {
-    Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-        String apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest";
+    private void checkForUpdate() {
+        if (!ConfigManager.CHECK_FOR_UPDATE) return;
 
-        try {
-            URL url = new URL(apiUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        String apiUrl = "https://api.github.com/repos/GhastCraftHD/Miniaturise/releases/latest";
 
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             try {
+                URL url = new URL(apiUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "application/vnd.github.v3+json");
 
-                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                try {
+                    connection.setRequestProperty("Content-Type", "application/json");
+
+                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) return;
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String input;
                     StringBuilder response = new StringBuilder();
-                    String line;
 
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
+                    while ((input = in.readLine()) != null) {
+                        response.append(input);
                     }
 
-                    reader.close();
+                    in.close();
+                    connection.disconnect();
 
-                    latestVersion = response.toString().contains("tag_name")
-                            ? response.toString().split("\"tag_name\":\"")[1].split("\",")[0]
-                            : null;
+                    if (!response.toString().contains("tag_name")) return;
 
-                    updateAvailable = latestVersion != null && !latestVersion.equals("v" + getDescription().getVersion());
-                } else {
-                    getLogger().log(Level.INFO ,"Error: " + connection.getResponseCode() + " " + connection.getResponseMessage());
+                    latestVersion = response.toString().split("\"tag_name\":\"v")[1].split("\",")[0];
+
+                } finally {
+                    connection.disconnect();
                 }
-            } finally {
-                connection.disconnect();
-            }
-        } catch (Exception e) {
-            getLogger().log(Level.INFO, "Couldn't fetch latest version");
-        }
-    });
-}
+
+            } catch (Exception ignore) {}
+
+            updateAvailable = latestVersion != this.getPluginMeta().getVersion();
+        });
+
+    }
 
     public boolean isUpdateAvailable(){
         return updateAvailable;

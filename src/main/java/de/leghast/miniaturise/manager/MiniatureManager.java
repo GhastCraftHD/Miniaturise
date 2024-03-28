@@ -1,8 +1,8 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.miniature.Miniature;
-import de.leghast.miniaturise.instance.miniature.PlacedMiniature;
+import de.leghast.miniaturise.miniature.Miniature;
+import de.leghast.miniaturise.miniature.PlacedMiniature;
 
 import java.util.HashMap;
 import java.util.UUID;

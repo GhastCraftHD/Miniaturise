@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.constant.Message;
 import de.leghast.miniaturise.util.Util;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -14,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class SaveCommand implements CommandExecutor {
+public class  SaveCommand implements CommandExecutor {
 
-    private Miniaturise main;
+    private final Miniaturise main;
 
     public SaveCommand(Miniaturise main){
         this.main = main;
@@ -24,46 +25,46 @@ public class SaveCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if(sender instanceof Player player){
-            if(main.getMiniatureManager().hasMiniature(player.getUniqueId())) {
-                if (args.length >= 1) {
-                    if (args.length == 1) {
-                        if (main.getSaveManager().fileExists(args[0])) {
-                            player.sendMessage(Util.PREFIX + "§aA miniature with the name §e" + args[0] + ".mcminiature §aalready exists");
-                            TextComponent overwrite = Component.text("§e[OVERWRITE]")
-                                    .hoverEvent(HoverEvent.showText(Component.text("§aOverwrite §e" + args[0] + ".mcminiature")))
-                                    .clickEvent(ClickEvent.runCommand("/msave " + args[0] + " confirm"));
-                            player.sendMessage(Component.text(Util.PREFIX + "§aClick here to ").append(overwrite));
-                        } else {
-                            try {
-                                main.getSaveManager().serialize(args[0], main.getMiniatureManager().getMiniature(player.getUniqueId()));
-                                player.sendMessage(Util.PREFIX + "§aThe miniature was saved as §e" + args[0] + ".mcminiature");
-                            } catch (IOException e) {
-                                player.sendMessage(Util.PREFIX + "§cThe miniature could not be saved");
-                                e.printStackTrace();
-                            }
-                        }
-                    }else if(args.length == 2){
-                        if(args[1].equalsIgnoreCase("confirm")) {
-                            try {
-                                main.getSaveManager().serialize(args[0], main.getMiniatureManager().getMiniature(player.getUniqueId()));
-                                player.sendMessage(Util.PREFIX + "§e" + args[0] + ".mcminiature §awas overwritten");
-                            } catch (IOException e) {
-                                player.sendMessage(Util.PREFIX + "§cThe miniature could not be saved");
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                } else {
-                    player.sendMessage(Util.PREFIX + "§cPlease provide a name for the miniature");
-                }
-            }else{
-                player.sendMessage(Util.PREFIX + "§c/Usage: /msave <filename>");
-                player.sendMessage(Util.PREFIX + "§cThe filename may not contain whitespaces");
-            }
+        if(!(sender instanceof Player player)) return false;
+        if(!player.hasPermission(Miniaturise.PERMISSION)) return false;
+
+        if(!main.getMiniatureManager().hasMiniature(player.getUniqueId())){
+            player.sendMessage(Message.SAVE_COMMAND_USAGE);
+            return true;
         }
 
-        return false;
+        if(args.length > 1){
+            player.sendMessage(Message.PROVIDE_FILENAME);
+            return true;
+        }
+
+        switch(args.length){
+            case 1 -> {
+                if (main.getSaveManager().fileExists(args[0])) {
+                    player.sendMessage(Message.fileAlreadyExists(args[0]));
+                    return true;
+                }
+                try {
+                    main.getSaveManager().serialize(args[0], main.getMiniatureManager().getMiniature(player.getUniqueId()));
+                    player.sendMessage(Message.savedMiniature(args[0]));
+                } catch (IOException e) {
+                    player.sendMessage(Message.COULD_NOT_SAVE_MINIATURE);
+                }
+
+            }
+            case 2 -> {
+                if(!args[1].equalsIgnoreCase("confirm")) return false;
+
+                try {
+                    main.getSaveManager().serialize(args[0], main.getMiniatureManager().getMiniature(player.getUniqueId()));
+                    player.sendMessage(Message.overwroteMiniature(args[0]));
+                } catch (IOException e) {
+                    player.sendMessage(Message.COULD_NOT_SAVE_MINIATURE);
+                }
+
+            }
+        }
+        return true;
     }
 
 }
