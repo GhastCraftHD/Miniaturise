@@ -5,6 +5,7 @@ import de.leghast.miniaturise.util.Util;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Axis;
 import org.bukkit.Location;
 
@@ -126,7 +127,7 @@ public class Message {
     public static Component loadedMiniatureFromFile(String name){
         return Prefix.MINIATURISE.append(
                 Component.text(name, Colors.ACCENT)
-                        .append(Component.text("was loaded to your clipboard", Colors.SUCCESS))
+                        .append(Component.text(" was loaded to your clipboard", Colors.SUCCESS))
         );
     }
 
@@ -146,8 +147,21 @@ public class Message {
                                         (int) location.getY() + ", " +
                                         (int) location.getY(), Colors.ACCENT
                         ))
-                        .append(Component.text(" (" + Util.getDimensionName(location.getWorld().getEnvironment().name()) + ")", Colors.SUCCESS))
+                        .append(Component.text(" (" + getDimensionName(location.getWorld().getEnvironment().name()) + ")", Colors.SUCCESS))
                         .append(Component.text(" (" + blockAmount + " block" + (blockAmount == 1 ? "" : "s") + ")", Colors.ACCENT))
+        );
+    }
+
+    public static Component newVersionAvailable(String newVersion){
+        return Prefix.MINIATURISE.append(
+                Component.text("A new version of Miniaturise is available: ", Colors.SUCCESS)
+                        .append(Component.text("Version " + newVersion, Colors.ACCENT))
+                        .append(Component.newline())
+                        .append(Prefix.MINIATURISE)
+                        .append(Component.text("Get it from the ", Colors.SUCCESS))
+                        .append(Component.text("Miniaturise GitHub repository", Colors.ACCENT)
+                                .clickEvent(ClickEvent.openUrl("https://github.com/GhastCraftHD/Miniaturise/releases"))
+                                .decorate(TextDecoration.UNDERLINED))
         );
     }
 
@@ -160,7 +174,7 @@ public class Message {
                                         (int) location.getY() + ", " +
                                         (int) location.getY(), Colors.ACCENT
                         ))
-                        .append(Component.text(" (" + Util.getDimensionName(location.getWorld().getEnvironment().name()) + ")", Colors.SUCCESS))
+                        .append(Component.text(" (" + getDimensionName(location.getWorld().getEnvironment().name()) + ")", Colors.SUCCESS))
         );
     }
 
@@ -232,6 +246,23 @@ public class Message {
                         .append(Component.text("(" + blockAmount +
                                 " block" + (blockAmount == 1 ? "" : "s") + ")", Colors.ACCENT))
         );
+    }
+
+    public static String getDimensionName(String string){
+        switch (string){
+            case "NORMAL" -> {
+                return "minecraft:overworld";
+            }
+            case "NETHER" -> {
+                return "minecraft:the_nether";
+            }
+            case "THE_END" -> {
+                return "minecraft:the_end";
+            }
+            default -> {
+                return "Invalid dimension";
+            }
+        }
     }
 
 }

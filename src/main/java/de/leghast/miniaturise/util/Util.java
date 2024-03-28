@@ -3,7 +3,7 @@ package de.leghast.miniaturise.util;
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.settings.AdjusterSettings;
 import de.leghast.miniaturise.ui.Page;
-import de.leghast.miniaturise.ui.page.PageUtil;
+import de.leghast.miniaturise.ui.FrequentItems;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,29 +16,12 @@ public class Util {
 
     public static final String PREFIX = "§7[§eMiniaturise§7] ";
 
-    public static String getDimensionName(String string){
-        switch (string){
-            case "NORMAL" -> {
-                return "minecraft:overworld";
-            }
-            case "NETHER" -> {
-                return "minecraft:the_nether";
-            }
-            case "THE_END" -> {
-                return "minecraft:the_end";
-            }
-            default -> {
-                return "Invalid dimension";
-            }
-        }
-    }
-
     public static void setCustomNumberInput(Miniaturise main, Player player, Page page){
         ItemStack output = new ItemStack(Material.PAPER);
         ItemMeta meta = output.getItemMeta();
         meta.setDisplayName("§eSet custom factor");
         output.setItemMeta(meta);
-        PageUtil.addGlint(output);
+        FrequentItems.addGlint(output);
 
         new AnvilGUI.Builder()
                 .title("§eEnter custom factor")

@@ -7,9 +7,9 @@ import java.io.*;
 
 public class SaveManager {
 
-    private Miniaturise main;
+    private final Miniaturise main;
     private boolean enabled;
-    private File folder;
+    private final File folder;
 
     public SaveManager(Miniaturise main){
         this.main = main;

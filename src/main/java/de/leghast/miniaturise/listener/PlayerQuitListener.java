@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class PlayerQuitListener implements Listener {
 
-    private Miniaturise main;
+    private final Miniaturise main;
 
     public PlayerQuitListener(Miniaturise main){
         this.main = main;

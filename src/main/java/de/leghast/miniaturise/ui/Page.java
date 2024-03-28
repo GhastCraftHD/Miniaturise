@@ -1,19 +1,22 @@
 package de.leghast.miniaturise.ui;
 
+import de.leghast.miniaturise.constant.Colors;
+import net.kyori.adventure.text.Component;
+
 public enum Page {
 
-    POSITION("§eAdjust miniature position"),
-    SIZE("§eAdjust miniature size"),
-    ROTATION("§eAdjust miniature rotation"),
-    SAVED("§eSelect a saved miniature");
+    POSITION(Component.text("Adjust miniature position", Colors.ACCENT)),
+    SIZE(Component.text("Adjust miniature size", Colors.ACCENT)),
+    ROTATION(Component.text("Adjust miniature rotation", Colors.ACCENT)),
+    SAVED(Component.text("Select a saved miniature", Colors.ACCENT));
 
-    private String title;
+    private final Component title;
 
-    Page(String title){
+    Page(Component title){
         this.title = title;
     }
 
-    public String getTitle(){
+    public Component getTitle(){
         return title;
     }
 

@@ -1,16 +1,13 @@
 package de.leghast.miniaturise.ui.page;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.manager.ConfigManager;
+import de.leghast.miniaturise.ui.FrequentItems;
 import de.leghast.miniaturise.ui.Page;
 import org.bukkit.Axis;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RotationPage {
 
@@ -20,14 +17,14 @@ public class RotationPage {
         double factor = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getRotationSettings().getFactor();
         Axis axis = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getRotationSettings().getAxis();
 
-        PageUtil.addPageSwitchItems(content, Page.ROTATION);
+        FrequentItems.addPageSwitchItems(content, Page.ROTATION);
 
         ItemStack quarter = new ItemStack(Material.COAL);
         ItemMeta quarterMeta = quarter.getItemMeta();
         quarterMeta.setDisplayName("§722.5 degrees");
         quarter.setItemMeta(quarterMeta);
         if(factor == 22.5){
-            PageUtil.addGlint(quarter);
+            FrequentItems.addGlint(quarter);
         }
         content[11] = quarter;
 
@@ -36,7 +33,7 @@ public class RotationPage {
         halfMeta.setDisplayName("§745 degrees");
         half.setItemMeta(halfMeta);
         if(factor == 45){
-            PageUtil.addGlint(half);
+            FrequentItems.addGlint(half);
         }
         content[12] = half;
 
@@ -45,7 +42,7 @@ public class RotationPage {
         fullMeta.setDisplayName("§790 degrees");
         full.setItemMeta(fullMeta);
         if(factor == 90){
-            PageUtil.addGlint(full);
+            FrequentItems.addGlint(full);
         }
         content[13] = full;
 
@@ -54,7 +51,7 @@ public class RotationPage {
         miniatureBlockSizeMeta.setDisplayName("§7180 degrees");
         miniatureBlockSize.setItemMeta(miniatureBlockSizeMeta);
         if(factor == 180){
-            PageUtil.addGlint(miniatureBlockSize);
+            FrequentItems.addGlint(miniatureBlockSize);
         }
         content[14] = miniatureBlockSize;
 
@@ -64,13 +61,13 @@ public class RotationPage {
         custom.setItemMeta(customMeta);
         boolean condition = factor != 22.5 && factor != 45 && factor != 90 && factor != 180;
         if(condition){
-            PageUtil.addGlint(custom);
+            FrequentItems.addGlint(custom);
         }
         content[15] = custom;
 
-        PageUtil.addAxisItems(content, axis);
+        FrequentItems.addAxisItems(content, axis);
 
-        PageUtil.addGeneralItems(content);
+        FrequentItems.addGeneralItems(content);
 
         return content;
     }

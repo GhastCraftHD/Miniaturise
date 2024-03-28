@@ -1,16 +1,13 @@
 package de.leghast.miniaturise.ui.page;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.manager.ConfigManager;
+import de.leghast.miniaturise.ui.FrequentItems;
 import de.leghast.miniaturise.ui.Page;
 import org.bukkit.Axis;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PositionPage {
 
@@ -20,14 +17,14 @@ public class PositionPage {
         double factor = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPositionSettings().getFactor();
         Axis axis = main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPositionSettings().getAxis();
 
-        PageUtil.addPageSwitchItems(content, Page.POSITION);
+        FrequentItems.addPageSwitchItems(content, Page.POSITION);
 
         ItemStack quarter = new ItemStack(Material.COAL);
         ItemMeta quarterMeta = quarter.getItemMeta();
         quarterMeta.setDisplayName("§70.25 blocks");
         quarter.setItemMeta(quarterMeta);
         if(factor == 0.25){
-            PageUtil.addGlint(quarter);
+            FrequentItems.addGlint(quarter);
         }
         content[11] = quarter;
 
@@ -36,7 +33,7 @@ public class PositionPage {
         halfMeta.setDisplayName("§70.5 blocks");
         half.setItemMeta(halfMeta);
         if(factor == 0.5){
-            PageUtil.addGlint(half);
+            FrequentItems.addGlint(half);
         }
         content[12] = half;
 
@@ -45,7 +42,7 @@ public class PositionPage {
         fullMeta.setDisplayName("§71 block");
         full.setItemMeta(fullMeta);
         if(factor == 1){
-            PageUtil.addGlint(full);
+            FrequentItems.addGlint(full);
         }
         content[13] = full;
 
@@ -60,7 +57,7 @@ public class PositionPage {
         miniatureBlockSize.setItemMeta(miniatureBlockSizeMeta);
         if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())) {
             if (factor == main.getMiniatureManager().getMiniature(player.getUniqueId()).getSize()) {
-                PageUtil.addGlint(miniatureBlockSize);
+                FrequentItems.addGlint(miniatureBlockSize);
             }
         }
         content[14] = miniatureBlockSize;
@@ -74,13 +71,13 @@ public class PositionPage {
             condition = condition && factor != main.getMiniatureManager().getMiniature(player.getUniqueId()).getSize();
         }
         if(condition){
-            PageUtil.addGlint(custom);
+            FrequentItems.addGlint(custom);
         }
         content[15] = custom;
 
-        PageUtil.addAxisItems(content, axis);
+        FrequentItems.addAxisItems(content, axis);
 
-        PageUtil.addGeneralItems(content);
+        FrequentItems.addGeneralItems(content);
 
         return content;
     }

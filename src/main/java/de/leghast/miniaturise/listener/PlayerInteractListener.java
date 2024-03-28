@@ -1,6 +1,9 @@
 package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.constant.Message;
+import de.leghast.miniaturise.handler.AdjusterInteractionHandler;
+import de.leghast.miniaturise.handler.SelectorInteractionHandler;
 import de.leghast.miniaturise.miniature.PlacedMiniature;
 import de.leghast.miniaturise.region.SelectedLocations;
 import de.leghast.miniaturise.settings.AdjusterSettings;
@@ -22,7 +25,7 @@ import org.bukkit.inventory.EquipmentSlot;
  * */
 public class PlayerInteractListener implements Listener {
 
-    private Miniaturise main;
+    private final Miniaturise main;
 
     public PlayerInteractListener(Miniaturise main){
         this.main = main;
@@ -33,83 +36,20 @@ public class PlayerInteractListener implements Listener {
         Player player = e.getPlayer();
         Material material = player.getInventory().getItemInMainHand().getType();
 
-        if(player.hasPermission("miniaturise.use")){
-            if(material == ConfigManager.SELECTOR_TOOL){
+        if(!player.hasPermission(Miniaturise.PERMISSION)) return;
+
+        if(material == ConfigManager.SELECTOR_TOOL){
+            e.setCancelled(true);
+            new SelectorInteractionHandler(main, player, e.getAction(), e.getClickedBlock(), e.getHand());
+        }else if(material == ConfigManager.ADJUSTER_TOOL){
+            if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
                 e.setCancelled(true);
-                handleSelectorInteraction(player, e.getAction(), e.getClickedBlock(), e.getHand());
-            }else if(material == ConfigManager.ADJUSTER_TOOL){
-                e.setCancelled(true);
-                if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-                    handleAdjusterInteraction(player, e.getAction(), e.getHand());
-                }else{
-                    player.sendMessage(Util.PREFIX + "§cYou have not selected a placed miniature");
-                }
+                new AdjusterInteractionHandler(main, player, e.getAction(), e.getHand());
+            }else{
+                player.sendMessage(Message.SELECT_PLACED_MINIATURE_FIRST);
             }
         }
-    }
 
-    private void handleSelectorInteraction(Player player, Action action, Block block, EquipmentSlot hand){
-        switch (action){
-            case LEFT_CLICK_BLOCK -> {
-                if (main.getRegionManager().hasSelectedLocations(player.getUniqueId())) {
-                    main.getRegionManager().getSelectedLocations(player.getUniqueId()).setLoc1(block.getLocation());
-                } else {
-                    main.getRegionManager().addSelectedLocations(player.getUniqueId(), new SelectedLocations(block.getLocation(), null));
-                }
-                player.sendMessage(Util.PREFIX + "§aThe first position was set to §e" +
-                        (int) block.getLocation().getX() + ", " +
-                        (int) block.getLocation().getY() + ", " +
-                        (int) block.getLocation().getZ() + " §a(" +
-                        Util.getDimensionName(block.getLocation().getWorld().getEnvironment().name()) + ")");
-            }
-            case RIGHT_CLICK_BLOCK -> {
-                if(hand == EquipmentSlot.HAND){
-                    if (main.getRegionManager().hasSelectedLocations(player.getUniqueId())) {
-                        main.getRegionManager().getSelectedLocations(player.getUniqueId()).setLoc2(block.getLocation());
-                    } else {
-                        main.getRegionManager().addSelectedLocations(player.getUniqueId(), new SelectedLocations(null, block.getLocation()));
-                    }
-                    player.sendMessage(Util.PREFIX + "§aThe second position was set to §e" +
-                            (int) block.getLocation().getX() + ", " +
-                            (int) block.getLocation().getY() + ", " +
-                            (int) block.getLocation().getZ()+ " §a(" +
-                            Util.getDimensionName(block.getLocation().getWorld().getEnvironment().name()) + ")");
-                }
-            }
-        }
     }
-
-    private void handleAdjusterInteraction(Player player, Action action, EquipmentSlot hand){
-        if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
-            main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
-        }
-        if(action.isLeftClick()){
-            PlacedMiniature placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
-            AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
-            switch (main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage()){
-                case POSITION -> placedMiniature.move(settings.getPositionSettings().getAxis(), -settings.getPositionSettings().getFactor());
-                case SIZE -> placedMiniature.scaleDown(settings.getSizeSettings().getFactor());
-                case ROTATION -> placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) -settings.getRotationSettings().getFactor());
-            }
-        }else if(action.isRightClick()){
-            if(hand == EquipmentSlot.HAND){
-                if(player.isSneaking()){
-                    if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
-                        main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
-                    }
-                    new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
-                }else{
-                    PlacedMiniature placedMiniature = main.getMiniatureManager().getPlacedMiniature(player.getUniqueId());
-                    AdjusterSettings settings = main.getSettingsManager().getAdjusterSettings(player.getUniqueId());
-                    switch (main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage()){
-                        case POSITION -> placedMiniature.move(settings.getPositionSettings().getAxis(), settings.getPositionSettings().getFactor());
-                        case SIZE -> placedMiniature.scaleUp(settings.getSizeSettings().getFactor());
-                        case ROTATION -> placedMiniature.rotate(settings.getRotationSettings().getAxis(), (float) settings.getRotationSettings().getFactor());
-                    }
-                }
-            }
-        }
-    }
-
 
 }
