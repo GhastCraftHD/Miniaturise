@@ -31,15 +31,11 @@ public class PlayerInteractListener implements Listener {
         if(!player.hasPermission(Miniaturise.PERMISSION)) return;
 
         if(material == ConfigManager.SELECTOR_TOOL){
-            e.setCancelled(true);
             new SelectorInteractionHandler(main, player, e.getAction(), e.getClickedBlock(), e.getHand());
+            e.setCancelled(true);
         }else if(material == ConfigManager.ADJUSTER_TOOL){
-            if(main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
-                e.setCancelled(true);
-                new AdjusterInteractionHandler(main, player, e.getAction(), e.getHand());
-            }else{
-                player.sendMessage(Message.SELECT_PLACED_MINIATURE_FIRST);
-            }
+            new AdjusterInteractionHandler(main, player, e.getAction(), e.getHand());
+            e.setCancelled(true);
         }
 
     }

@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.handler;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.constant.Message;
 import de.leghast.miniaturise.miniature.PlacedMiniature;
 import de.leghast.miniaturise.settings.AdjusterSettings;
 import de.leghast.miniaturise.ui.UserInterface;
@@ -13,6 +14,11 @@ public class AdjusterInteractionHandler {
     public AdjusterInteractionHandler(Miniaturise main, Player player, Action action, EquipmentSlot hand){
         if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
             main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
+        }
+
+        if(!main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
+            player.sendMessage(Message.SELECT_PLACED_MINIATURE_FIRST);
+            return;
         }
 
         if(action.isLeftClick()){
