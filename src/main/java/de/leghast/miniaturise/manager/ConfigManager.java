@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
+import io.papermc.paper.configuration.constraint.Constraints;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -12,35 +13,39 @@ public class ConfigManager {
 
     private static FileConfiguration config;
 
-    //Setup/Initialise the ConfigManager
-    public static void setupConfig(Miniaturise main){
+    public static boolean CHECK_FOR_UPDATE;
+    public static int MAX_ENTITY_LIMIT;
+    public static double DEFAULT_SIZE;
+    public static Material SELECTOR_TOOL;
+    public static Material ADJUSTER_TOOL;
+
+    public static void setUpConfig(Miniaturise main){
         ConfigManager.config = main.getConfig();
-        main.saveDefaultConfig();
+        CHECK_FOR_UPDATE = getBool("check-for-update");
+        MAX_ENTITY_LIMIT = getInt("max-entity-limit");
+        DEFAULT_SIZE = getDouble("default-size");
+        SELECTOR_TOOL = Material.matchMaterial(getString("selector-tool"));
+        ADJUSTER_TOOL = Material.matchMaterial(getString("adjuster-tool"));
     }
 
-    /**
-     * @return The selector tool material
-     */
-    public static Material getSelectorToolMaterial(){
-        return Material.matchMaterial(config.getString("selector-tool"));
+    private static String getString(String path){
+        return config.getString(path);
     }
 
-    /**
-     * @return The maximum amount of blocks that are allowed in one miniature
-     */
-    public static int getMaxEntityLimit(){
-        return config.getInt("max-entity-limit");
+    private static boolean getBool(String path){
+        return config.getBoolean(path);
     }
 
-    /**
-     * @return The default size of a block in a newly instanced miniature
-     */
-    public static double getDefaultSize(){
-        return config.getDouble("default-size");
+    private static int getInt(String path){
+        return config.getInt(path);
     }
 
-    public static Material getAdjusterToolMaterial(){
-        return Material.matchMaterial(config.getString("adjuster-tool"));
+    private static double getDouble(String path){
+        return config.getDouble(path);
+    }
+
+    private static Material getMaterial(String path){
+        return Material.matchMaterial(getString(path));
     }
 
 }

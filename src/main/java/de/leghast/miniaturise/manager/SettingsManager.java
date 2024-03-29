@@ -1,7 +1,7 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.settings.AdjusterSettings;
+import de.leghast.miniaturise.settings.AdjusterSettings;
 import org.bukkit.Bukkit;
 
 import java.util.HashMap;
@@ -9,13 +9,9 @@ import java.util.UUID;
 
 public class SettingsManager {
 
-    private Miniaturise main;
+    private final HashMap<UUID, AdjusterSettings> adjusterSettings;
 
-    private HashMap<UUID, AdjusterSettings> adjusterSettings;
-
-    public SettingsManager(Miniaturise main){
-        this.main = main;
-
+    public SettingsManager(){
         adjusterSettings = new HashMap<>();
     }
 

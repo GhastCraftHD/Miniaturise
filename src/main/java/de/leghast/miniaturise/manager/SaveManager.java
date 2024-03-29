@@ -1,15 +1,15 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.miniature.Miniature;
+import de.leghast.miniaturise.miniature.Miniature;
 
 import java.io.*;
 
 public class SaveManager {
 
-    private Miniaturise main;
+    private final Miniaturise main;
     private boolean enabled;
-    private File folder;
+    private final File folder;
 
     public SaveManager(Miniaturise main){
         this.main = main;
@@ -62,13 +62,5 @@ public class SaveManager {
         return folder.listFiles((dir, name) -> name.endsWith(".mcminiature"));
     }
 
-    public int getMiniatureCount(){
-        File[] files = getMiniatureFiles();
-        return (files != null) ? files.length : 0;
-    }
-
-    public boolean isEnabled(){
-        return enabled;
-    }
 
 }

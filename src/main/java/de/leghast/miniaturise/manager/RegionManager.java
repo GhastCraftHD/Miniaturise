@@ -1,11 +1,15 @@
 package de.leghast.miniaturise.manager;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.instance.region.Region;
-import de.leghast.miniaturise.instance.region.SelectedLocations;
+import de.leghast.miniaturise.region.Region;
+import de.leghast.miniaturise.region.SelectedLocations;
+import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * This class manages the selected locations and region of all online players
@@ -13,32 +17,13 @@ import java.util.UUID;
  * */
 public class RegionManager {
 
-    private Miniaturise main;
+    private final HashMap<UUID, SelectedLocations> selectedLocations;
+    private final HashMap<UUID, Region> regions;
 
-    private HashMap<UUID, SelectedLocations> selectedLocations;
-    private HashMap<UUID, Region> regions;
-
-    public RegionManager(Miniaturise main){
-        this.main = main;
-
+    public RegionManager(){
         selectedLocations = new HashMap<>();
         regions = new HashMap<>();
     }
-
-    /**
-     * @return The HashMap, that stores the locations, each player has selected
-     * */
-    public HashMap<UUID, SelectedLocations> getSelectedLocations(){
-        return selectedLocations;
-    }
-
-    /**
-     * @return The HashMap, that stores the regions, each player has selected
-     * */
-    public HashMap<UUID, Region> getRegions(){
-        return regions;
-    }
-
     /**
      * @return The selected location from a player
      * NOTE: Returns null, if the specified player has not set any locations yet
@@ -120,6 +105,15 @@ public class RegionManager {
     public void removeClipboard(UUID uuid){
         removeSelectedLocations(uuid);
         removeRegion(uuid);
+    }
+
+    public List<BlockDisplay> getBlockDisplaysFromRegion(Player player, Region region){
+
+        return player.getWorld().getEntities()
+                .stream()
+                .filter(entity -> entity instanceof BlockDisplay && region.contains(entity.getLocation()))
+                .map(entity -> (BlockDisplay) entity)
+                .collect(Collectors.toList());
     }
 
 }
