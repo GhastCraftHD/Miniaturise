@@ -26,7 +26,7 @@ public class RotationInteractionHandler {
             case 12 -> rotationSettings.setFactor(45);
             case 13 -> rotationSettings.setFactor(90);
             case 14 -> rotationSettings.setFactor(180);
-            case 15 -> Util.setCustomNumberInput(main, player, settings.getPage());
+            case 15 -> Util.setCustomNumberInput(main, player, settings.getPage(), rotationSettings.getFactor());
             case 30 -> rotationSettings.setAxis(Axis.X);
             case 31 -> rotationSettings.setAxis(Axis.Y);
             case 32 -> rotationSettings.setAxis(Axis.Z);

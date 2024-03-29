@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FrequentItems {
@@ -44,6 +43,7 @@ public class FrequentItems {
                         Component.text("of the placed miniature", NamedTextColor.GRAY)
                 )
         );
+
         content[18] = new InterfaceItem(
                 Material.ITEM_FRAME,
                 Component.text("Rotation", Colors.ACCENT),
@@ -63,6 +63,7 @@ public class FrequentItems {
                         Component.text("saved miniatures", NamedTextColor.GRAY)
                 )
         );
+
         content[8] = new InterfaceItem(
                 ConfigManager.ADJUSTER_TOOL,
                 Component.text("Adjuster tool", NamedTextColor.GOLD),
@@ -79,22 +80,21 @@ public class FrequentItems {
     }
 
     public static void addGeneralItems(ItemStack[] content){
-        ItemStack delete = new ItemStack(Material.BARRIER);
-        ItemMeta deleteMeta = delete.getItemMeta();
-        deleteMeta.setDisplayName("§cDelete miniature");
-        delete.setItemMeta(deleteMeta);
-        content[44] = delete;
 
-        ItemStack deselect = new ItemStack(Material.STRUCTURE_VOID);
-        ItemMeta deselectMeta = deselect.getItemMeta();
-        deselectMeta.setDisplayName("§cDeselect miniature");
-        deselect.setItemMeta(deselectMeta);
-        content[26] = deselect;
+        content[44] = new InterfaceItem(
+                Material.BARRIER,
+                Component.text("Delete miniature", Colors.ERROR)
+        );
 
-        ItemStack filler = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-        ItemMeta fillerMeta = filler.getItemMeta();
-        fillerMeta.setDisplayName(" ");
-        filler.setItemMeta(fillerMeta);
+        content[26] = new InterfaceItem(
+                Material.STRUCTURE_VOID,
+                Component.text("Deselect miniature", Colors.ERROR)
+        );
+
+        ItemStack filler = new InterfaceItem(
+                Material.GRAY_STAINED_GLASS_PANE,
+                Component.empty()
+        );
 
         for(int i = 0; i < content.length; i++){
             if(content[i] == null){
@@ -104,32 +104,56 @@ public class FrequentItems {
     }
 
     public static void addAxisItems(ItemStack[] content, Axis axis) {
-        ItemStack x = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-        ItemMeta xMeta = x.getItemMeta();
-        xMeta.setDisplayName("§cX-Axis");
-        x.setItemMeta(xMeta);
-        if (axis == Axis.X) {
-            FrequentItems.addGlint(x);
-        }
-        content[30] = x;
 
-        ItemStack y = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
-        ItemMeta yMeta = y.getItemMeta();
-        yMeta.setDisplayName("§aY-Axis");
-        y.setItemMeta(yMeta);
-        if (axis == Axis.Y) {
-            FrequentItems.addGlint(y);
-        }
-        content[31] = y;
+        content[30] = new InterfaceItem(
+                Material.RED_STAINED_GLASS_PANE,
+                Component.text("X-Axis", NamedTextColor.RED),
+                () -> axis == Axis.X
+        );
 
-        ItemStack z = new ItemStack(Material.BLUE_STAINED_GLASS_PANE);
-        ItemMeta zMeta = z.getItemMeta();
-        zMeta.setDisplayName("§9Z-Axis");
-        z.setItemMeta(zMeta);
-        if (axis == Axis.Z) {
-            FrequentItems.addGlint(z);
-        }
-        content[32] = z;
+        content[31] = new InterfaceItem(
+                Material.LIME_STAINED_GLASS_PANE,
+                Component.text("Y-Axis", NamedTextColor.GREEN),
+                () -> axis == Axis.Y
+        );
+
+        content[32] = new InterfaceItem(
+                Material.BLUE_STAINED_GLASS_PANE,
+                Component.text("Z-Axis", NamedTextColor.BLUE),
+                () -> axis == Axis.Z
+        );
+    }
+
+    public static List<ItemStack> getValueItems(double factor, double blockSize){
+        return List.of(
+                new InterfaceItem(
+                        Material.COAL,
+                        Component.text("0.25 blocks", NamedTextColor.GRAY),
+                        () -> factor == 0.25
+                ),
+                new InterfaceItem(
+                        Material.IRON_INGOT,
+                        Component.text("0.5 blocks", NamedTextColor.GRAY),
+                        () -> factor == 0.5
+                ),
+                new InterfaceItem(
+                        Material.DIAMOND,
+                        Component.text("1 block", NamedTextColor.GRAY),
+                        () -> factor == 1
+                ),
+                new InterfaceItem(
+                        Material.GRASS_BLOCK,
+                        Component.text("Miniature block size ", NamedTextColor.GRAY)
+                                .append(Component.text("(" + blockSize + " blocks)", Colors.ACCENT)),
+                        () -> factor == blockSize
+                ),
+                new InterfaceItem(
+                        Material.PAPER,
+                        Component.text("Custom factor ", NamedTextColor.GRAY)
+                                .append(Component.text("(" + factor + " block" + (factor == 1 ? "" : "s") + ")", Colors.ACCENT)),
+                        () -> factor != 0.25 && factor != 0.5 && factor != 1 && factor != blockSize
+                )
+        );
     }
 
 }

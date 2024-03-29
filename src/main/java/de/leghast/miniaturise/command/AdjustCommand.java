@@ -1,6 +1,7 @@
 package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
+import de.leghast.miniaturise.constant.Message;
 import de.leghast.miniaturise.ui.UserInterface;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,6 +21,11 @@ public class AdjustCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(!(sender instanceof Player player)) return false;
         if(!player.hasPermission(Miniaturise.PERMISSION)) return false;
+
+        if(!main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
+            player.sendMessage(Message.SELECT_PLACED_MINIATURE_FIRST);
+            return false;
+        }
 
         if (!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())) {
             main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
