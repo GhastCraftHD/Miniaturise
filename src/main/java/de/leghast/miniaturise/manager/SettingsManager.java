@@ -9,13 +9,9 @@ import java.util.UUID;
 
 public class SettingsManager {
 
-    private Miniaturise main;
+    private final HashMap<UUID, AdjusterSettings> adjusterSettings;
 
-    private HashMap<UUID, AdjusterSettings> adjusterSettings;
-
-    public SettingsManager(Miniaturise main){
-        this.main = main;
-
+    public SettingsManager(){
         adjusterSettings = new HashMap<>();
     }
 

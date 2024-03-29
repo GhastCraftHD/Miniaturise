@@ -4,20 +4,12 @@ import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.constant.Message;
 import de.leghast.miniaturise.handler.AdjusterInteractionHandler;
 import de.leghast.miniaturise.handler.SelectorInteractionHandler;
-import de.leghast.miniaturise.miniature.PlacedMiniature;
-import de.leghast.miniaturise.region.SelectedLocations;
-import de.leghast.miniaturise.settings.AdjusterSettings;
 import de.leghast.miniaturise.manager.ConfigManager;
-import de.leghast.miniaturise.ui.UserInterface;
-import de.leghast.miniaturise.util.Util;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 
 /**
  * This class listens for player interactions, that are relevant for the Miniaturise plugin

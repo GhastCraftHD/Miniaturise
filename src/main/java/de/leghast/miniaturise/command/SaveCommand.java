@@ -2,11 +2,6 @@ package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.constant.Message;
-import de.leghast.miniaturise.util.Util;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

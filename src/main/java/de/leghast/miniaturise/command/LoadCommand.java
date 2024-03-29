@@ -6,11 +6,19 @@ import de.leghast.miniaturise.miniature.Miniature;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
-public class LoadCommand implements CommandExecutor {
+public class LoadCommand implements TabExecutor {
 
     private final Miniaturise main;
 
@@ -46,4 +54,19 @@ public class LoadCommand implements CommandExecutor {
 
         return true;
     }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        List<String> results = new ArrayList<>();
+
+        if(args.length == 1){
+            List<File> files = Arrays.stream(main.getSaveManager().getMiniatureFiles()).toList();
+
+            results = files.stream().map(File::getName).toList();
+            return StringUtil.copyPartialMatches(args[0], results, new ArrayList<>());
+        }
+
+        return results;
+    }
+
 }

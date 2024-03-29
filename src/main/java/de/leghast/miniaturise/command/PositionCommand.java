@@ -6,10 +6,16 @@ import de.leghast.miniaturise.region.SelectedLocations;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class PositionCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PositionCommand implements TabExecutor {
 
     private final Miniaturise main;
 
@@ -45,4 +51,16 @@ public class PositionCommand implements CommandExecutor {
         }
         return true;
     }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        List<String> results = new ArrayList<>();
+        if(args.length == 1){
+            results.add("1");
+            results.add("2");
+            return StringUtil.copyPartialMatches(args[0], results, new ArrayList<>());
+        }
+        return new ArrayList<>();
+    }
+
 }

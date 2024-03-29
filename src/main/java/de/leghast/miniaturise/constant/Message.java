@@ -1,7 +1,6 @@
 package de.leghast.miniaturise.constant;
 
 import de.leghast.miniaturise.manager.ConfigManager;
-import de.leghast.miniaturise.util.Util;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -82,7 +81,7 @@ public class Message {
             Component.text("Please provide a valid axis (x, y, z)", Colors.ERROR)
     );
 
-    public static final Component INVALID_SCALE = Prefix.MINIATURISE.append(
+    public static final Component INVALID_FACTOR = Prefix.MINIATURISE.append(
             Component.text("Please provide a valid scale factor", Colors.ERROR)
     );
 
@@ -96,6 +95,16 @@ public class Message {
 
     public static final Component SPECIFY_WHAT_TO_SCALE = Prefix.MINIATURISE.append(
             Component.text("Please specify, what you want to scale", Colors.ERROR)
+    );
+
+    public static final Component NO_MINIATURE_FILES = Prefix.MINIATURISE.append(
+            Component.text("No miniatures have been saved yet", Colors.ERROR)
+    );
+
+    public static final Component FILE_LIST_HEADER = Prefix.MINIATURISE.append(
+            Component.text("All saved miniatures ", Colors.SUCCESS)
+                    .append(Component.text("(Click to load)", Colors.ACCENT))
+                    .append(Component.text(":", Colors.SUCCESS))
     );
 
     public static final Component TOOLS = Prefix.MINIATURISE.append(
@@ -158,9 +167,9 @@ public class Message {
                         .append(Component.text("Version " + newVersion, Colors.ACCENT))
                         .append(Component.newline())
                         .append(Prefix.MINIATURISE)
-                        .append(Component.text("Get it from the ", Colors.SUCCESS))
-                        .append(Component.text("Miniaturise GitHub repository", Colors.ACCENT)
-                                .clickEvent(ClickEvent.openUrl("https://github.com/GhastCraftHD/Miniaturise/releases"))
+                        .append(Component.text("Get it from ", Colors.SUCCESS))
+                        .append(Component.text("Hangar", Colors.ACCENT)
+                                .clickEvent(ClickEvent.openUrl("https://hangar.papermc.io/GhastCraftHD/Miniaturise/versions/" + newVersion))
                                 .decorate(TextDecoration.UNDERLINED))
         );
     }
@@ -245,6 +254,21 @@ public class Message {
                 Component.text("The region was selected ", Colors.SUCCESS)
                         .append(Component.text("(" + blockAmount +
                                 " block" + (blockAmount == 1 ? "" : "s") + ")", Colors.ACCENT))
+        );
+    }
+
+    public static Component changedFactor(double factor){
+        return Prefix.MINIATURISE.append(
+                Component.text("The factor was set to ", Colors.SUCCESS)
+                        .append(Component.text(factor + " block" + (factor == 1 ? "" : "s"), Colors.ACCENT))
+        );
+    }
+
+    public static Component miniatureFileComponent(String filename){
+        return Prefix.MINIATURISE.append(
+                Component.text(" - ", Colors.ACCENT)
+                        .append(Component.text(filename, Colors.SUCCESS))
+                        .clickEvent(ClickEvent.runCommand("/mload " + filename))
         );
     }
 

@@ -6,7 +6,7 @@ import de.leghast.miniaturise.settings.AdjusterSettings;
 import de.leghast.miniaturise.settings.FactorSettings;
 import de.leghast.miniaturise.ui.Page;
 import de.leghast.miniaturise.ui.UserInterface;
-import de.leghast.miniaturise.util.Util;
+import de.leghast.miniaturise.ui.AnvilInputHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -25,7 +25,7 @@ public class SizeInteractionHandler {
             case 21 -> sizeSettings.setFactor(0.5);
             case 22 -> sizeSettings.setFactor(1);
             case 23 -> sizeSettings.setFactor(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize());
-            case 24 -> Util.setCustomNumberInput(main, player, settings.getPage(), sizeSettings.getFactor());
+            case 24 -> AnvilInputHelper.getCustomNumberInput(main, player, settings.getPage(), sizeSettings.getFactor());
             case 26 -> {
                 main.getMiniatureManager().removeClipboard(player.getUniqueId());
                 player.closeInventory();

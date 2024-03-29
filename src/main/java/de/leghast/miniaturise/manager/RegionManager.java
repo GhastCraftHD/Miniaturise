@@ -17,32 +17,13 @@ import java.util.stream.Collectors;
  * */
 public class RegionManager {
 
-    private Miniaturise main;
+    private final HashMap<UUID, SelectedLocations> selectedLocations;
+    private final HashMap<UUID, Region> regions;
 
-    private HashMap<UUID, SelectedLocations> selectedLocations;
-    private HashMap<UUID, Region> regions;
-
-    public RegionManager(Miniaturise main){
-        this.main = main;
-
+    public RegionManager(){
         selectedLocations = new HashMap<>();
         regions = new HashMap<>();
     }
-
-    /**
-     * @return The HashMap, that stores the locations, each player has selected
-     * */
-    public HashMap<UUID, SelectedLocations> getSelectedLocations(){
-        return selectedLocations;
-    }
-
-    /**
-     * @return The HashMap, that stores the regions, each player has selected
-     * */
-    public HashMap<UUID, Region> getRegions(){
-        return regions;
-    }
-
     /**
      * @return The selected location from a player
      * NOTE: Returns null, if the specified player has not set any locations yet

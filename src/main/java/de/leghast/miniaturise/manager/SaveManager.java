@@ -62,13 +62,5 @@ public class SaveManager {
         return folder.listFiles((dir, name) -> name.endsWith(".mcminiature"));
     }
 
-    public int getMiniatureCount(){
-        File[] files = getMiniatureFiles();
-        return (files != null) ? files.length : 0;
-    }
-
-    public boolean isEnabled(){
-        return enabled;
-    }
 
 }

@@ -69,26 +69,24 @@ public class Miniature implements Serializable {
     public Miniature(PlacedMiniature placedMiniature, Location origin, double size){
         blocks = new ArrayList<>();
         // If the placed miniature is not empty
-        if(!placedMiniature.getBlockDisplays().isEmpty()){
-            // Iterate over each block display in the placed miniature
-            for(BlockDisplay bd : placedMiniature.getBlockDisplays()){
-                // Create a new miniature block with the relative position and block data
-                MiniatureBlock mb;
-                mb = new MiniatureBlock(
-                        bd.getX() - origin.getX(),
-                        bd.getY() - origin.getY(),
-                        bd.getZ() - origin.getZ(),
-                        bd.getBlock(),
-                        size);
-                // Add the miniature block to the list of blocks
-                blocks.add(mb);
-            }
-            // Set the size of the blocks in the miniature
-            this.size = size;
-        }else{
-            // If the placed miniature is empty, set the list of blocks to null
-            blocks = null;
+        if(placedMiniature.getBlockDisplays().isEmpty()) blocks = new ArrayList<>();
+
+        // Iterate over each block display in the placed miniature
+        for(BlockDisplay bd : placedMiniature.getBlockDisplays()){
+            // Create a new miniature block with the relative position and block data
+            MiniatureBlock mb;
+            mb = new MiniatureBlock(
+                    bd.getX() - origin.getX(),
+                    bd.getY() - origin.getY(),
+                    bd.getZ() - origin.getZ(),
+                    bd.getBlock(),
+                    size);
+            // Add the miniature block to the list of blocks
+            blocks.add(mb);
         }
+        // Set the size of the blocks in the miniature
+        this.size = size;
+
     }
 
     /**
@@ -205,22 +203,18 @@ public class Miniature implements Serializable {
     private boolean isNotFullBlock(Block block){
         // Get the collision shape of the block
         VoxelShape collisionShape = block.getCollisionShape();
-        if(collisionShape != null){
-            double volume = 0;
-            // Calculate the total volume of the bounding boxes in the collision shape
-            for(BoundingBox bb : collisionShape.getBoundingBoxes()){
-                volume += bb.getVolume();
-            }
-            // If the total volume is not 1, the block is not full
-            return volume != 1;
+
+        double volume = 0;
+        // Calculate the total volume of the bounding boxes in the collision shape
+        for(BoundingBox bb : collisionShape.getBoundingBoxes()){
+            volume += bb.getVolume();
         }
-        // If the block has no collision shape, it is not full
-        return true;
+        // If the total volume is not 1, the block is not full
+        return volume != 1;
     }
 
     /**
      * Generates a thumbnail for the miniature.
-     *
      * This method generates a thumbnail for the miniature by finding the most common material in the blocks of the miniature.
      * It creates a frequency map of the materials, and then sets the thumbnail to be an ItemStack of the most common material.
      */
@@ -242,7 +236,6 @@ public class Miniature implements Serializable {
 
     /**
      * Returns the thumbnail of the miniature.
-     *
      * This method returns the ItemStack that is being used as the thumbnail for the miniature.
      *
      * @return The ItemStack used as the thumbnail.

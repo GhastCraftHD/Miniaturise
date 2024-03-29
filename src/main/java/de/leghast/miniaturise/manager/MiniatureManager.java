@@ -13,30 +13,13 @@ import java.util.UUID;
  * */
 public class MiniatureManager {
 
-    private Miniaturise main;
 
-    private HashMap<UUID, Miniature> miniatures;
-    private HashMap<UUID, PlacedMiniature> placedMiniatures;
+    private final HashMap<UUID, Miniature> miniatures;
+    private final HashMap<UUID, PlacedMiniature> placedMiniatures;
 
-    public MiniatureManager(Miniaturise main){
-        this.main = main;
-
+    public MiniatureManager(){
         miniatures = new HashMap<>();
         placedMiniatures = new HashMap<>();
-    }
-
-    /**
-     * @return The HashMap, that stores the last selected miniature by every player
-     * */
-    public HashMap<UUID, Miniature> getMiniatures(){
-        return miniatures;
-    }
-
-    /**
-     * @return The HashMap, that stores the last placed miniature by every player
-     * */
-    public HashMap<UUID, PlacedMiniature> getPlacedMiniatures(){
-        return placedMiniatures;
     }
 
     /**

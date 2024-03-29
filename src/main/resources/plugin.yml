@@ -34,6 +34,8 @@ commands:
     description: Saves the miniature from your clipboard to a file
   mload:
     description: Loads a miniature from a file to your clipboard
+  mlist:
+    description: Lists all saved miniatures
 
 permissions:
   miniaturise.use:

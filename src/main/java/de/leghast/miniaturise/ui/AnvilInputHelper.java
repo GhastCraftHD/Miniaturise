@@ -1,25 +1,20 @@
-package de.leghast.miniaturise.util;
+package de.leghast.miniaturise.ui;
 
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.constant.Colors;
 import de.leghast.miniaturise.settings.AdjusterSettings;
-import de.leghast.miniaturise.ui.InterfaceItem;
-import de.leghast.miniaturise.ui.Page;
-import de.leghast.miniaturise.ui.FrequentItems;
 import net.kyori.adventure.text.Component;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 
-public class Util {
+public class AnvilInputHelper {
 
-    public static final String PREFIX = "§7[§eMiniaturise§7] ";
 
-    public static void setCustomNumberInput(Miniaturise main, Player player, Page page, double previousFactor){
+    public static void getCustomNumberInput(Miniaturise main, Player player, Page page, double previousFactor){
 
         ItemStack output = new InterfaceItem(
                 Material.PAPER,

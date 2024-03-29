@@ -7,10 +7,15 @@ import org.bukkit.Axis;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class RotateCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RotateCommand implements TabExecutor {
 
     private final Miniaturise main;
 
@@ -51,4 +56,18 @@ public class RotateCommand implements CommandExecutor {
         }
 
     }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        List<String> results = new ArrayList<>();
+        if(args.length == 1){
+            for(Axis axis : Axis.values()){
+                results.add(axis.name());
+            }
+            return results;
+        }
+
+        return new ArrayList<>();
+    }
+
 }

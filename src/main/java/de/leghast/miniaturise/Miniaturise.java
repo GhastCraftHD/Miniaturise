@@ -1,9 +1,6 @@
 package de.leghast.miniaturise;
 
 import de.leghast.miniaturise.command.*;
-import de.leghast.miniaturise.completer.PositionTabCompleter;
-import de.leghast.miniaturise.completer.RotateTabCompleter;
-import de.leghast.miniaturise.completer.ScaleTabCompleter;
 import de.leghast.miniaturise.listener.InventoryClickListener;
 import de.leghast.miniaturise.listener.PlayerJoinListener;
 import de.leghast.miniaturise.listener.PlayerQuitListener;
@@ -16,8 +13,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.function.Consumer;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -44,8 +39,6 @@ public final class Miniaturise extends JavaPlugin {
         initialiseManagers();
         registerListeners();
         setCommands();
-        setTabCompleters();
-        checkForUpdate();
         Miniaturise.logger = this.getLogger();
     }
 
@@ -55,11 +48,14 @@ public final class Miniaturise extends JavaPlugin {
     }
 
     private void initialiseManagers(){
-        miniatureManager = new MiniatureManager(this);
-        regionManager = new RegionManager(this);
-        settingsManager = new SettingsManager(this);
+        miniatureManager = new MiniatureManager();
+        regionManager = new RegionManager();
+        settingsManager = new SettingsManager();
         saveManager = new SaveManager(this);
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> ConfigManager.setUpConfig(this));
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            ConfigManager.setUpConfig(this);
+            checkForUpdate();
+        });
     }
 
     private void registerListeners(){
@@ -83,12 +79,7 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("mrotate").setExecutor(new RotateCommand(this));
         getCommand("msave").setExecutor(new SaveCommand(this));
         getCommand("mload").setExecutor(new LoadCommand(this));
-    }
-
-    public void setTabCompleters(){
-        getCommand("mposition").setTabCompleter(new PositionTabCompleter());
-        getCommand("mscale").setTabCompleter(new ScaleTabCompleter());
-        getCommand("mrotate").setTabCompleter(new RotateTabCompleter());
+        getCommand("mlist").setExecutor(new ListCommand(this));
     }
 
     /**

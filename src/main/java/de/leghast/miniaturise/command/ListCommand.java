@@ -2,18 +2,21 @@ package de.leghast.miniaturise.command;
 
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.constant.Message;
-import de.leghast.miniaturise.ui.UserInterface;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class AdjustCommand implements CommandExecutor {
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
+public class ListCommand implements CommandExecutor {
 
     private final Miniaturise main;
 
-    public AdjustCommand(Miniaturise main){
+    public ListCommand(Miniaturise main) {
         this.main = main;
     }
 
@@ -22,12 +25,19 @@ public class AdjustCommand implements CommandExecutor {
         if(!(sender instanceof Player player)) return false;
         if(!player.hasPermission(Miniaturise.PERMISSION)) return false;
 
-        if (!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())) {
-            main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
+        List<File> files = Arrays.stream(main.getSaveManager().getMiniatureFiles()).toList();
+
+        if(files.isEmpty()){
+            player.sendMessage(Message.NO_MINIATURE_FILES);
+            return true;
         }
-        new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
+
+        player.sendMessage(Message.FILE_LIST_HEADER);
+
+        for(File file : files){
+            player.sendMessage(Message.miniatureFileComponent(file.getName()));
+        }
+
         return true;
-
     }
-
 }

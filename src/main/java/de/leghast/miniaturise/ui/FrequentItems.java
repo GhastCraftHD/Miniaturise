@@ -54,7 +54,7 @@ public class FrequentItems {
                 )
         );
         
-        content[27] = new InterfaceItem(
+        /*content[27] = new InterfaceItem(
                 Material.BAMBOO_HANGING_SIGN,
                 Component.text("Saved miniatures", Colors.ACCENT),
                 () -> page == Page.SAVED,
@@ -62,16 +62,7 @@ public class FrequentItems {
                         Component.text("View all your", NamedTextColor.GRAY),
                         Component.text("saved miniatures", NamedTextColor.GRAY)
                 )
-        );
-
-        content[8] = new InterfaceItem(
-                ConfigManager.ADJUSTER_TOOL,
-                Component.text("Adjuster tool", NamedTextColor.GOLD),
-                List.of(
-                        Component.text("The selected adjusting", NamedTextColor.GRAY),
-                        Component.text("settings are bound to this item", NamedTextColor.GRAY)
-                )                
-        );
+        );*/
         
     }
 
@@ -80,6 +71,15 @@ public class FrequentItems {
     }
 
     public static void addGeneralItems(ItemStack[] content){
+
+        content[8] = new InterfaceItem(
+                ConfigManager.ADJUSTER_TOOL,
+                Component.text("Adjuster tool", NamedTextColor.GOLD),
+                List.of(
+                        Component.text("The selected adjusting", NamedTextColor.GRAY),
+                        Component.text("settings are bound to this item", NamedTextColor.GRAY)
+                )
+        );
 
         content[44] = new InterfaceItem(
                 Material.BARRIER,

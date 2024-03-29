@@ -73,6 +73,7 @@ public class PlacedMiniature {
             Miniature miniature = new Miniature(this, origin, blockSize);
             miniature.scaleUp(scale);
             rearrange(origin, miniature);
+            blockSize *= scale;
         });
     }
 

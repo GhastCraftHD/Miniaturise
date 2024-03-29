@@ -18,7 +18,7 @@ public class MiniatureBlock implements Serializable {
     private double x;
     private double y;
     private double z;
-    private String blockData;
+    private final String blockData;
     private double size;
 
     /**

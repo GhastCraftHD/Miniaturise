@@ -3,14 +3,19 @@ package de.leghast.miniaturise.command;
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.constant.Message;
 import de.leghast.miniaturise.miniature.Miniature;
-import de.leghast.miniaturise.util.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class ScaleCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ScaleCommand implements TabExecutor {
 
     private final Miniaturise main;
 
@@ -26,7 +31,7 @@ public class ScaleCommand implements CommandExecutor {
         if (args.length >= 1 && (args[0].equalsIgnoreCase("selection") || args[0].equalsIgnoreCase("s"))) {
 
             if(args.length != 2){
-                player.sendMessage(Message.INVALID_SCALE);
+                player.sendMessage(Message.INVALID_FACTOR);
                 return false;
             }
 
@@ -41,13 +46,13 @@ public class ScaleCommand implements CommandExecutor {
                 player.sendMessage(Message.scaledMiniature(miniature.getSize()));
                 return true;
             } catch (NumberFormatException e) {
-                player.sendMessage(Message.INVALID_SCALE);
+                player.sendMessage(Message.INVALID_FACTOR);
                 return false;
             }
 
         } else if (args.length >= 1 && (args[0].equalsIgnoreCase("miniature") || args[0].equalsIgnoreCase("m"))) {
             if(args.length != 2){
-                player.sendMessage(Message.INVALID_SCALE);
+                player.sendMessage(Message.INVALID_FACTOR);
                 return false;
             }
 
@@ -60,7 +65,7 @@ public class ScaleCommand implements CommandExecutor {
                     return false;
                 }
             } catch (NumberFormatException e) {
-                player.sendMessage(Message.INVALID_SCALE);
+                player.sendMessage(Message.INVALID_FACTOR);
                 return false;
             }
         } else {
@@ -68,4 +73,16 @@ public class ScaleCommand implements CommandExecutor {
         }
         return false;
     }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        List<String> results = new ArrayList<>();
+        if(args.length == 1){
+            results.add("selection");
+            results.add("miniature");
+            return StringUtil.copyPartialMatches(args[0], results, new ArrayList<>());
+        }
+        return new ArrayList<>();
+    }
+
 }

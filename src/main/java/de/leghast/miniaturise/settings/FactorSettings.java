@@ -1,6 +1,6 @@
 package de.leghast.miniaturise.settings;
 
-import de.leghast.miniaturise.util.Util;
+import de.leghast.miniaturise.constant.Message;
 
 public class FactorSettings {
 
@@ -24,9 +24,9 @@ public class FactorSettings {
     public void setFactor(String factor){
         try{
             this.factor = Double.parseDouble(factor);
-            parent.getPlayer().sendMessage(Util.PREFIX + "§aThe factor was set to §e" + this.factor + " block" + (this.factor == 1 ? "" : "s"));
+            parent.getPlayer().sendMessage(Message.changedFactor(this.factor));
         }catch(NumberFormatException e){
-            parent.getPlayer().sendMessage(Util.PREFIX + "§cPlease provide a valid factor");
+            parent.getPlayer().sendMessage(Message.INVALID_FACTOR);
         }
     }
 

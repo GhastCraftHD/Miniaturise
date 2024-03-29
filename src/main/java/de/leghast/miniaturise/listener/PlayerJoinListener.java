@@ -2,7 +2,7 @@ package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.constant.Message;
-import de.leghast.miniaturise.util.Util;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
