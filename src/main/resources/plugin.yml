@@ -36,6 +36,10 @@ commands:
     description: Loads a miniature from a file to your clipboard
   mlist:
     description: Lists all saved miniatures
+  madjuster:
+    description: Gives you the adjuster tool
+  mselector:
+    description: Gives you the selector tool
 
 permissions:
   miniaturise.use:

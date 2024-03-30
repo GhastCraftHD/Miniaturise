@@ -15,7 +15,7 @@ public class ConfigManager {
 
     public static boolean CHECK_FOR_UPDATE;
     public static int MAX_ENTITY_LIMIT;
-    public static double DEFAULT_SIZE;
+    public static final double DEFAULT_SIZE = 1;
     public static Material SELECTOR_TOOL;
     public static Material ADJUSTER_TOOL;
 
@@ -23,7 +23,6 @@ public class ConfigManager {
         ConfigManager.config = main.getConfig();
         CHECK_FOR_UPDATE = getBool("check-for-update");
         MAX_ENTITY_LIMIT = getInt("max-entity-limit");
-        DEFAULT_SIZE = getDouble("default-size");
         SELECTOR_TOOL = Material.matchMaterial(getString("selector-tool"));
         ADJUSTER_TOOL = Material.matchMaterial(getString("adjuster-tool"));
     }

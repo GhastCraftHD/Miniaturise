@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -33,6 +34,11 @@ public final class Miniaturise extends JavaPlugin {
     private String latestVersion = this.getPluginMeta().getVersion();
 
     @Override
+    public void onLoad(){
+        ConfigManager.setUpConfig(this);
+    }
+
+    @Override
     public void onEnable() {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
@@ -40,6 +46,7 @@ public final class Miniaturise extends JavaPlugin {
         registerListeners();
         setCommands();
         Miniaturise.logger = this.getLogger();
+        checkForUpdate();
     }
 
     @Override
@@ -52,10 +59,6 @@ public final class Miniaturise extends JavaPlugin {
         regionManager = new RegionManager();
         settingsManager = new SettingsManager();
         saveManager = new SaveManager(this);
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            ConfigManager.setUpConfig(this);
-            checkForUpdate();
-        });
     }
 
     private void registerListeners(){
@@ -80,6 +83,8 @@ public final class Miniaturise extends JavaPlugin {
         getCommand("msave").setExecutor(new SaveCommand(this));
         getCommand("mload").setExecutor(new LoadCommand(this));
         getCommand("mlist").setExecutor(new ListCommand(this));
+        getCommand("madjuster").setExecutor(new AdjusterCommand());
+        getCommand("mselector").setExecutor(new SelectorCommand());
     }
 
     /**
@@ -141,7 +146,7 @@ public final class Miniaturise extends JavaPlugin {
 
             } catch (Exception ignore) {}
 
-            updateAvailable = latestVersion != this.getPluginMeta().getVersion();
+            updateAvailable = !Objects.equals(latestVersion, this.getPluginMeta().getVersion());
         });
 
     }

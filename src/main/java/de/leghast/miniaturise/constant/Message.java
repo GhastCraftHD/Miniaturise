@@ -101,6 +101,16 @@ public class Message {
             Component.text("No miniatures have been saved yet", Colors.ERROR)
     );
 
+    public static final Component GAVE_SELECTOR = Prefix.MINIATURISE.append(
+            Component.text("You were given the ", Colors.SUCCESS)
+                    .append(Component.text("selector tool", Colors.ACCENT))
+    );
+
+    public static final Component GAVE_ADJUSTER = Prefix.MINIATURISE.append(
+            Component.text("You were given the ", Colors.SUCCESS)
+                    .append(Component.text("adjuster tool", Colors.ACCENT))
+    );
+
     public static final Component FILE_LIST_HEADER = Prefix.MINIATURISE.append(
             Component.text("All saved miniatures ", Colors.SUCCESS)
                     .append(Component.text("(Click to load)", Colors.ACCENT))
@@ -112,11 +122,15 @@ public class Message {
                     .append(Component.newline())
                     .append(Prefix.MINIATURISE)
                     .append(Component.text(" - Selector: ", Colors.SUCCESS))
-                    .append(Component.text("minecraft:" + ConfigManager.SELECTOR_TOOL.name().toLowerCase(), Colors.ACCENT))
+                    .append(Component.text("minecraft:" + ConfigManager.SELECTOR_TOOL.name().toLowerCase(), Colors.ACCENT)
+                            .hoverEvent(HoverEvent.showText(Component.text("Get selector tool", Colors.ACCENT)))
+                            .clickEvent(ClickEvent.runCommand("/mselector")))
                     .append(Component.newline())
                     .append(Prefix.MINIATURISE)
                     .append(Component.text(" - Adjuster: ", Colors.SUCCESS))
-                    .append(Component.text("minecraft:" + ConfigManager.ADJUSTER_TOOL.name().toLowerCase(), Colors.ACCENT))
+                    .append(Component.text("minecraft:" + ConfigManager.ADJUSTER_TOOL.name().toLowerCase(), Colors.ACCENT)
+                            .hoverEvent(HoverEvent.showText(Component.text("Get adjuster tool", Colors.ACCENT)))
+                            .clickEvent(ClickEvent.runCommand("/madjuster")))
     );
 
     public static Component copiedPlacedMiniature(int blockAmount){
@@ -170,6 +184,7 @@ public class Message {
                         .append(Component.text("Get it from ", Colors.SUCCESS))
                         .append(Component.text("Hangar", Colors.ACCENT)
                                 .clickEvent(ClickEvent.openUrl("https://hangar.papermc.io/GhastCraftHD/Miniaturise/versions/" + newVersion))
+                                .hoverEvent(HoverEvent.showText(Component.text("Click to open web page", Colors.ACCENT)))
                                 .decorate(TextDecoration.UNDERLINED))
         );
     }
@@ -269,6 +284,8 @@ public class Message {
                 Component.text(" - ", Colors.ACCENT)
                         .append(Component.text(filename, Colors.SUCCESS))
                         .clickEvent(ClickEvent.runCommand("/mload " + filename))
+                        .hoverEvent(HoverEvent.showText(Component.text("Load ", Colors.SUCCESS)
+                                .append(Component.text(filename, Colors.ACCENT))))
         );
     }
 

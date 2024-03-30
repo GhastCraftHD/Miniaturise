@@ -1,7 +1,6 @@
 package de.leghast.miniaturise.listener;
 
 import de.leghast.miniaturise.Miniaturise;
-import de.leghast.miniaturise.constant.Message;
 import de.leghast.miniaturise.handler.AdjusterInteractionHandler;
 import de.leghast.miniaturise.handler.SelectorInteractionHandler;
 import de.leghast.miniaturise.manager.ConfigManager;
