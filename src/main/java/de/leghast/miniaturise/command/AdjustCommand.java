@@ -22,9 +22,6 @@ public class AdjustCommand implements CommandExecutor {
         if(!(sender instanceof Player player)) return false;
         if(!player.hasPermission(Miniaturise.PERMISSION)) return false;
 
-        if (!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())) {
-            main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
-        }
         new UserInterface(main, player, main.getSettingsManager().getAdjusterSettings(player.getUniqueId()).getPage());
         return true;
 

@@ -18,10 +18,6 @@ public class PositionInteractionHandler {
         DimensionSettings positionSettings = settings.getPositionSettings();
 
         switch (slot){
-            case 8 -> player.getInventory().addItem(new ItemStack(ConfigManager.ADJUSTER_TOOL));
-            case 9 -> settings.setPage(Page.SIZE);
-            case 18 -> settings.setPage(Page.ROTATION);
-            //case 27 -> settings.setPage(Page.SAVED);
             case 11 -> positionSettings.setFactor(0.25);
             case 12 -> positionSettings.setFactor(0.5);
             case 13 -> positionSettings.setFactor(1);
@@ -30,15 +26,7 @@ public class PositionInteractionHandler {
             case 30 -> positionSettings.setAxis(Axis.X);
             case 31 -> positionSettings.setAxis(Axis.Y);
             case 32 -> positionSettings.setAxis(Axis.Z);
-            case 26 -> {
-                main.getMiniatureManager().removeClipboard(player.getUniqueId());
-                player.closeInventory();
-            }
-            case 44 -> {
-                main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).remove();
-                main.getMiniatureManager().removeClipboard(player.getUniqueId());
-                player.closeInventory();
-            }
+            default -> new GeneralInterfaceHandler(main, slot, player);
         }
 
         if(slot != 26 && slot != 44){

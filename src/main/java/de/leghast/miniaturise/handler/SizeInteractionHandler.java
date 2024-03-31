@@ -26,15 +26,7 @@ public class SizeInteractionHandler {
             case 22 -> sizeSettings.setFactor(1);
             case 23 -> sizeSettings.setFactor(main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).getBlockSize());
             case 24 -> AnvilInputHelper.getCustomNumberInput(main, player, settings.getPage(), sizeSettings.getFactor());
-            case 26 -> {
-                main.getMiniatureManager().removeClipboard(player.getUniqueId());
-                player.closeInventory();
-            }
-            case 44 -> {
-                main.getMiniatureManager().getPlacedMiniature(player.getUniqueId()).remove();
-                main.getMiniatureManager().removeClipboard(player.getUniqueId());
-                player.closeInventory();
-            }
+            default -> new GeneralInterfaceHandler(main, slot, player);
         }
 
         if(slot != 26 && slot != 44){

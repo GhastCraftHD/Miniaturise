@@ -49,11 +49,6 @@ public final class Miniaturise extends JavaPlugin {
         checkForUpdate();
     }
 
-    @Override
-    public void onDisable(){
-        this.saveConfig();
-    }
-
     private void initialiseManagers(){
         miniatureManager = new MiniatureManager();
         regionManager = new RegionManager();

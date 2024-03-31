@@ -12,9 +12,6 @@ import org.bukkit.inventory.EquipmentSlot;
 public class AdjusterInteractionHandler {
 
     public AdjusterInteractionHandler(Miniaturise main, Player player, Action action, EquipmentSlot hand){
-        if(!main.getSettingsManager().hasAdjusterSettings(player.getUniqueId())){
-            main.getSettingsManager().addAdjusterSettings(player.getUniqueId());
-        }
 
         if(!main.getMiniatureManager().hasPlacedMiniature(player.getUniqueId())){
             player.sendMessage(Message.SELECT_PLACED_MINIATURE_FIRST);
