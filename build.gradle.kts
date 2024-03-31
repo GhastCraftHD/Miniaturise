@@ -15,7 +15,7 @@ repositories {
 }
 
 group = "de.leghast"
-version = "2.4.0"
+version = "2.4.1"
 description = "Create miniatures of your builds and use block displays with ease (Idea by reyzixDE)"
 
 java {

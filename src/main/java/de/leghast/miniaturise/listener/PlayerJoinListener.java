@@ -3,6 +3,7 @@ package de.leghast.miniaturise.listener;
 import de.leghast.miniaturise.Miniaturise;
 import de.leghast.miniaturise.constant.Message;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,11 +20,16 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        if(player.isOp()){
-            if(main.isUpdateAvailable()){
-                player.sendMessage(Message.newVersionAvailable(main.getLatestReleaseVersion()));
-            }
-        }
+
+        Bukkit.getScheduler().runTaskLaterAsynchronously(main,
+                () -> {
+                    if(player.isOp()){
+                        if(main.isUpdateAvailable()){
+                            player.sendMessage(Message.newVersionAvailable(main.getLatestReleaseVersion()));
+                        }
+                    }
+                }, 10L
+        );
 
     }
 

@@ -275,7 +275,7 @@ public class Message {
     public static Component changedFactor(double factor){
         return Prefix.MINIATURISE.append(
                 Component.text("The factor was set to ", Colors.SUCCESS)
-                        .append(Component.text(factor + " block" + (factor == 1 ? "" : "s"), Colors.ACCENT))
+                        .append(Component.text(factor + " block" + (factor == 1 ? "" : "s") + "/degree" + (factor == 1 ? "" : "s"), Colors.ACCENT))
         );
     }
 
