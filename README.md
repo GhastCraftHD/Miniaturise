@@ -1,36 +1,68 @@
-# Miniaturise
-A Minecraft Paper plugin that helps you to create miniatures of your builds and makes working with Block Displays easy (Idea by reyzixDE)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_introduction.png?raw=true)
 
-## Install
-Simply download the latest release and drag it into the "plugins" folder of your paper server
+**Miniaturise** is a tool that allows you to create **miniatures** of something that you’ve built in Minecraft. You can also use it to work with single **Block Displays**.
 
-## Usage
-Use the **selector tool** (wooden shovel by default) or the **/mposition** command to mark the region that you want to miniaturise
+The miniatures are achieved through the new** Block Display** entities that were added in **Minecraft 1.19.4**.
 
-Use **/mselect** to select the region
+Block Displays are not the only type of Display entities that were added in 1.19.4. For the other ones I have created **separate plugins**:
+* Item Displays: [Showcase](https://hangar.papermc.io/GhastCraftHD/Showcase)
+* Text Displays: [Holography](https://hangar.papermc.io/GhastCraftHD/Holography)
 
-Use **/mscale selection [value]** to scale your miniature
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_installation.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/installation_guide.png?raw=true)
 
-Use **/mpaste** to paste the miniature relative to your position
+Please notice the plugins [license](https://github.com/GhastCraftHD/Miniaturise/blob/master/LICENSE)
 
-Use **/madjust** and the **adjuster tool** (brush by default) to adjust size and position of your placed miniature
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_config.png?raw=true)
 
-Use **/mdelete** to remove the placed miniature from your world
+You can alter the default configuration by changing the values of the `config.yml` file in the plugins data folder.
 
-Use **/mclear** to clear your clipboard
+The setting max-entity-limit is defining how many Block Displays can be spawned when pasting a miniature.
+**Be careful when increasing this setting as it will influence performance and might lead to crashes of servers or client when it is too high.**
 
-Use **/mscale miniature [value]** to scale a placed miniature
+```yaml
+check-for-update: true
+max-entity-limit: 1500
+selector-tool : WOODEN_SHOVEL
+adjuster-tool: BRUSH
+```
 
-Use **/mtools** for a overview of all tools and the items they are bound to
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_permissions.png?raw=true)
 
-Use **/msave filename** to save your clipboard to a file
+By default only server operators are able to use Miniaturise. If you want to give other players the right to use Miniaturise you need to grant them the permission `miniaturise.use`
 
-Use **/mload filename** to load a miniature from a file
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_tutorial.png?raw=true)
 
-**filename** specifies the name of the file without the file extension .mcminiature
+Select two positions with either the selector tool (wooden shovel by default) or use the `/mposition` command.
 
-The **miniature files** are located under [yourserver]/plugins/Miniaturise/miniatures
+If you have selected two positions use the `/mselect` command to select this region. This will also select any miniatures in that region as your placed miniature, so this way you can alter or delete already placed miniatures.
 
-![](https://github.com/LeGhast/Miniaturise/blob/master/miniaturise.jpg?raw=true)
+Now you can optionally use `/mscale selection <factor>` to scale your miniature before pasting it.
 
+To paste your miniature simply use the `/mpaste` command
 
+To adjust the position, size or rotation of your miniature you can use the adjuster tool (brush by default) together with the adjuster interface that you can open with `/madjust`
+
+If you want to delete your miniature you can do this via the adjuster interface or by using `/mremove`
+
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving.png?raw=true)
+
+You can also save any miniature you’d like as a file with `/msave <filename>`
+
+You can load miniatures from a file with `/msave <filename>`
+
+You can list every saved miniature that are saved on your server with `/mlist`
+
+The miniatures are saved in the data folder of Miniaturise in the miniatures folder.
+
+`your-server/plugins/Miniaturise/miniatures`
+
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_support.png?raw=true)
+
+If you run into any issues feel free to report them to me on [GitHub](https://github.com/GhastCraftHD/Miniaturise/issues). There you can also suggest new features that could be added to Miniaturise.
+
+[![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/github_button.png?raw=true)](https://github.com/GhastCraftHD/Miniaturise/issues)
+
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_gallery.png?raw=true)
+
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/miniaturise.jpg?raw=true)
