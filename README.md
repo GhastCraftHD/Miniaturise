@@ -16,7 +16,7 @@ Block Displays are not the only type of Display entities that were added in 1.19
 
 Please notice the plugins [license](https://github.com/GhastCraftHD/Miniaturise/blob/master/LICENSE)
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_config.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_config_white.png?raw=true)
 
 You can alter the default configuration by changing the values of the `config.yml` file in the plugins data folder.
 
