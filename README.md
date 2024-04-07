@@ -2,7 +2,7 @@
 
 **Miniaturise** is a tool that allows you to create **miniatures** of something that you’ve built in Minecraft **without needing any mods**. You can also use it to work with single **Block Displays**. 
 
-The miniatures are achieved through the new** Block Display** entities that were added in **Minecraft 1.19.4**. Block Displays are an **easy and performant** way to **display blocks** in your Minecraft worlds. One of their biggest advantages is that you can **change their size and rotation**.
+The miniatures are achieved through the new **Block Display** entities that were added in **Minecraft 1.19.4**. Block Displays are an **easy and performant** way to **display blocks** in your Minecraft worlds. One of their biggest advantages is that you can **change their size and rotation**.
 
 Block Displays are not the only type of Display entities that were added in 1.19.4. For the other ones I have created **separate plugins**:
 * Item Displays: [Showcase](https://hangar.papermc.io/GhastCraftHD/Showcase)
