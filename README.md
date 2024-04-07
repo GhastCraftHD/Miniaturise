@@ -1,19 +1,22 @@
 ![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_introduction_white.png?raw=true)
 
-**Miniaturise** is a tool that allows you to create **miniatures** of something that you’ve built in Minecraft. You can also use it to work with single **Block Displays**.
+**Miniaturise** is a tool that allows you to create **miniatures** of something that you’ve built in Minecraft **without needing any mods**. You can also use it to work with single **Block Displays**. 
 
-The miniatures are achieved through the new** Block Display** entities that were added in **Minecraft 1.19.4**.
+The miniatures are achieved through the new** Block Display** entities that were added in **Minecraft 1.19.4**. Block Displays are an **easy and performant** way to **display blocks** in your Minecraft worlds. One of their biggest advantages is that you can **change their size and rotation**.
 
 Block Displays are not the only type of Display entities that were added in 1.19.4. For the other ones I have created **separate plugins**:
 * Item Displays: [Showcase](https://hangar.papermc.io/GhastCraftHD/Showcase)
 * Text Displays: [Holography](https://hangar.papermc.io/GhastCraftHD/Holography)
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_installation_white.png?raw=true)
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/installation_guide_white.png?raw=true)
+<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_installation_white.png?raw=true">
+
+<p align="center">
+<img src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/installation_guide_white.png?raw=true">
+  </p>
 
 Please notice the plugins [license](https://github.com/GhastCraftHD/Miniaturise/blob/master/LICENSE)
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_config_white.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_config.png?raw=true)
 
 You can alter the default configuration by changing the values of the `config.yml` file in the plugins data folder.
 
@@ -27,7 +30,7 @@ selector-tool : WOODEN_SHOVEL
 adjuster-tool: BRUSH
 ```
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_permissions_white.png?raw=true)
+<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_permissions_white.png?raw=true">
 
 By default only server operators are able to use Miniaturise. If you want to give other players the right to use Miniaturise you need to grant them the permission `miniaturise.use`
 
@@ -45,7 +48,7 @@ To adjust the position, size or rotation of your miniature you can use the adjus
 
 If you want to delete your miniature you can do this via the adjuster interface or by using `/mremove`
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving_white.png?raw=true)
+<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving_white.png?raw=true">
 
 You can also save any miniature you’d like as a file with `/msave <filename>`
 
@@ -61,8 +64,11 @@ The miniatures are saved in the data folder of Miniaturise in the miniatures fol
 
 If you run into any issues feel free to report them to me on [GitHub](https://github.com/GhastCraftHD/Miniaturise/issues). There you can also suggest new features that could be added to Miniaturise.
 
-[![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/github_button.png?raw=true)](https://github.com/GhastCraftHD/Miniaturise/issues)
+<p align="center">
+<a href="https://github.com/GhastCraftHD/Miniaturise/issues">
+<img src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/github_button.png?raw=true">
+</a></p>
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_gallery_white.png?raw=true)
+<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_gallery_white.png?raw=true">
 
 ![](https://github.com/GhastCraftHD/Miniaturise/blob/master/miniaturise.jpg?raw=true)
