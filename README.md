@@ -50,6 +50,7 @@ If you want to delete your miniature you can do this via the adjuster interface 
 
 <img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving_white.png?raw=true">\
 \
+\
 You can also save any miniature you’d like as a file with `/msave <filename>`
 
 You can load miniatures from a file with `/msave <filename>`
