@@ -1,4 +1,4 @@
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_introduction.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_introduction_white.png?raw=true)
 
 **Miniaturise** is a tool that allows you to create **miniatures** of something that you’ve built in Minecraft. You can also use it to work with single **Block Displays**.
 
@@ -8,12 +8,12 @@ Block Displays are not the only type of Display entities that were added in 1.19
 * Item Displays: [Showcase](https://hangar.papermc.io/GhastCraftHD/Showcase)
 * Text Displays: [Holography](https://hangar.papermc.io/GhastCraftHD/Holography)
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_installation.png?raw=true)
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/installation_guide.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_installation_white.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/installation_guide_white.png?raw=true)
 
 Please notice the plugins [license](https://github.com/GhastCraftHD/Miniaturise/blob/master/LICENSE)
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_config.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_config_white.png?raw=true)
 
 You can alter the default configuration by changing the values of the `config.yml` file in the plugins data folder.
 
@@ -27,11 +27,11 @@ selector-tool : WOODEN_SHOVEL
 adjuster-tool: BRUSH
 ```
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_permissions.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_permissions_white.png?raw=true)
 
 By default only server operators are able to use Miniaturise. If you want to give other players the right to use Miniaturise you need to grant them the permission `miniaturise.use`
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_tutorial.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_tutorial_white.png?raw=true)
 
 Select two positions with either the selector tool (wooden shovel by default) or use the `/mposition` command.
 
@@ -45,7 +45,7 @@ To adjust the position, size or rotation of your miniature you can use the adjus
 
 If you want to delete your miniature you can do this via the adjuster interface or by using `/mremove`
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving_white.png?raw=true)
 
 You can also save any miniature you’d like as a file with `/msave <filename>`
 
@@ -57,12 +57,12 @@ The miniatures are saved in the data folder of Miniaturise in the miniatures fol
 
 `your-server/plugins/Miniaturise/miniatures`
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_support.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_support_white.png?raw=true)
 
 If you run into any issues feel free to report them to me on [GitHub](https://github.com/GhastCraftHD/Miniaturise/issues). There you can also suggest new features that could be added to Miniaturise.
 
 [![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/github_button.png?raw=true)](https://github.com/GhastCraftHD/Miniaturise/issues)
 
-![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_gallery.png?raw=true)
+![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_gallery_white.png?raw=true)
 
 ![](https://github.com/GhastCraftHD/Miniaturise/blob/master/miniaturise.jpg?raw=true)
