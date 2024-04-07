@@ -8,8 +8,8 @@ Block Displays are not the only type of Display entities that were added in 1.19
 * Item Displays: [Showcase](https://hangar.papermc.io/GhastCraftHD/Showcase)
 * Text Displays: [Holography](https://hangar.papermc.io/GhastCraftHD/Holography)
 
-<p align=left>![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_installation_white.png?raw=true)</p>
-<p align=center>![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/installation_guide_white.png?raw=true)</p>
+<p align=left> ![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_installation_white.png?raw=true) </p>
+<p align=center> ![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/installation_guide_white.png?raw=true) </p>
 
 Please notice the plugins [license](https://github.com/GhastCraftHD/Miniaturise/blob/master/LICENSE)
 
