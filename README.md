@@ -30,8 +30,8 @@ selector-tool : WOODEN_SHOVEL
 adjuster-tool: BRUSH
 ```
 
-<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_permissions_white.png?raw=true">
-
+<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_permissions_white.png?raw=true">\
+\
 By default only server operators are able to use Miniaturise. If you want to give other players the right to use Miniaturise you need to grant them the permission `miniaturise.use`
 
 ![](https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_tutorial_white.png?raw=true)
@@ -48,8 +48,8 @@ To adjust the position, size or rotation of your miniature you can use the adjus
 
 If you want to delete your miniature you can do this via the adjuster interface or by using `/mremove`
 
-<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving_white.png?raw=true">
-
+<img align="right" src="https://github.com/GhastCraftHD/Miniaturise/blob/master/documentation/section_saving_white.png?raw=true">\
+\
 You can also save any miniature you’d like as a file with `/msave <filename>`
 
 You can load miniatures from a file with `/msave <filename>`
