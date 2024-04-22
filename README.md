@@ -21,7 +21,7 @@ Please notice the plugins [license](https://github.com/GhastCraftHD/Miniaturise/
 You can alter the default configuration by changing the values of the `config.yml` file in the plugins data folder.
 
 The setting max-entity-limit is defining how many Block Displays can be spawned when pasting a miniature.
-**Be careful when increasing this setting as it will influence performance and might lead to crashes of servers or client when it is too high.**
+**Be careful when increasing this setting as it will influence performance and might lead to crashes of servers or clients when it is too high.**
 
 ```yaml
 check-for-update: true
