@@ -1,11 +1,13 @@
 package de.leghast.miniaturise;
 
+import com.destroystokyo.paper.Metrics;
 import de.leghast.miniaturise.command.*;
 import de.leghast.miniaturise.listener.InventoryClickListener;
+import de.leghast.miniaturise.listener.PlayerInteractListener;
 import de.leghast.miniaturise.listener.PlayerJoinListener;
 import de.leghast.miniaturise.listener.PlayerQuitListener;
-import de.leghast.miniaturise.listener.PlayerInteractListener;
 import de.leghast.miniaturise.manager.*;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,6 +31,7 @@ public final class Miniaturise extends JavaPlugin {
     private RegionManager regionManager;
     private SettingsManager settingsManager;
     private SaveManager saveManager;
+    private Metrics metrics;
 
     private boolean updateAvailable = false;
     private String latestVersion = this.getPluginMeta().getVersion();
@@ -47,6 +50,7 @@ public final class Miniaturise extends JavaPlugin {
         setCommands();
         Miniaturise.logger = this.getLogger();
         checkForUpdate();
+        initMetrics();
     }
 
     private void initialiseManagers(){
@@ -54,6 +58,10 @@ public final class Miniaturise extends JavaPlugin {
         regionManager = new RegionManager();
         settingsManager = new SettingsManager();
         saveManager = new SaveManager(this);
+    }
+
+    private void initMetrics(){
+        this.metrics = new Metrics("PaperMC", "22334", true, getLogger());
     }
 
     private void registerListeners(){
