@@ -1,9 +1,65 @@
-import io.papermc.paperweight.util.fileExists
-
 plugins {
+    `java-library`
+    id("io.papermc.paperweight.userdev") version "1.7.1"
+    id("io.github.goooler.shadow") version "8.1.7"
+}
+
+group = "de.leghast"
+version = "2.4.3"
+description = "Create miniatures of your builds and use block displays with ease (Idea by reyzixDE)"
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+repositories {
+    maven {
+        url = uri("https://repo.codemc.io/repository/maven-snapshots/")
+    }
+}
+
+dependencies {
+    paperweight.paperDevBundle("1.20.6-R0.1-SNAPSHOT")
+    implementation("org.incendo", "cloud-paper", "2.0.0-beta.8")
+    api("net.wesjd:anvilgui:1.9.5-SNAPSHOT")
+}
+
+tasks {
+    compileJava {
+        options.release = 21
+    }
+    javadoc {
+        options.encoding = Charsets.UTF_8.name()
+    }
+    reobfJar {
+      outputJar = layout.buildDirectory.file("/home/julius/Paper Development/plugins/Miniaturise-${project.version}.jar")
+    }
+
+    processResources {
+        filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
+        val props = mapOf(
+            "name" to project.name,
+            "version" to project.version,
+            "description" to project.description,
+            "apiVersion" to "1.20"
+        )
+        inputs.properties(props)
+        filesMatching("plugin.yml") {
+            expand(props)
+        }
+    }
+
+    shadowJar {
+        fun reloc(pkg: String) = relocate(pkg, "de.leghast.dependency.$pkg")
+
+        reloc("org.incendo.cloud")
+        reloc("io.leangen.geantyref")
+    }
+}
+
+/*plugins {
   `java-library`
   id("io.papermc.paperweight.userdev")
-  id("xyz.jpenilla.run-paper") version "2.2.3" // Adds runServer and runMojangMappedServer tasks for testing
   id("com.github.johnrengelman.shadow") version "8.1.1"
   `remap-plugin-src`
 }
@@ -19,13 +75,12 @@ version = "2.4.1"
 description = "Create miniatures of your builds and use block displays with ease (Idea by reyzixDE)"
 
 java {
-  // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
-  toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+  toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 dependencies {
-  api("net.wesjd:anvilgui:1.9.2-SNAPSHOT")
-  paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
+  api("net.wesjd:anvilgui:1.9.5-SNAPSHOT")
+  paperweight.paperDevBundle("1.20.6-R0.1-SNAPSHOT")
   // paperweight.foliaDevBundle("1.20.4-R0.1-SNAPSHOT")
   // paperweight.devBundle("com.example.paperfork", "1.20.4-R0.1-SNAPSHOT")
 
@@ -65,7 +120,6 @@ tasks {
     }
   }
 
-
   reobfJar {
     // This is an example of how you might change the output location for reobfJar. It's recommended not to do this
     // for a variety of reasons, however it's asked frequently enough that an example of how to do it is included here.
@@ -75,7 +129,7 @@ tasks {
 
   shadowJar {
     // helper function to relocate a package into our package
-    fun reloc(pkg: String) = relocate(pkg, "io.papermc.paperweight.testplugin.dependency.$pkg")
+    fun reloc(pkg: String) = relocate(pkg, "de.leghast.dependency.$pkg")
 
     // relocate cloud and it's transitive dependencies
     reloc("cloud.commandframework")
@@ -83,6 +137,6 @@ tasks {
   }
 
 
-}
+}*/
 
 

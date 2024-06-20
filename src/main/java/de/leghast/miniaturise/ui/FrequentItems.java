@@ -17,7 +17,7 @@ public class FrequentItems {
 
     public static void addGlint(ItemStack itemStack){
         ItemMeta meta = itemStack.getItemMeta();
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.addEnchant(Enchantment.UNBREAKING, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(meta);
     }
